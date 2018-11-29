@@ -1,7 +1,7 @@
 # Desynchronized
 Desynchronized is a mod that modifies how Colonists react to the outside world.
-# Flavour Text Introduction
-asdf
+
+>"I merely visited the Scrapyard of Mods, found something interesting, and brought it back home. I mean, what could possibly go wrong?" ~Vectorial1024, prior to releasing this mod.
 # Features Galore
 ## Current Features
 - Colonists do not know of Executions outside of their map
