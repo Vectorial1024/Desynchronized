@@ -29,7 +29,7 @@ More details on the GitHub repo (link is down there), but in general:
 [h1]About Non-Steam Downloads[/h1]
 Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
 
-[b]Special note:[/b] if you are only looking for a v1.0 ClosedDoors update, then look for "v0.0.0" in the GitHub repo releases section. Should be at the bottom.
+[b]Special note:[/b] if you are only looking for a v1.0 ClosedDoors update, then look for "v0.0.0" in the list of releases. Should be at the bottom.
 
 [h1]Join Our Cause![/h1]
 Help us out in our common pursuit of success on the Rim by:
