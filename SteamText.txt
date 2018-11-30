@@ -1,0 +1,30 @@
+"Hey, Alvin, have you heard -"
+"No, I have not, and thank you, I am not interested."
+
+Pawns will no longer react to events that has happened outside of their map. Examples include colonists no longer getting a mod deboff for an execution several tiles away.
+
+This mod is inspired by the Closed Doors mod, and should be considered as a continuation of Closed Doors. However, to allow more flexibility to introduce new features, this mod is named Desynchronized.
+
+Current Features
+- Pawns will not react to events that has happened outside of their map.
+
+Reactions include:
+- Mood debuff for pawn execution
+- Mood debuff for organ harvesting
+
+Future plans:
+- Include more types of excluded reactions (e.g., animals does not berserk when owner dies outside of the map; should probably including something else in place of this.)
+- Include even more types of excluded reactions (e.g., colonists do not know if their kidnapped comrade is dead; instead of showing "*** has died", it would show "Uncertainty on ***'s fate", etc.)
+- Look into possibility of simulating some sort of information barricade and spread, e.g., if someone died in Map A, and a caravan is formed afterwards to move from Map A to Map B, the guys in Map B should know of the death only when the caravan arrives. This should allow for some interesting choices. Do you continue using caravans? Or will you use the more expensive chemfuel pods?
+
+Compatibility
+Conflicts with other mods? No.
+Safe to add to/remove from existing savegame? Yes.
+
+Credits
+Many thanks to [] for allowing me to update the mod. Also, many thanks to the guys at Harmony for making the wonderful Harmony patch library!
+
+Open-Source Initiative
+I will post the source code onto GitHub sometime later. You have my words.
+
+Please like, comment and subscribe! And may the glory of RNJ, Randy, and Randomness illuminate our paths ahead.
