@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
+		<modNameReadable>Desynchronized</modNameReadable>
+		<modIdentifier>com.vectorial1024.rimworld.desynchronized</modIdentifier>
+		<linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1573233249</linkUrl>
+	</HugsLib.UpdateFeatureDef>
+	
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_v1_0_0</defName>
+		<assemblyVersion>1.0.0</assemblyVersion>
+		<content>Greetings, mod user. Thank you for using &lt;color=cyan&gt;Desynchronized&lt;/color&gt;, a WIP mod that aims to change how Colonists react to the outside world.|The only change in this update is that &lt;color=cyan&gt;Desynchronized&lt;/color&gt; now requires HugsLib, which is also the reason why you are reading this right now.|Stay safe, report bugs, and have fun!</content>
+	</HugsLib.UpdateFeatureDef>
+	
+    <!--
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>ModName_1_2_0</defName>
+		<assemblyVersion>1.2.0</assemblyVersion>
+		<content>First paragraph.|img:Things/Item/Meal/Fine,Things/Item/Meal/Lavish,Things/Item/Meal/Simple|caption:This is a caption.|Another paragraph with &lt;b&gt;rich text&lt;/b&gt;.</content>
+	</HugsLib.UpdateFeatureDef>
+    -->
+</Defs>

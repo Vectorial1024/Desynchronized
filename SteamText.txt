@@ -1,30 +1,60 @@
-"Hey, Alvin, have you heard -"
-"No, I have not, and thank you, I am not interested."
+[i]Ignorance is bliss. Change my mind.[/i]
 
-Pawns will no longer react to events that has happened outside of their map. Examples include colonists no longer getting a mod deboff for an execution several tiles away.
+[h1]Description[/h1]
+Have you wondered why your Colonists seem to have omnipresense that they know of some execution and deaths many KM away from their home-base?
 
-This mod is inspired by the Closed Doors mod, and should be considered as a continuation of Closed Doors. However, to allow more flexibility to introduce new features, this mod is named Desynchronized.
+Have you ever wondered how a practical Gulag can be set up inside RimWorld? [b]Disclaimer: This mod does not intend to encourage the establishment of any real-life gulags.[/b]
 
-Current Features
-- Pawns will not react to events that has happened outside of their map.
+Well, say no more!
 
-Reactions include:
-- Mood debuff for pawn execution
-- Mood debuff for organ harvesting
+This mod re-educates your Colonists to be more... realistic. They will stop knowing things that are not even happening on the map they are living in. Why worry about something far away when you can't even in your own map?
 
-Future plans:
-- Include more types of excluded reactions (e.g., animals does not berserk when owner dies outside of the map; should probably including something else in place of this.)
-- Include even more types of excluded reactions (e.g., colonists do not know if their kidnapped comrade is dead; instead of showing "*** has died", it would show "Uncertainty on ***'s fate", etc.)
-- Look into possibility of simulating some sort of information barricade and spread, e.g., if someone died in Map A, and a caravan is formed afterwards to move from Map A to Map B, the guys in Map B should know of the death only when the caravan arrives. This should allow for some interesting choices. Do you continue using caravans? Or will you use the more expensive chemfuel pods?
+[b]Requires HugsLib. Warning should have been given if HugsLib is not detected.[/b]
 
-Compatibility
-Conflicts with other mods? No.
-Safe to add to/remove from existing savegame? Yes.
+[b]This mod is still a WIP, features may be missing. I will be adding more features over time to make this mod more complete.[/b]
 
-Credits
-Many thanks to [] for allowing me to update the mod. Also, many thanks to the guys at Harmony for making the wonderful Harmony patch library!
+[h1]Features List[/h1]
+Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
+[list]
+[*]Colonists will not get deboffs from distant executions and organ harvests
+[/list]
+[h1]Compatibility[/h1]
+More details on the GitHub repo (link is down there), but in general:
+[list]
+[*]Safe to add to existing playthrough
+[*]Safe to remove from existing playthrough, [b]but only for now[/b]
+[*]Does not interact with any other mods, so no problems
+[*]May/Will add support for other mods
+[/list]
+[h1]About Non-Steam Downloads[/h1]
+Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
 
-Open-Source Initiative
-I will post the source code onto GitHub sometime later. You have my words.
+[b]Special note:[/b] if you are only looking for a v1.0 ClosedDoors update, then look for "v0.0.0" in the GitHub repo releases section. Should be at the bottom.
 
-Please like, comment and subscribe! And may the glory of RNJ, Randy, and Randomness illuminate our paths ahead.
+[h1]Join Our Cause![/h1]
+Help us out in our common pursuit of success on the Rim by:
+[list]
+[*][b]Reporting Bugs:[/b] no one wants an infestation here. Visit "Reporting Bugs" down there.
+[*][b]Suggesting Features:[/b] we need innovative tactics to manage the people. Visit "Feature Suggestions" down there.
+[*][b]Inspecting the Code:[/b] sometimes, underlying problems are not obvious to spot. Visit the GitHub page to read the code.
+[*]Translating the Texts: there's nothing to translate at the moment, but the time will come.
+[/list]
+[h1]The GitHub Repo of This Mod[/h1]
+To streamline things, I am centralizing many things onto the GitHub repo found at https://github.com/Vectorial1024/Desynchronized
+In the GitHub page, you will find:
+[list]
+[*]The source code and the xml files for this mod
+[*]A detailed feature list
+[*]A feature planning list (including plans to make this work with other mods)
+[*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
+[/list]
+[h1]Credits[/h1]
+This mod would not have been here without the following people:
+[list]
+[*]MoobyNooby for keeping the code live so they can be passed on
+[*]Y'all subscribers for investing your time in this WIP product
+[*]Them guys at Harmony and HugsLib for making such convenient modding tools and libraries
+[*]Tynan for this game; and most importantly,
+[*]That one guy who first got an idea for this mod ([b]I am not that guy![/b])
+[/list]
+That's all. Wish y'all a successful run on the Rim!

@@ -1,10 +1,12 @@
 ﻿using Harmony;
+using HugsLib;
+using HugsLib.Settings;
 using System.Reflection;
 using Verse;
 
 namespace Desynchronized
 {
-    public class DesynchronizedMain : Mod
+    public class DesynchronizedMain : ModBase
     {
         public static string MODID
         {
@@ -14,10 +16,24 @@ namespace Desynchronized
             }
         }
 
-        public DesynchronizedMain(ModContentPack content) : base(content)
+        public override string ModIdentifier
         {
-            HarmonyInstance harmony = HarmonyInstance.Create(MODID);
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            get
+            {
+                return MODID;
+            }
+        }
+
+        private SettingHandle<bool> toggle;
+
+        public override void DefsLoaded()
+        {
+            PrepareModSettingHandles();
+        }
+
+        private void PrepareModSettingHandles()
+        {
+            toggle = Settings.GetHandle<bool>("settingName", "toggleSetting_title", "This is just a test.", false);
         }
     }
 }
