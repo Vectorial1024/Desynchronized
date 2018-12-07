@@ -1,13 +1,18 @@
-[i]Ignorance is bliss. Change my mind.[/i]
+[i]Information censorship does not exist. Change my mind.[/i]
+A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod restricts information transmission between Colonies.
 
 [h1]Description[/h1]
 Have you wondered why your Colonists seem to have omnipresense that they know of some execution and deaths many KM away from their home-base?
-
-Have you ever wondered how a practical Gulag can be set up inside RimWorld? [b]Disclaimer: This mod does not intend to encourage the establishment of any real-life gulags.[/b]
+And can't even tell if one of their banished folks are alive?
+AND can't even know that one of the poor guys many KM away from their home-base is not buried for days???
 
 Well, say no more!
 
-This mod re-educates your Colonists to be more... realistic. They will stop knowing things that are not even happening on the map they are living in. Why worry about something far away when you can't even in your own map?
+This authoritarian mod introduces something that seems so familiar, but also so distant... what is that called? I hear some chants of "information censorship" somewhere far. No there are no chants.
+
+Under information censorship, Colonists will stop knowing about things happeining outside of their home map.
+
+While the system to simulate information censorship is fairly simple at the moment, it will be worked on, and eventually, Colonists will somehow know of events happening in the outside world, generating some very interesting choices.
 
 [b]Requires HugsLib. Warning should have been given if HugsLib is not detected.[/b]
 
@@ -16,7 +21,10 @@ This mod re-educates your Colonists to be more... realistic. They will stop know
 [h1]Features List[/h1]
 Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
 [list]
-[*]Colonists will not get deboffs from distant executions and organ harvests
+[*]Colonists will not get deboffs from distant Executions and Organ Harvests
+[*][b]NEW: [/b] Colonists will not get debuffs from distant Banishments and Sold Prisoners
+[*][b]NEW: [/b] Colonists will not get debuffs from distant Colonist Died + associated thoughts
+[*][b]NOTE: [/b] Know Butchered Human, Buried in Sarco, and Colonist Unburied are already map-dependent
 [/list]
 [h1]Compatibility[/h1]
 More details on the GitHub repo (link is down there), but in general:
@@ -48,11 +56,15 @@ In the GitHub page, you will find:
 [*]A feature planning list (including plans to make this work with other mods)
 [*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
 [/list]
+[h1]Some Thoughts[/h1]
+I always feel that there's something wrong with advertising my mod as a "Gulag mod"; I believe this may trigger a lot of potential subscribers by mentioning something this controversial in history, and the "Gulag" label is not justifying my creation of the information barricade, that I have originally envisioned, in any way whatsoever.
+So, from now on, [b]I will treat this mod as a "Censorship mod" instead[/b]. With the topic of censorship getting more and more relatable, I think this is the correct way of portraying this mod to all the potential audience out there, without outright triggering any third parties.
 [h1]Credits[/h1]
 This mod would not have been here without the following people:
 [list]
 [*]MoobyNooby for keeping the code live so they can be passed on
 [*]Y'all subscribers for investing your time in this WIP product
+[*]Jaxe and his [link=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/link], a fine mod that allows me to exclude unnecessary directories to reduce file size
 [*]Them guys at Harmony and HugsLib for making such convenient modding tools and libraries
 [*]Tynan for this game; and most importantly,
 [*]That one guy who first got an idea for this mod ([b]I am not that guy![/b])

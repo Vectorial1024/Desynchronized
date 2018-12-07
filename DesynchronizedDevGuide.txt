@@ -1,8 +1,14 @@
-Colonist left unburied at Thoughts Situation - Special
+Colonist left unburied at Thoughts Situation - Special (Not required as it is map-dependent)
 Prisoner sold in Thoughts Memory Misc
-Know Buried in Sarcophagus in Thoughts Memory Misc
-Know Butchered Humanlike Corpse in Thoughts Memory Misc
-Witnessed Death Ally? in Thoughts Memory Misc
-Colonist/Prisoner/Bonded Banished (to Die) in Thoughts Memory Misc
-Failed/Successfully Rescue Relatives in Thoughts Memory Misc; additional mechanics required
+Know Buried in Sarcophagus in Thoughts Memory Misc (Not required as Vanilla game has implemented this.)
+Know Butchered Humanlike Corpse in Thoughts Memory Misc (Not required as Vanilla game has implemented this.)
+Witnessed Death Ally? in Thoughts Memory Misc (Not required as it only applies to Colonists in proximity)
+Colonist/Prisoner/Bonded Banished/Banishment (to Die) in Thoughts Memory Misc
+Failed/Successfully Rescue Relatives in Thoughts Memory Misc; additional mechanics required [***]
 All Death-related thoughts in Thoughts Memory Misc; additional mechanics required
+
+Colonist Banishment done
+Prisoner Sold done
+Colonist unburied [should be done]
+Bonded Animal Banishment done
+All Death-related thoughts done done

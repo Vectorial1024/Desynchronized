@@ -3,9 +3,9 @@
 	<name>Desynchronized</name>
 	<author>Vectorial1024</author>
 	<targetVersion>1.0.2059</targetVersion>
-	<description>
-A continuation of Closed Doors, pawns under the effect of this mod will not respond to some events that happen outside of their map.\n\n
-Currently, the events that are suppressed are Execution events and Organ Harvesting events. More suppressed responses to come in the future.\n\n
-Is safe to add to/remove from existing save-games. Should have no compatibility problems.
+	<description>Information censorship on the Rim.\n\n
+A continuation of Closed Doors, pawns under the Mandatory Censorship Scheme will not respond to most events that happen outside of their map.\n\n
+We got our arses covered pretty well; most mood debuffs from deaths and banishments, etc., are already covered by the Scheme. Harmony levels are reaching an all-time high.\n\n
+Is safe to add to/remove from existing save-games. Should have no compatibility problems. The Scheme will expand to cover news from beyord this mod, to provide our Colonists with the best news they can ever find on the Rim.
 	</description>
 </ModMetaData>

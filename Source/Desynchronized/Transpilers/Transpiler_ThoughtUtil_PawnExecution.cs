@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.Redirection;
+using Harmony;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using Verse;
 
 namespace Desynchronized.Transpilers
 {
+    /// <summary>
+    /// Redirects code to hand-written ThoughtRedirector.GiveThoughtsAboutExecutionToPawn for maximum sanity
+    /// </summary>
     [HarmonyPatch(typeof(ThoughtUtility))]
     [HarmonyPatch("GiveThoughtsForPawnExecuted", MethodType.Normal)]
     public class Transpiler_ThoughtUtil_PawnExecution
@@ -16,57 +20,73 @@ namespace Desynchronized.Transpilers
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            // Some preparation
-            LocalBuilder tempBool = generator.DeclareLocal(typeof(bool));
-            Label loopContinue = generator.DefineLabel();
-            bool patchMapCheckComplete = false;
-            bool patchLoopLabelComplete = false;
+            // Label labelContinue = generator.DefineLabel();
+            bool patchIsComplete = false;
+            short occurenceLdfld = 0;
             short occurenceLdloc3 = 0;
+            bool patchLoopLabelComplete = false;
+            short ignoreCount = 0;
 
             //FileLog.Log("Beginning function log");
             foreach (CodeInstruction instruction in instructions)
             {
-                // Find the 1st and only ldloc2
-                if (!patchMapCheckComplete && instruction.opcode == OpCodes.Ldloc_2)
+                if (!patchIsComplete && instruction.opcode == OpCodes.Ldfld)
                 {
-                    patchMapCheckComplete = true;
-                    /*
-                     * ldloc.2 NULL
-ldfld Map
-ldarg.0 NULL
-ldfld Map
-ceq
-stloc [var]
-ldloc [var]
-brfalse [Label: continue]
-                     */
-                    List<CodeInstruction> tempList = new List<CodeInstruction>
+                    occurenceLdfld++;
+
+                    if (occurenceLdfld == 2)
                     {
-                        new CodeInstruction(OpCodes.Ldloc_2),
-                        new CodeInstruction(OpCodes.Callvirt, typeof(Pawn).GetProperty("Map").GetGetMethod()),
-                        new CodeInstruction(OpCodes.Ldarg_0),
-                        new CodeInstruction(OpCodes.Callvirt, typeof(Pawn).GetProperty("Map").GetGetMethod()),
-                        new CodeInstruction(OpCodes.Ceq),
-                        new CodeInstruction(OpCodes.Stloc_S, 4),
-                        new CodeInstruction(OpCodes.Ldloc_S, 4),
-                        new CodeInstruction(OpCodes.Brfalse_S, loopContinue)
-                    };
-                    
-                    foreach (CodeInstruction temp in tempList)
-                    {
-                        // FileLog.Log(temp.ToString());
-                        yield return temp;
+                        List<CodeInstruction> tempList = new List<CodeInstruction>
+                        {
+                            // Load victim
+                            new CodeInstruction(OpCodes.Ldarg_0),
+                            // Load def
+                            new CodeInstruction(OpCodes.Ldloc_1),
+                            // Load stage
+                            new CodeInstruction(OpCodes.Ldloc_0),
+                            new CodeInstruction(OpCodes.Call, typeof(ThoughtRedirector).GetMethod("GiveThoughtsAboutExecutionToPawn"))
+
+                            /*
+                            new CodeInstruction(OpCodes.Ldloc_2),
+                            new CodeInstruction(OpCodes.Callvirt, typeof(Pawn).GetProperty("Map").GetGetMethod()),
+                            new CodeInstruction(OpCodes.Ldarg_0),
+                            new CodeInstruction(OpCodes.Callvirt, typeof(Pawn).GetProperty("Map").GetGetMethod()),
+                            new CodeInstruction(OpCodes.Bne_Un, labelContinue),
+                            // new CodeInstruction(OpCodes.Stloc_S, 4),
+                            // new CodeInstruction(OpCodes.Ldloc_S, 4),
+                            // new CodeInstruction(OpCodes.Brfalse_S, labelContinue)
+                            */
+                        };
+
+                        foreach (CodeInstruction temp in tempList)
+                        {
+                            // FileLog.Log(temp.ToString());
+                            yield return temp;
+                        }
+
+                        ignoreCount = 9;
+                        patchIsComplete = true;
                     }
                 }
+
+                if (ignoreCount > 0)
+                {
+                    instruction.opcode = OpCodes.Nop;
+                    ignoreCount--;
+                }
+                
+                /*
                 if (!patchLoopLabelComplete && instruction.opcode == OpCodes.Ldloc_3)
                 {
                     occurenceLdloc3++;
                     if (occurenceLdloc3 == 2)
                     {
-                        instruction.labels.Add(loopContinue);
+                        instruction.labels.Add(labelContinue);
                         patchLoopLabelComplete = true;
                     }
                 }
+                */
+
                 //FileLog.Log(instruction.ToString());
                 yield return instruction;
             }
