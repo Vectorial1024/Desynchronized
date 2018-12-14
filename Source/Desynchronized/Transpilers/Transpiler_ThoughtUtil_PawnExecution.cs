@@ -23,8 +23,6 @@ namespace Desynchronized.Transpilers
             // Label labelContinue = generator.DefineLabel();
             bool patchIsComplete = false;
             short occurenceLdfld = 0;
-            short occurenceLdloc3 = 0;
-            bool patchLoopLabelComplete = false;
             short ignoreCount = 0;
 
             //FileLog.Log("Beginning function log");

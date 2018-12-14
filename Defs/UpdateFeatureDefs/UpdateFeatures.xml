@@ -26,6 +26,13 @@ The Scheme filteres information about the following events that originate from o
 - Reduced Steam Workshop file size thanks to PublisherPlus
 - Changing the direction of this mod from a simple, low-level "Gulag mod" to a complex, high-level "Censorship mod"|That's all! Stay safe, report bugs, and have fun!</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>ModName_1_2_0</defName>
+		<assemblyVersion>1.2.0</assemblyVersion>
+		<content>Weekly update. Version 1.2 will focus on Colonists' reactions towards kidnaps in raids. Don't you realize that colonists won't have any thoughts whatsoever when someone is kidnapped?|- Added new Thought: Colonist Kidnapped (Stacks 5 times, with -2/-3/-4/-5/-6)
+- More kidnap-related thoughts to come in later v1.2.* updates|I have also implemented a script that logs the Tales of kidnapped Colonists onto your desktop when DevMode is turned on. This will be useful later when I start to implement the Information Barricade.|That's all! Stay safe, report bugs, and have fun!</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

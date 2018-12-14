@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThoughtDef Name="KidnapMemory" Abstract="True">
+        <stackLimit>5</stackLimit>
+    </ThoughtDef>
+
+    <ThoughtDef ParentName="KidnapMemory">
+        <defName>KnowColonistKidnapped</defName>
+        <durationDays>3</durationDays>
+        <stackLimit>5</stackLimit>
+        <nullifyingTraits>
+            <li>Psychopath</li>
+            <li>Bloodlust</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>colonist kidnapped</label>
+                <description>dis not safe bruh</description>
+                <!-- Carefully calibrated to give a nice curve of 2, 3, 4, 5, 6. Don't ever touch it. -->
+                <baseMoodEffect>-1.9</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+</Defs>

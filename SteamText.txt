@@ -1,4 +1,4 @@
-[i]Information censorship does not exist. Change my mind.[/i]
+[i]Change your Colonists' minds.[/i]
 A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod restricts information transmission between Colonies.
 
 [h1]Description[/h1]
@@ -21,16 +21,15 @@ While the system to simulate information censorship is fairly simple at the mome
 [h1]Features List[/h1]
 Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
 [list]
-[*]Colonists will not get deboffs from distant Executions and Organ Harvests
-[*][b]NEW: [/b] Colonists will not get debuffs from distant Banishments and Sold Prisoners
-[*][b]NEW: [/b] Colonists will not get debuffs from distant Colonist Died + associated thoughts
-[*][b]NOTE: [/b] Know Butchered Human, Buried in Sarco, and Colonist Unburied are already map-dependent
+[*]Colonists will not get deboffs from distant Executions, Organ Harvests, and etc.
+[*][b]NEW: [/b] Colonists will now get debuffs related to kidnap events; more kidnap- and raid-related thoughts to come in the v1.2 updates
+[*][b]NOTE: [/b] Implemented non-functional data object that will be important to the long-awaited information barricade.
 [/list]
 [h1]Compatibility[/h1]
 More details on the GitHub repo (link is down there), but in general:
 [list]
 [*]Safe to add to existing playthrough
-[*]Safe to remove from existing playthrough, [b]but only for now[/b]
+[*][b]Unsafe to remove[/b] from existing playthrough
 [*]Does not interact with any other mods, so no problems
 [*]May/Will add support for other mods
 [/list]
@@ -56,17 +55,20 @@ In the GitHub page, you will find:
 [*]A feature planning list (including plans to make this work with other mods)
 [*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
 [/list]
+
 [h1]Some Thoughts[/h1]
 I always feel that there's something wrong with advertising my mod as a "Gulag mod"; I believe this may trigger a lot of potential subscribers by mentioning something this controversial in history, and the "Gulag" label is not justifying my creation of the information barricade, that I have originally envisioned, in any way whatsoever.
+
 So, from now on, [b]I will treat this mod as a "Censorship mod" instead[/b]. With the topic of censorship getting more and more relatable, I think this is the correct way of portraying this mod to all the potential audience out there, without outright triggering any third parties.
+
 [h1]Credits[/h1]
 This mod would not have been here without the following people:
 [list]
 [*]MoobyNooby for keeping the code live so they can be passed on
 [*]Y'all subscribers for investing your time in this WIP product
-[*]Jaxe and his [link=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/link], a fine mod that allows me to exclude unnecessary directories to reduce file size
+[*]Jaxe and his [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url], a fine mod that allows me to exclude unnecessary directories to reduce file size (reduced from 20MB due to redundant compiler-generated files, down to <2MB, containing only the core files necessary for this mod)
 [*]Them guys at Harmony and HugsLib for making such convenient modding tools and libraries
 [*]Tynan for this game; and most importantly,
-[*]That one guy who first got an idea for this mod ([b]I am not that guy![/b])
+[*]That one guy who first got an idea and eventually catalyzed the creation of this mod
 [/list]
 That's all. Wish y'all a successful run on the Rim!

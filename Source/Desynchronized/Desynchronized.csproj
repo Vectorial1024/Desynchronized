@@ -57,17 +57,27 @@
   <ItemGroup>
     <Compile Include="DesynchronizedMain.cs" />
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
+    <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
     <Compile Include="Patches\PostFix_SpecialThoughtsUtil_RelationThoughts.cs" />
     <Compile Include="Patches\PostFix_SpecialThoughtsUtil_ThoughtsForHumans.cs" />
+    <Compile Include="Patches\PostFix_TaleManager_AddTale.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_BanishmentThoughts.cs" />
+    <Compile Include="PawnKidnappedThoughtsUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Redirection\KidnappingTaleRedirector.cs" />
     <Compile Include="Redirection\ThoughtRedirector.cs" />
+    <Compile Include="TaleLibrary\CentralTaleDatabase.cs" />
+    <Compile Include="TaleLibrary\TaleEntry.cs" />
+    <Compile Include="TaleLibrary\TaleNews.cs" />
+    <Compile Include="TaleLibrary\TaleNewsPawnPair.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="Transpilers\Transpiler_GenGuest_AddPrisonerSoldThoughts.cs" />
+    <Compile Include="Transpilers\Transpiler_Pawn_PreKidnapped.cs" />
     <Compile Include="Transpilers\Transpiler_SpecialThoughtsUtil_Banishment.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtUtil_OrganHarvesting.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtUtil_PawnExecution.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
+    <Compile Include="WorldObjects\InformationKnowledgeStorage.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
