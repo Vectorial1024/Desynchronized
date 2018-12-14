@@ -15,10 +15,12 @@ This is a detailed list of features that are already inside the mod, and should 
   - Know Butchered Humanlike
   - Colonists Left Unburied
   - Buried in Sarcophagus
+- Additional Thoughts related to kidnapping:
+  - Colonist Kidnapped (Stacks 5 times, with -2/-3/-4/-5/-6)
 ## Planned Features
 These features will be implemented, but may take a while as I figure out the priority order.
-- Colonists should not know of the fate of their kidnapped kins during a raid, similar to how Banishments are handled in the game right now; instead, Colonists should receive only some generic thoughts on the Kidnapping
-- Introduce a proper system to simulate information barricade and spread; this would allow actualization of the mod's objectives: __to bring information censorship into the Rim__
+- Additional Thoughts regarding kidnapping Colonists
+- Introduce a proper system to simulate information barricade and spread; this would allow actualization of the mod's objectives: __to bring information censorship into the Rim__. __A rudimentary system already exists within the source codes.__
 ## Conceptual Ideas
 I don't have much detail about these features in my mind but I think these features are possible and interesting. I will consider implementing these features in the long run.
 - Colonists should react to Pawn Deaths (Colonists) outside of their map differently
