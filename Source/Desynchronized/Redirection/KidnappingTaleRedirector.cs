@@ -7,8 +7,10 @@ using System.Text;
 
 namespace Desynchronized.Redirection
 {
+    /*
     public class KidnappingTaleRedirector
     {
+        [Obsolete]
         public static void RedirectTale(Tale tale)
         {
             FileLog.Log("A Tale instance is received: [" + tale);
@@ -20,4 +22,5 @@ namespace Desynchronized.Redirection
             }
         }
     }
+    */
 }

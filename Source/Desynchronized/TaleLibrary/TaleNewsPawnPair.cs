@@ -7,10 +7,12 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
+    [Obsolete("Change to TaleNews instead.", true)]
     public class TaleNewsPawnPair
     {
         public TaleNews News { get; set; }
         public Pawn Pawn { get; set; }
+        public TaleTypeEnum TaleType { get; private set; }
 
         public TaleNewsPawnPair(TaleNews news, Pawn pawn)
         {

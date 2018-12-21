@@ -1,7 +1,10 @@
 # Desynchronized
-Desynchronized is a mod that implements information censorship into RimWorld.
+Desynchronized is a mod that changes how your Colonists react to the outside world.
 >"I merely visited the Mod Scrapyard, found something interesting, and brought it back home. I mean, what could possibly go wrong?" ~ Vectorial1024, prior to releasing this mod.
+# Non-Steam Downloads, Previous Versions, and Detailed Changelogs
+All of these can be found under the Releases section at the top. Just look for your desired version, and its direct download link and changelog will be there.
 # Features Galore
+I will be migrating these information to the GitHub Wiki in the future, but right now, these are up to date.
 Here is a list of features, be it planned or already in place.
 ## Current Features
 This is a detailed list of features that are already inside the mod, and should be working fine. Report bugs if they do not work as written here.
@@ -16,11 +19,14 @@ This is a detailed list of features that are already inside the mod, and should 
   - Colonists Left Unburied
   - Buried in Sarcophagus
 - Additional Thoughts related to kidnapping:
-  - Colonist Kidnapped (Stacks 5 times, with -2/-3/-4/-5/-6)
+  - Colonist Kidnapped
+  - My Friend Was Kidnapped
+  - My Rival Was Kidnapped
+  - My Son/Daughter Was Kidnapped
 ## Planned Features
 These features will be implemented, but may take a while as I figure out the priority order.
 - Additional Thoughts regarding kidnapping Colonists
-- Introduce a proper system to simulate information barricade and spread; this would allow actualization of the mod's objectives: __to bring information censorship into the Rim__. __A rudimentary system already exists within the source codes.__
+- Introduce a proper system to simulate information barricade and spread; this would allow actualization of the mod's objectives: __to bring information censorship into the Rim__. __The skeleton code is condensing itself into a usable system.__
 ## Conceptual Ideas
 I don't have much detail about these features in my mind but I think these features are possible and interesting. I will consider implementing these features in the long run.
 - Colonists should react to Pawn Deaths (Colonists) outside of their map differently

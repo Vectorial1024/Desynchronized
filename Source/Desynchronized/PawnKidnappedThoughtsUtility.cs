@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.TaleLibrary;
+using Harmony;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using Verse;
 
 namespace Desynchronized
 {
+    /*
     public class PawnKidnappedThoughtsUtility
     {
         /// <summary>
@@ -16,9 +18,11 @@ namespace Desynchronized
         /// </summary>
         /// <param name="victim">The pawn (Colonist) that is being kidnapped.</param>
         /// <param name="kidnapper">The pawn (Raider) that is kidnapping the victim.</param>
+        [Obsolete("Might soon be deprecated, but marked right now for later convenience. Refer to the AddTale PostFix for more details/updates")]
         public static void OnPawnAboutToBeKidnapped_Rudimentary(Pawn victim, Pawn kidnapper)
         {
             SendOutNotificationLetter(victim, kidnapper);
+
             // Ah screw this. I have been using a wrong method to approach this.
             // Reverting to standard algorithm now.
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
@@ -50,4 +54,5 @@ namespace Desynchronized
             }
         }
     }
+    */
 }

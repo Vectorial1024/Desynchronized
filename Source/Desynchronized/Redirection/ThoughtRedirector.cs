@@ -40,11 +40,17 @@ namespace Desynchronized.Redirection
         {
             if (def == ThoughtDefOf.ColonistBanished || def == ThoughtDefOf.ColonistBanishedToDie || def == ThoughtDefOf.PrisonerBanishedToDie)
             {
+                // Already covered together by Prefix_ThoughtsUtility_GivingThoughts and TaleNewsColonistBanished
+                // See both of the mentioned classes for correct implementation info.
+                return;
+
+                /*
                 if (receipient.Map == victim.Map)
                 {
                     receipient.needs.mood.thoughts.memories.TryGainMemory(def, null);
                     return;
                 }
+                */
             }
             else
             {

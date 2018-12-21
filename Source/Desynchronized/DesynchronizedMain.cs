@@ -37,13 +37,13 @@ namespace Desynchronized
 
         private SettingHandle<bool> toggle;
 
-        public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
+        // public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
         public static CentralTaleDatabase CentralTaleDatabase { get; private set; }
 
         public override void WorldLoaded()
         {
-            InfoKnowStorage = UtilityWorldObjectManager.GetUtilityWorldObject<InformationKnowledgeStorage>();
-            CentralTaleDatabase = UtilityWorldObjectManager.GetUtilityWorldObject<CentralTaleDatabase>();
+            // InfoKnowStorage = UtilityWorldObjectManager.GetUtilityWorldObject<InformationKnowledgeStorage>();
+            // CentralTaleDatabase = UtilityWorldObjectManager.GetUtilityWorldObject<CentralTaleDatabase>();
         }
 
         public override void DefsLoaded()

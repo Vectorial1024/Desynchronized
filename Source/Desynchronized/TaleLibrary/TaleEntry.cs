@@ -7,6 +7,8 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
+    /*
+    [Obsolete("Change to TaleNews instead.", true)]
     public class TaleEntry
     {
         private TaleReference reference;
@@ -33,4 +35,5 @@ namespace Desynchronized.TaleLibrary
 
         }
     }
+    */
 }

@@ -8,6 +8,7 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
     /// <summary>
     /// Post-fixes to generate relevant kidnapped thoughts.
     /// </summary>
@@ -18,7 +19,8 @@ namespace Desynchronized.Patches
         [HarmonyPostfix]
         public static void PostFix(Pawn __instance, Pawn kidnapper)
         {
-            PawnKidnappedThoughtsUtility.OnPawnAboutToBeKidnapped_Rudimentary(__instance, kidnapper);
+            // PawnKidnappedThoughtsUtility.OnPawnAboutToBeKidnapped_Rudimentary(__instance, kidnapper);
         }
     }
+    */
 }

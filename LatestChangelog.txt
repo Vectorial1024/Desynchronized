@@ -1,0 +1,24 @@
+Merry Christmas! Desynchronized v1.2.1 wishes you a joyful weekend to come.
+
+- Mod now no longer contains the Harmony library
+- Added some new Thoughts related to Colonist kidnapping
+- Added new Thought: Prisoner Released Dangerously
+- Fixed bug related to Colonists dying while being carried
+
+To reduce clutter, the changelogs displayed here and on Steam will be greatly simplified.
+
+Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.
+
+Version 1.2.1! More Thoughts have been added to follow up with v1.2.0's general direction.
+
+[h1]Version 1.2.1: Outline[/h1]
+[list]
+[*]Mod now no longer contains the Harmony library
+[*]Added some new Thoughts related to Colonist kidnapping
+[*]Added new Thought: Prisoner released dangerously
+[*]Fixed bug related to Colonists dying while being carried
+[/list]
+
+To reduce clutter, the changelogs displayed here are simplified.
+
+Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find the detailed changelogs and orevious releases.

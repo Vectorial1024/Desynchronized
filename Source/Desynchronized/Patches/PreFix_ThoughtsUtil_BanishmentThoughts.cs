@@ -8,6 +8,7 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
     public class PreFix_ThoughtsUtil_BanishmentThoughts
     {
         /*
@@ -27,6 +28,6 @@ namespace Desynchronized.Patches
             actual:
             return true;
         }
-        */
     }
+    */
 }

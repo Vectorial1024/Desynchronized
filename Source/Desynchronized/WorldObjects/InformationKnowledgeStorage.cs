@@ -7,6 +7,7 @@ using Verse;
 
 namespace Desynchronized.WorldObjects
 {
+    [Obsolete("Use CentralTaleDatabase instaed.", true)]
     public class InformationKnowledgeStorage: UtilityWorldObject
     {
         private List<Pawn> kidnappedPawns = new List<Pawn>();

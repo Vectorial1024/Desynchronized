@@ -5,7 +5,7 @@
 	<HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
 		<modNameReadable>Desynchronized</modNameReadable>
 		<modIdentifier>com.vectorial1024.rimworld.desynchronized</modIdentifier>
-		<linkUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1573233249</linkUrl>
+		<linkUrl>https://github.com/Vectorial1024/Desynchronized</linkUrl>
 	</HugsLib.UpdateFeatureDef>
 	
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
@@ -28,10 +28,19 @@ The Scheme filteres information about the following events that originate from o
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>ModName_1_2_0</defName>
+		<defName>Desync_1_2_0</defName>
 		<assemblyVersion>1.2.0</assemblyVersion>
 		<content>Weekly update. Version 1.2 will focus on Colonists' reactions towards kidnaps in raids. Don't you realize that colonists won't have any thoughts whatsoever when someone is kidnapped?|- Added new Thought: Colonist Kidnapped (Stacks 5 times, with -2/-3/-4/-5/-6)
 - More kidnap-related thoughts to come in later v1.2.* updates|I have also implemented a script that logs the Tales of kidnapped Colonists onto your desktop when DevMode is turned on. This will be useful later when I start to implement the Information Barricade.|That's all! Stay safe, report bugs, and have fun!</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_2_1</defName>
+		<assemblyVersion>1.2.1</assemblyVersion>
+		<content>Version 1.2.1 is here to add in more Thoughts about kidnaps.|- Mod now no longer contains the Harmony library
+- Added some new Thoughts related to Colonist kidnapping
+- Added new Thought: Prisoner released dangerously
+- Fixed bug related to Colonists dying while being carried|To reduce clutter, the changelogs displayed here and on Steam are simplified.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.|That's all! Stay safe, report bugs, and Merry Christmas!</content>
 	</HugsLib.UpdateFeatureDef>
 	
     <!--
