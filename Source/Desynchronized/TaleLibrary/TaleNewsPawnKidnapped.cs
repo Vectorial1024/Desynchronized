@@ -8,7 +8,7 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
-    public class TaleNewsColonistKidnapped : TaleNews
+    public class TaleNewsPawnKidnapped : TaleNews
     {
         public Pawn Kidnapper { get; }
 
@@ -17,37 +17,38 @@ namespace Desynchronized.TaleLibrary
         public Faction KidnapperFaction { get; }
 
         [Obsolete]
-        private TaleNewsColonistKidnapped(Pawn receipient, Tale_DoublePawn tale) : base(receipient)
+        private TaleNewsPawnKidnapped(Pawn receipient, Tale_DoublePawn tale) : base(receipient)
         {
             Kidnapper = tale.firstPawnData.pawn;
             KidnapVictim = tale.secondPawnData.pawn;
         }
 
-        public TaleNewsColonistKidnapped(Pawn receipient, Pawn victim, Faction kidnapper): base(receipient)
+        public TaleNewsPawnKidnapped(Pawn receipient, Pawn victim, Faction kidnapper): base(receipient)
         {
             KidnapVictim = victim;
             KidnapperFaction = kidnapper;
         }
 
-        public TaleNewsColonistKidnapped(Pawn receipient, Pawn victim, Pawn kidnapper) : base(receipient)
+        public TaleNewsPawnKidnapped(Pawn receipient, Pawn victim, Pawn kidnapper) : base(receipient)
         {
             KidnapVictim = victim;
             KidnapperFaction = kidnapper.Faction;
         }
 
         [Obsolete]
-        public static TaleNewsColonistKidnapped GenerateTaleNewsForReceipient(Pawn receipient, Tale_DoublePawn tale)
+        public static TaleNewsPawnKidnapped GenerateTaleNewsForReceipient(Pawn receipient, Tale_DoublePawn tale)
         {
             if (tale.def == TaleDefOf.KidnappedColonist)
             {
-                return new TaleNewsColonistKidnapped(receipient, tale);
+                return new TaleNewsPawnKidnapped(receipient, tale);
             }
             return null;
         }
 
-        protected override void GiveThoughts()
+        protected override void GiveThoughtsToReceipient()
         {
             // Check if the receipient can receive any thoughts at all.
+            // No need to check for victim's raceprops; only Colonists can be targetted to be kidnapped.
             if (NewsReceipient.IsCapableOfThought())
             {
                 // Give generic Colonist Kidnapped thoughts
@@ -68,9 +69,8 @@ namespace Desynchronized.TaleLibrary
                 }
 
                 // Finally give Family Member Kidnapped thoughts
-                // Currently test only for son/daughter relations
                 PawnRelationDef mostImportantRelation = NewsReceipient.GetMostImportantRelation(KidnapVictim);
-                if (mostImportantRelation != null && mostImportantRelation.defName == "Child")
+                if (mostImportantRelation != null)
                 {
                     ThoughtDef genderSpecificKidnappedThought = mostImportantRelation.GetGenderSpecificKidnappedThought(KidnapVictim);
                     if (genderSpecificKidnappedThought != null)

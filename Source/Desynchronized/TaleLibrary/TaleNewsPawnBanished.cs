@@ -8,18 +8,18 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
-    public class TaleNewsColonistBanished : TaleNews
+    public class TaleNewsPawnBanished : TaleNews
     {
         public Pawn BanishmentVictim { get; }
         public bool BanishmentIsDeadly { get; }
 
-        public TaleNewsColonistBanished(Pawn receipient, Pawn victim, bool isBanishedToDie): base(receipient)
+        public TaleNewsPawnBanished(Pawn receipient, Pawn victim, bool isBanishedToDie): base(receipient)
         {
             BanishmentVictim = victim;
             BanishmentIsDeadly = isBanishedToDie;
         }
 
-        protected override void GiveThoughts()
+        protected override void GiveThoughtsToReceipient()
         {
             // FileLog.Log("BanishmentVictim: " + BanishmentVictim.Name + "; is he a prisoner? " + BanishmentVictim.IsPrisoner + "; is he a prisoner of the Colony? " + BanishmentVictim.IsPrisonerOfColony);
             int test;

@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using Harmony;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Desynchronized.Redirection
         /// <param name="stage">Stage index, required to genearte the correct thought details</param>
         public static void GiveThoughtsAboutExecutionToPawn(Pawn receipient, Pawn victim, ThoughtDef def, int stage)
         {
+            // FileLog.Log("Victim's corpse: " + victim.Corpse + "; the corps is inside map " + victim.Corpse.Map);
             if (true)
             {
                 receipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, stage), null);

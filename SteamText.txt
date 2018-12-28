@@ -1,4 +1,5 @@
 [i]Change your Colonists' minds.[/i]
+
 [h1]Quick Info and Compatibility[/h1]
 [list]
 [*]Requires HugsLib (warning should be given if you don't have HugsLib); place this mod below HugsLib
@@ -24,7 +25,8 @@ Ask yourself: is knowledge power, or is ignorance bliss?
 Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
 [list]
 [*]Colonists will not get deboffs from distant Executions, Organ Harvests, and etc.
-[*]Colonists will now get debuffs related to kidnap events; more kidnap- and raid-related thoughts to come in the v1.2 updates
+[*]Colonists will now get debuffs related to kidnap events; they also receives additional thoughts when their family members are kidnapped
+[*]More raid-related thoughts to follow in v1.4
 [/list]
 [h1]About Non-Steam Downloads[/h1]
 Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases

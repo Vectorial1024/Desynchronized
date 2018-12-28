@@ -42,6 +42,19 @@ The Scheme filteres information about the following events that originate from o
 - Added new Thought: Prisoner released dangerously
 - Fixed bug related to Colonists dying while being carried|To reduce clutter, the changelogs displayed here and on Steam are simplified.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.|That's all! Stay safe, report bugs, and Merry Christmas!</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_3_0</defName>
+		<assemblyVersion>1.3.0</assemblyVersion>
+		<content>I originally planned to upload a holiday special v1.2.2 a few days ago, but couldn't make it, so now, we have this huge update to Desynchronized: the version 1.3.0!|- Major rewrite of underlying code to conform to the "information system" standard
+- Effects of existing features are unchanged
+- Kidnaps: now has all the family-relation Thoughts like "my grandfather was kidnapped", "my cousin was kidnapped" etc.
+- Banishment: new placeholder letter for when you banish a Colonist
+- Executions: new placeholder letter for when you execute a Colonist/Guest (Prisoners are technically Guests)
+- Organ Harvests: no new features (i.e., should work just as before)
+- Slight (maybe non-noticable) optimization: game no longer attempts to give out thoughts when pawns are downed
+- Fixed bug: Colonists should now not know about Executions happening outside of their home map (for real this time)|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

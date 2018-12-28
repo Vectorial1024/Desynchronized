@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.Handlers;
+using Harmony;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
-    /*
     /// <summary>
     /// Post-fixes to generate relevant kidnapped thoughts.
     /// </summary>
@@ -19,8 +19,8 @@ namespace Desynchronized.Patches
         [HarmonyPostfix]
         public static void PostFix(Pawn __instance, Pawn kidnapper)
         {
+            Handler_PawnKidnapped.HandlePawnKidnapped(__instance, kidnapper);
             // PawnKidnappedThoughtsUtility.OnPawnAboutToBeKidnapped_Rudimentary(__instance, kidnapper);
         }
     }
-    */
 }

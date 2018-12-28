@@ -16,17 +16,8 @@ namespace Desynchronized
         /// <returns></returns>
         public static bool IsCapableOfThought(this Pawn pawn)
         {
-            // It is a simple spell, but quite unbreakable.
-            try
-            {
-                // This statement, combined with the try-catch block, checks if all of the 4 variables/properties are non-null
-                ThoughtHandler handler = pawn.needs.mood.thoughts;
-                return true;
-            }
-            catch (NullReferenceException)
-            {
-                return false;
-            }
+            // Simplified from the glamorous usage of a try-catch block.
+            return pawn?.needs?.mood?.thoughts != null;
         }
 
         /*
@@ -50,6 +41,84 @@ namespace Desynchronized
                     {
                         resultingDef = Desynchronized_ThoughtDefOf.MySonWasKidnapped;
                     }
+                    break;
+                case "Spouse":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyWifeWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyHusbandWasKidnapped;
+                    }
+                    break;
+                case "Fiance":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyWifeWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyHusbandWasKidnapped;
+                    }
+                    break;
+                case "Lover":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyLoverWasKidnapped;
+                    break;
+                case "Sibling":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MySisterWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyBrotherWasKidnapped;
+                    }
+                    break;
+                case "Grandchild":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyGrandchildWasKidnapped;
+                    break;
+                case "Parent":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyMotherWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyFatherWasKidnapped;
+                    }
+                    break;
+                case "NephewOrNiece":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyNieceWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyNephewWasKidnapped;
+                    }
+                    break;
+                case "HalfSibling":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyHalfSiblingWasKidnapped;
+                    break;
+                case "UncleOrAunt":
+                    if (kidnapVictim.gender == Gender.Female)
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyAuntWasKidnapped;
+                    }
+                    else
+                    {
+                        resultingDef = Desynchronized_ThoughtDefOf.MyUncleWasKidnapped;
+                    }
+                    break;
+                case "Grandparent":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyGrandparentWasKidnapped;
+                    break;
+                case "Cousin":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyCousinWasKidnapped;
+                    break;
+                case "Kin":
+                    resultingDef = Desynchronized_ThoughtDefOf.MyKinWasKidnapped;
                     break;
                 default:
                     break;

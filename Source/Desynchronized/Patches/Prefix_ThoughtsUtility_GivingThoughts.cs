@@ -1,4 +1,5 @@
-﻿using Desynchronized.TaleLibrary;
+﻿using Desynchronized.Handlers;
+using Desynchronized.TaleLibrary;
 using Harmony;
 using RimWorld;
 using System;
@@ -24,36 +25,51 @@ namespace Desynchronized.Patches
             {
                 if (!PawnGenerator.IsBeingGenerated(victim) && Current.ProgramState == ProgramState.Playing)
                 {
-                    // We currently only handle Pawn Banishments here.
-                    if (thoughtsKind == PawnDiedOrDownedThoughtsKind.Banished || thoughtsKind == PawnDiedOrDownedThoughtsKind.BanishedToDie)
+                    // This is the main redirection for our patches
+                    switch (thoughtsKind)
                     {
-                        bool banishmentIsDeadly = (thoughtsKind == PawnDiedOrDownedThoughtsKind.BanishedToDie);
-
-                        foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
-                        {
-                            if (other != victim)
-                            {
-                                TaleNewsColonistBanished news = new TaleNewsColonistBanished(other, victim, banishmentIsDeadly);
-
-                                if (other.Map == victim.Map)
-                                {
-                                    news.ActivateAndGiveThoughts();
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                        }
+                        case PawnDiedOrDownedThoughtsKind.Downed:
+                            // There is potential here, simply wasted.
+                            return false;
+                        case PawnDiedOrDownedThoughtsKind.Died:
+                            return true;
+                        case PawnDiedOrDownedThoughtsKind.BanishedToDie:
+                            Handler_PawnBanishment.HandlePawnBanished(victim, true);
+                            return false;
+                        case PawnDiedOrDownedThoughtsKind.Banished:
+                            Handler_PawnBanishment.HandlePawnBanished(victim, false);
+                            return false;
+                        default:
+                            throw new InvalidOperationException();
                     }
                 }
             }
             catch (Exception arg)
             {
-                Log.Error("[V1024-DESYNC] Could not give thought, but vanilla thought-giving is not affected: " + arg, false);
+                Log.Error("[V1024-DESYNC] Could not give thought. Depending on the exact thought type, vanilla thought-giving might not be affected: " + arg, false);
             }
 
             return true;
+        }
+
+        private static void HandleBanishmentThoughts(Pawn banishmentVictim, bool deadlyBanishment)
+        {
+            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
+            {
+                if (other != banishmentVictim)
+                {
+                    TaleNewsPawnBanished news = new TaleNewsPawnBanished(other, banishmentVictim, deadlyBanishment);
+
+                    if (other.Map == banishmentVictim.Map)
+                    {
+                        news.ActivateAndGiveThoughts();
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

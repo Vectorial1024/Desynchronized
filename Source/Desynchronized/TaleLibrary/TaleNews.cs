@@ -56,7 +56,7 @@ namespace Desynchronized.TaleLibrary
         public void ActivateAndGiveThoughts()
         {
             // TODO
-            GiveThoughts();
+            GiveThoughtsToReceipient();
             hasBeenReceived = true;
         }
 
@@ -64,6 +64,6 @@ namespace Desynchronized.TaleLibrary
         /// Called to apply Thoughts to the receipient.
         /// You can assume that the Receipient hears of this TaleNews at the correct timing.
         /// </summary>
-        protected abstract void GiveThoughts();
+        protected abstract void GiveThoughtsToReceipient();
     }
 }

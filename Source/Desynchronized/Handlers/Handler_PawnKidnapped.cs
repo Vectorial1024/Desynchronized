@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using Desynchronized.TaleLibrary;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -6,23 +6,12 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Desynchronized.TaleLibrary
+namespace Desynchronized.Handlers
 {
-    public class EventHandler_Kidnapping
+    public class Handler_PawnKidnapped
     {
-        /// <summary>
-        /// This method is called when a kidnapped Colonist is about to be "thrown out of the Map"
-        /// by the kidnapper.
-        /// <para/>
-        /// The kidnapper will leave the Map after this method call so it should
-        /// be safe to use the kidnapper to refer to the Map.
-        /// </summary>
-        /// <param name="tale"></param>
-        public static void HandleEventColonistKidnapped(Tale_DoublePawn tale)
+        public static void HandlePawnKidnapped(Pawn victim, Pawn kidnapper)
         {
-            Pawn kidnapper = tale.firstPawnData.pawn;
-            Pawn victim = tale.secondPawnData.pawn;
-
             SendOutNotificationLetter(victim, kidnapper);
             GenerateAndProcessNews(victim, kidnapper);
         }
@@ -45,7 +34,7 @@ namespace Desynchronized.TaleLibrary
         /// 
         private static void GenerateAndProcessNews(Pawn victim, Pawn kidnapper)
         {
-            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_OfPlayerFaction)
+            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
                 // Victims are irrelevant in this
                 if (other == victim)

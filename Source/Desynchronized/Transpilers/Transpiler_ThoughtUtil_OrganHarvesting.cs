@@ -9,9 +9,11 @@ using Verse;
 
 namespace Desynchronized.Transpilers
 {
+    /*
     /// <summary>
     /// Redirects code to hand-written ThoughtRedirector.GiveThoughtsAboutOrganHarvestsToPawn for maximum sanity
     /// </summary>
+    ///
     [HarmonyPatch(typeof(ThoughtUtility))]
     [HarmonyPatch("GiveThoughtsForPawnOrganHarvested", MethodType.Normal)]
     public class Transpiler_ThoughtUtil_OrganHarvesting
@@ -67,4 +69,5 @@ namespace Desynchronized.Transpilers
             // FileLog.Log("Function log ends");
         }
     }
+    */
 }

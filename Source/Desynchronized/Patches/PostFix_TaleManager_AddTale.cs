@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Desynchronized.Patches
 {
+    /*
     /// <summary>
     /// Post-fix to intercept and inspect newly-generated Tales. This post-fix will then call
     /// the various methods to give relevant Thoughts to Pawns and Colonists. Class does not
@@ -29,25 +30,7 @@ namespace Desynchronized.Patches
                 default:
                     break;
             }
-
-            /*
-            // FileLog.Log("This is centralized patching. Tale is received: " + tale);
-            if (tale.def == TaleDefOf.KidnappedColonist)
-            {
-                Tale_DoublePawn actualTale = tale as Tale_DoublePawn;
-                if (actualTale != null)
-                {
-                    // Redirect to that side for better organization.
-                    EventHandler_Kidnapping.HandleEventColonistKidnapped(actualTale);
-                    /*
-                    FileLog.Log("Redirecting now.");
-                    // FileLog.Log("Both pawns involved are: " + actualTale.firstPawnData.pawn + actualTale.secondPawnData.pawn);
-                    DesynchronizedMain.CentralTaleDatabase.foo(actualTale, actualTale.secondPawnData.pawn);
-                    DesynchronizedMain.CentralTaleDatabase.dumpList();
-                    
-                }
-            }
-            */
         }
     }
+    */
 }
