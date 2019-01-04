@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TNDBS;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace Desynchronized.Handlers
 {
     public class Handler_PawnDied
     {
-
         public static void HandlePawnDied(Pawn victim, DamageInfo? dinfo)
         {
             GenerateAndProcessNews(victim, dinfo);
@@ -25,11 +25,12 @@ namespace Desynchronized.Handlers
         private static void GenerateAndProcessNews(Pawn victim, DamageInfo? dinfo)
         {
             /*
-             * Two possibilities:
+             * Some possibilities:
              * 1. Victim died on the ground.
              * 2. Victim died while being carried around.
              */
-            Map mapOfOccurence = victim.Corpse.Map ?? victim.CarriedBy.Map;
+            TaleNewsPawnDied news = TaleNewsPawnDied.GenerateGenerally(victim, dinfo);
+            Map mapOfOccurence = victim.Map ?? victim.Corpse?.Map ?? victim.CarriedBy?.Map ?? null;
             if (mapOfOccurence == null)
             {
                 return;
@@ -37,19 +38,11 @@ namespace Desynchronized.Handlers
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
-                if (other == victim)
-                {
-                    continue;
-                }
+                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
 
-                TaleNewsPawnDied news = new TaleNewsPawnDied(other, victim, dinfo, mapOfOccurence, PawnClassification.COLONIST, DeathBrutality.HUMANE);
                 if (other.Map == mapOfOccurence)
                 {
-                    news.ActivateAndGiveThoughts();
-                }
-                else
-                {
-
+                    reference.ActivateNews();
                 }
             }
         }

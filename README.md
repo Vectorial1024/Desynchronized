@@ -42,4 +42,6 @@ Well, there seems to have a lot of mods that could play well with this mod. Here
 - Psychology
 - Rumor Has It
 - Questionable Ethics
+- Blood Pack
+- Brain in a Jar
 - (probably even more)

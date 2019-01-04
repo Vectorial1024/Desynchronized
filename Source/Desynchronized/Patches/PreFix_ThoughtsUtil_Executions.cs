@@ -1,4 +1,5 @@
 ﻿using Desynchronized.Handlers;
+using Desynchronized.TNDBS;
 using Harmony;
 using RimWorld;
 using System;
@@ -11,7 +12,7 @@ namespace Desynchronized.Patches
 {
     [HarmonyPatch(typeof(ThoughtUtility))]
     [HarmonyPatch("GiveThoughtsForPawnExecuted", MethodType.Normal)]
-    public class Prefix_ThoughtsUtility_Executions
+    public class PreFix_ThoughtsUtil_Executions
     {
         [HarmonyPrefix]
         public static bool Prefix(Pawn victim, PawnExecutionKind kind)

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,6 +125,39 @@ namespace Desynchronized
                     break;
             }
             return resultingDef;
+        }
+
+        /// <summary>
+        /// Extension method. Copied from vanilla code because vanilla code does not allow usage of this method.
+        /// <para/>
+        /// Already includes checking whether both pawns are in the same map.
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static bool CanWitnessOtherPawn(this Pawn subject, Pawn other)
+        {
+            if (!subject.Awake() || !subject.health.capacities.CapableOf(PawnCapacityDefOf.Sight))
+            {
+                return false;
+            }
+            if (other.IsCaravanMember())
+            {
+                return other.GetCaravan() == subject.GetCaravan();
+            }
+            if (!other.Spawned || !subject.Spawned)
+            {
+                return false;
+            }
+            if (!subject.Position.InHorDistOf(other.Position, 12f))
+            {
+                return false;
+            }
+            if (!GenSight.LineOfSight(other.Position, subject.Position, other.Map, false, null, 0, 0))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

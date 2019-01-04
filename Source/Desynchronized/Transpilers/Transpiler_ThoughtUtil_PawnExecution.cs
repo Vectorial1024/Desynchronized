@@ -10,6 +10,7 @@ using Verse;
 
 namespace Desynchronized.Transpilers
 {
+    /*
     /// <summary>
     /// Redirects code to hand-written ThoughtRedirector.GiveThoughtsAboutExecutionToPawn for maximum sanity
     /// </summary>
@@ -53,7 +54,7 @@ namespace Desynchronized.Transpilers
                             // new CodeInstruction(OpCodes.Stloc_S, 4),
                             // new CodeInstruction(OpCodes.Ldloc_S, 4),
                             // new CodeInstruction(OpCodes.Brfalse_S, labelContinue)
-                            */
+                            
                         };
 
                         foreach (CodeInstruction temp in tempList)
@@ -83,7 +84,6 @@ namespace Desynchronized.Transpilers
                         patchLoopLabelComplete = true;
                     }
                 }
-                */
 
                 //FileLog.Log(instruction.ToString());
                 yield return instruction;
@@ -91,4 +91,5 @@ namespace Desynchronized.Transpilers
             //FileLog.Log("Function log ends");
         }
     }
+*/
 }

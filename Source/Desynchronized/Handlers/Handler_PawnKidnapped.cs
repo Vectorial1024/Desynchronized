@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TNDBS;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,9 @@ namespace Desynchronized.Handlers
         /// 
         private static void GenerateAndProcessNews(Pawn victim, Pawn kidnapper)
         {
+            TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, (InstigatorInfo) kidnapper);
+            Map mapOfOccurence = kidnapper.Map;
+
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
                 // Victims are irrelevant in this
@@ -41,30 +45,12 @@ namespace Desynchronized.Handlers
                 {
                     continue;
                 }
-                if (!other.IsCapableOfThought())
-                {
-                    continue;
-                }
 
-                // Generate the TaleNews first;
-                TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(other, victim, kidnapper);
+                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
                 // If the news can be given directly, do so, else store it "somewhere else".
-                if (other.Map == kidnapper.Map)
+                if (other.Map == mapOfOccurence)
                 {
-                    news.ActivateAndGiveThoughts();
-                    if (false && DesynchronizedMain.WeAreInDevMode)
-                    {
-                        DesynchronizedMain.CentralTaleDatabase.ReceivedNews.AddTaleNews(news);
-                        // FileLog.Log("Receipient [" + other.Name + "] is in the same Map. The relevant Thoughts should already have been given.");
-                    }
-                }
-                else
-                {
-                    if (false && DesynchronizedMain.WeAreInDevMode)
-                    {
-                        DesynchronizedMain.CentralTaleDatabase.OutstandingNews.AddTaleNewsToPending(news);
-                        // FileLog.Log("Receipient [" + other.Name + "] is NOT in the same Map. Already added to the Pending List.");
-                    }
+                    reference.ActivateNews();
                 }
             }
         }

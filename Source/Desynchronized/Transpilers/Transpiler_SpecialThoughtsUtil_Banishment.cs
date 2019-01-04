@@ -13,6 +13,7 @@ namespace Desynchronized.Transpilers
     /// <summary>
     /// Redirects code to hand-written ThoughtRedirector.GiveThoughtsAboutDeathToPawn for maximum sanity
     /// </summary>
+    /*
     [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility))]
     [HarmonyPatch("TryGiveThoughts", MethodType.Normal)]
     [HarmonyPatch(new Type[] {typeof(Pawn), typeof(DamageInfo), typeof(PawnDiedOrDownedThoughtsKind)})]
@@ -46,4 +47,5 @@ namespace Desynchronized.Transpilers
             }
         }
     }
+    */
 }

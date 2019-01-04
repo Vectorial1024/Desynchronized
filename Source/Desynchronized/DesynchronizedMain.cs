@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TNDBS;
 using Desynchronized.WorldObjects;
 using Harmony;
 using HugsLib;
@@ -19,13 +20,10 @@ namespace Desynchronized
             }
         }
 
-        public static bool WeAreInDevMode
-        {
-            get
-            {
-                return Prefs.DevMode;
-            }
-        }
+        /// <summary>
+        /// A very convenient property for myself to limit features to DevMode only.
+        /// </summary>
+        public static bool WeAreInDevMode => Prefs.DevMode;
 
         public override string ModIdentifier
         {
@@ -38,12 +36,13 @@ namespace Desynchronized
         private SettingHandle<bool> toggle;
 
         // public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
-        public static CentralTaleDatabase CentralTaleDatabase { get; private set; }
+        public static TaleNewsDatabase TaleNewsDatabaseSystem { get; private set; }
 
         public override void WorldLoaded()
         {
             // InfoKnowStorage = UtilityWorldObjectManager.GetUtilityWorldObject<InformationKnowledgeStorage>();
             // CentralTaleDatabase = UtilityWorldObjectManager.GetUtilityWorldObject<CentralTaleDatabase>();
+            TaleNewsDatabaseSystem = UtilityWorldObjectManager.GetUtilityWorldObject<TaleNewsDatabase>();
         }
 
         public override void DefsLoaded()

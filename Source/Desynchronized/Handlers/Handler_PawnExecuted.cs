@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TNDBS;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -28,18 +29,15 @@ namespace Desynchronized.Handlers
         private static void GenerateAndProcessNews(Pawn deadman, DeathBrutality brutality)
         {
             Map mapOfOccurence = deadman.Corpse.Map;
+            TaleNewsPawnDied news = TaleNewsPawnDied.GenerateAsExecution(deadman, brutality);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
-                TaleNewsPawnExecuted tale = new TaleNewsPawnExecuted(other, deadman, null, brutality);
+                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
 
                 if (other.Map == mapOfOccurence)
                 {
-                    tale.ActivateAndGiveThoughts();
-                }
-                else
-                {
-
+                    reference.ActivateNews();
                 }
             }
         }

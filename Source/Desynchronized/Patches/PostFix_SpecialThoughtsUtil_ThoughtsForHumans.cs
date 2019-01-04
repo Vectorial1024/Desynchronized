@@ -8,6 +8,12 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
+     * After weeks of intensive thinking and coding, we have come up with
+     * a much more general solution to the out-of-map thought "censorship"
+     * mechanics. This patch is no longer necessary.
+     */
+    /*
     [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility))]
     [HarmonyPatch("AppendThoughts_ForHumanlike", MethodType.Normal)]
     public class PostFix_SpecialThoughtsUtil_ThoughtsForHumans
@@ -49,4 +55,5 @@ namespace Desynchronized.Patches
             }
         }
     }
+    */
 }

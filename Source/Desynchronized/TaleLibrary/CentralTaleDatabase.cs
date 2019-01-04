@@ -9,6 +9,7 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
+    [Obsolete("", true)]
     public class CentralTaleDatabase: UtilityWorldObject
     {
         // private List<TaleReference> tableReferences;

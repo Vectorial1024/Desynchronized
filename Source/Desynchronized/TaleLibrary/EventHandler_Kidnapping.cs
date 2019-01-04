@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.TNDBS;
+using Harmony;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
+    /*
     public class EventHandler_Kidnapping
     {
         /// <summary>
@@ -42,9 +44,11 @@ namespace Desynchronized.TaleLibrary
         /// </summary>
         /// <param name="victim"></param>
         /// <param name="kidnapper"></param>
-        /// 
         private static void GenerateAndProcessNews(Pawn victim, Pawn kidnapper)
         {
+            TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, (InstigatorInfo) kidnapper);
+            Map mapOfOccurence = kidnapper.Map;
+
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_OfPlayerFaction)
             {
                 // Victims are irrelevant in this
@@ -80,4 +84,5 @@ namespace Desynchronized.TaleLibrary
             }
         }
     }
+    */
 }

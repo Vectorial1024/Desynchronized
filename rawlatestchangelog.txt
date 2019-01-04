@@ -1,8 +1,5 @@
-Rewritten code to conform to the "information system" standard
-banishment: rewritten, +new rudimentary letter
-executions: rewritten, +new rudimentary letter
-kidnaps: +more thoughts, set is complete
-organ harvests: rewritten, no feature changes
-underlying code: tale code: "colonist" -> "pawn"
-Small optimization: whenever a pawn is downed, the game no longer proceeds to try to give any thoughts: in vanilla game, the downed status means nothing.
-fixed colonists still knowing about executions that happened outside of their home map (for Randy's sake this bug appeared before)
+v1.3.1:
+fixed: banished bonded animals does not give colonist banished
+rewrite: died code rewritten
+rewrite: execution into died
+rewritten most code in compliance of the new standard

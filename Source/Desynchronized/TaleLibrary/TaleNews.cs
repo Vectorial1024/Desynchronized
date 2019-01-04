@@ -10,8 +10,35 @@ namespace Desynchronized.TaleLibrary
     /// <summary>
     /// A TaleNews object links a Tale and a receipient Pawn together.
     /// </summary>
+    [Obsolete]
     public abstract class TaleNews
     {
+        int uid = -1;
+
+        public int UniqueID
+        {
+            get
+            {
+                return uid;
+            }
+        }
+
+        public bool HasBeenRegistered
+        {
+            get
+            {
+                return uid >= 0;
+            }
+        }
+
+        public void BecomeRegistered(int ID)
+        {
+            if (!HasBeenRegistered)
+            {
+                uid = ID;
+            }
+        }
+
         bool hasBeenReceived = false;
 
         public Pawn NewsReceipient { get; }

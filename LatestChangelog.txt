@@ -1,30 +1,28 @@
-I originally planned to upload a holiday special v1.2.2 a few days ago, but couldn't make it. And now, we have this huge update to Desynchronized: the version 1.3.0!
+Version 1.3.1 is here to restructure the mod in preparation to implement the "information system". And I have already decided the name of that system too. And college is resuming soon, too...
 
-- Major rewrite of underlying code to conform to the "information system" standard
-- Effects of existing features are unchanged
-- Kidnaps: now has all the family-relation Thoughts like "my grandfather was kidnapped", "my cousin was kidnapped" etc.
-- Banishment: new placeholder letter for when you banish a Colonist
-- Executions: new placeholder letter for when you execute a Colonist/Guest (Prisoners are technically Guests)
-- Organ Harvests: no new features (i.e., should work just as before)
-- Slight (maybe non-noticable) optimization: game no longer attempts to give out thoughts when pawns are downed
-- Fixed bug: Colonists should now not know about Executions happening outside of their home map (for real this time)
+- Most code has been rewritten in compliance to the new standard
+- Internal logic update: executions are now considered as another form of death
+- Fixed bug: banishing a bonded animal should now correctly give Bonded Animal Banished instead of Colonist Banished (oh lol)
 
 Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.
 
 //////
 
-Version 1.3! I originally planned to upload a version 1.2.2 a few days ago, but couldn't make it, so now, we have this huge update to Desynchronized: the version 1.3.0!
+Version 1.3.1! Restructuring of the mod is in progress. And soon, I will be able to complete the long-awaited "information system" that will form the identity of this mod.
+
+College is resuming soon, so expect slower progress.
 
 [h1]Version 1.3.0: Outline[/h1]
 [list]
-[*]Major rewrite of underlying code to conform to the "information system" standard
-[*]Effects of existing features are unchanged
-[*]Kidnaps: now has all the family-relation Thoughts like "my grandfather was kidnapped", "my cousin was kidnapped" etc.
-[*]Banishment: new placeholder letter for when you banish a Colonist
-[*]Executions: new placeholder letter for when you execute a Colonist/Guest (Prisoners are technically Guests)
-[*]Organ Harvests: no new features (i.e., should work just as before)
-[*]Slight (maybe non-noticable) optimization: game no longer attempts to give out thoughts when pawns are downed
-[*]Fixed bug: Colonists should now not know about Executions happening outside of their home map (for real this time)
+[*]Most code has been rewritten in compliance to the new standard
+[*]Internal logic update: executions are now considered as another form of death
+[*]Fixed bug: banishing a bonded animal should now correctly give Bonded Animal Banished instead of Colonist Banished (oh lol)
 [/list]
 
 Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find the detailed changelogs and orevious releases.
+
+v1.3.1:
+fixed: banished bonded animals does not give colonist banished
+rewrite: died code rewritten
+rewrite/merge: execution into died
+rewritten most code in compliance of the new standard

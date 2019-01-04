@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Desynchronized.TaleLibrary
 {
+    [Obsolete]
     public class OutstandingNewsObject
     {
         List<TaleNews> listOfOutstandingNews;

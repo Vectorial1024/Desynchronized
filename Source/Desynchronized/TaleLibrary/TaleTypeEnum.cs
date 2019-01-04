@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Desynchronized.TaleLibrary
 {
+    [Obsolete]
     public enum TaleTypeEnum
     {
         UNCLASSIFIED = 0,

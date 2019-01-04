@@ -8,10 +8,15 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
+     * Actually, we have already fully redirected from TryGiveThoughts,
+     * so we can release this patch for better compatibility.
+     */
     /// <summary>
     /// Pawns outside of the map should not know of deaths.
     /// This includes Bonded Pet Banishment too.
     /// </summary>
+    /*
     [HarmonyPatch(typeof(PawnUtility))]
     [HarmonyPatch("ShouldGetThoughtAbout", MethodType.Normal)]
     public class PostFix_SpecialThoughtsUtil_RelationThoughts
@@ -44,4 +49,5 @@ namespace Desynchronized.Patches
             }
         }
     }
+    */
 }

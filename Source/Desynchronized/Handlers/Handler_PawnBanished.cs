@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TNDBS;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Verse;
 
 namespace Desynchronized.Handlers
 {
-    public class Handler_PawnBanishment
+    public class Handler_PawnBanished
     {
         public static void HandlePawnBanished(Pawn victim, bool banishmentIsDeadly)
         {
@@ -27,20 +28,16 @@ namespace Desynchronized.Handlers
 
         private static void GenerateAndProcessNews(Pawn victim, bool banishmentIsDeadly)
         {
+            TaleNewsPawnBanished news = new TaleNewsPawnBanished(victim, banishmentIsDeadly);
+            Map mapOfOccurence = victim.Map;
+
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
-                if (other != victim)
+                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
+
+                if (other.Map == mapOfOccurence)
                 {
-                    TaleNewsPawnBanished news = new TaleNewsPawnBanished(other, victim, banishmentIsDeadly);
-
-                    if (other.Map == victim.Map)
-                    {
-                        news.ActivateAndGiveThoughts();
-                    }
-                    else
-                    {
-
-                    }
+                    reference.ActivateNews();
                 }
             }
         }

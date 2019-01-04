@@ -6,6 +6,7 @@ using Verse;
 
 namespace Desynchronized.TaleLibrary
 {
+    [Obsolete]
     public class ReceivedNewsObject
     {
         Dictionary<Pawn, List<TaleNews>> dictionaryOfReceivedNews = new Dictionary<Pawn, List<TaleNews>>();
