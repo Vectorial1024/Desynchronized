@@ -267,7 +267,11 @@ namespace Desynchronized.TNDBS
                 }
             }
 
-            GiveOutRelationshipBasedThoughts(recipient);
+            // Check if there is any relationship at all to make the code clearer
+            if (Victim.relations.PotentiallyRelatedPawns.Contains(recipient))
+            {
+                GiveOutRelationshipBasedThoughts(recipient);
+            }
 
             GiveOutFriendOrRivalDiedThoughts(recipient);
         }

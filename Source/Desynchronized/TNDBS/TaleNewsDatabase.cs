@@ -14,7 +14,13 @@ namespace Desynchronized.TNDBS
     /// </summary>
     public class TaleNewsDatabase: UtilityWorldObject
     {
+        /// <summary>
+        /// Initialized in PostAdd and ExposeData
+        /// </summary>
         private List<TaleNews> talesOfImportance;
+        /// <summary>
+        /// Initialized in PostAdd and ExposeData
+        /// </summary>
         private Dictionary<Pawn, List<TaleNewsReference>> newsKnowledgeMapping;
 
         public List<TaleNews> TalesOfImportance
@@ -32,7 +38,10 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        private int nextUID = -1;
+        /// <summary>
+        /// Initialized in PostAdd and ExposeData
+        /// </summary>
+        private int nextUID;
 
         /// <summary>
         /// Use this in place of the Constructor.
@@ -42,6 +51,7 @@ namespace Desynchronized.TNDBS
             base.PostAdd();
             talesOfImportance = new List<TaleNews>();
             newsKnowledgeMapping = new Dictionary<Pawn, List<TaleNewsReference>>();
+            nextUID = -1;
         }
 
         /// <summary>
@@ -51,8 +61,9 @@ namespace Desynchronized.TNDBS
         {
             base.ExposeData();
             // Scribe_Values.Look(ref listOfReadNews, "listOfReadNews");
-            Scribe_Values.Look(ref talesOfImportance, "talesOfImportance");
-            Scribe_Values.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping");
+            Scribe_Values.Look(ref talesOfImportance, "talesOfImportance", new List<TaleNews>());
+            Scribe_Values.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping", new Dictionary<Pawn, List<TaleNewsReference>>());
+            Scribe_Values.Look(ref nextUID, "nextUID", -1);
         }
 
         public int GetNextUID()

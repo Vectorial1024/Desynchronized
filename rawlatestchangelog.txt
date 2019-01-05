@@ -1,5 +1,5 @@
 v1.3.1:
 fixed: banished bonded animals does not give colonist banished
 rewrite: died code rewritten
-rewrite: execution into died
+rewrite/merge: execution into died
 rewritten most code in compliance of the new standard

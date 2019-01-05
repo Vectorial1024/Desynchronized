@@ -63,6 +63,12 @@ The Scheme filteres information about the following events that originate from o
 - Internal logic update: executions are now considered as another form of death
 - Fixed bug: banishing a bonded animal should now correctly give Bonded Animal Banished instead of Colonist Banished (oh lol)|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>ModName_1_3_2</defName>
+		<assemblyVersion>1.3.2</assemblyVersion>
+		<content>Hotfix v1.3.2 coming through!|- Resolved critical bug: when pawns (Colonists, Prisoners, Animals, etc.) die, NullReferenceExceptions should no longer be thrown|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
