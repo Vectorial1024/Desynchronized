@@ -19,7 +19,7 @@ College is resuming soon, so expect slower progress.
 [*]Fixed bug: banishing a bonded animal should now correctly give Bonded Animal Banished instead of Colonist Banished (oh lol)
 [/list]
 
-Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find the detailed changelogs and orevious releases.
+Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find the detailed changelogs and previous releases.
 
 v1.3.1:
 fixed: banished bonded animals does not give colonist banished

@@ -200,19 +200,21 @@ namespace Desynchronized.TNDBS
         private void GiveOutHatredTowardsKiller_ForFriendsOrRivals(Pawn recipient)
         {
             int opinion = recipient.relations.OpinionOf(Victim);
-            ThoughtDef thoughtToBeAdded = null;
-            float scalingFactor = 0;
+            IndividualThoughtToAdd? tempThought = null;
+
+            // Woah we got our asses handed with a bad coding style...
+            // The IndividualThoughtToAdd struct does not allow null ThoughtDef
+            // So here we are using another way to write concise code
             if (opinion >= 20)
             {
-                thoughtToBeAdded = ThoughtDefOf.KilledMyFriend;
-                scalingFactor = Victim.relations.GetFriendDiedThoughtPowerFactor(opinion);
+                tempThought = new IndividualThoughtToAdd(ThoughtDefOf.KilledMyFriend, recipient, Killer, 1f, Victim.relations.GetFriendDiedThoughtPowerFactor(opinion));
             }
             else if (opinion <= -20)
             {
-                thoughtToBeAdded = ThoughtDefOf.KilledMyRival;
-                scalingFactor = Victim.relations.GetRivalDiedThoughtPowerFactor(opinion);
+                tempThought = new IndividualThoughtToAdd(ThoughtDefOf.KilledMyRival, recipient, Killer, 1f, Victim.relations.GetRivalDiedThoughtPowerFactor(opinion));
             }
-            new IndividualThoughtToAdd(thoughtToBeAdded, recipient, Killer, 1f, scalingFactor).Add();
+
+            tempThought?.Add();
         }
 
         /// <summary>
