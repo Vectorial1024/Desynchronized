@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesynchronizedMain.cs" />
+    <Compile Include="DesynchronizedVersionTracker.cs" />
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
     <Compile Include="Handlers\Handler_PawnBanished.cs" />
@@ -64,27 +65,41 @@
     <Compile Include="Handlers\Handler_PawnHarvested.cs" />
     <Compile Include="Handlers\Handler_PawnKidnapped.cs" />
     <Compile Include="Handlers\Handler_PawnSold.cs" />
+    <Compile Include="Jurisdiction\InnocenceDatabase.cs" />
+    <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
+    <Compile Include="Maintenance\VersionEnum.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
+    <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_SpecialThoughtsUtil_RelationThoughts.cs" />
     <Compile Include="Patches\PostFix_SpecialThoughtsUtil_ThoughtsForHumans.cs" />
     <Compile Include="Patches\PostFix_TaleManager_AddTale.cs" />
+    <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
+    <Compile Include="Patches\PostFix_TransportPods_PostAdd.cs" />
+    <Compile Include="Patches\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_Executions.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_GeneralThoughts.cs" />
     <Compile Include="Patches\Prefix_ThoughtsUtility_ThoughtsForHumanlike.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_BanishmentThoughts.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_OrganHarvested.cs" />
+    <Compile Include="Patches\TPAA_ExtensionHelper.cs" />
     <Compile Include="PawnKidnappedThoughtsUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redirection\KidnappingTaleRedirector.cs" />
     <Compile Include="Redirection\ThoughtRedirector.cs" />
     <Compile Include="TaleLibrary\CentralTaleDatabase.cs" />
+    <Compile Include="TestingGrounds\ASDF.cs" />
+    <Compile Include="TestingGrounds\QWER.cs" />
+    <Compile Include="TestingGrounds\ZXCV.cs" />
     <Compile Include="TNDBS\DeathBrutality.cs" />
     <Compile Include="TNDBS\InstigatorInfo.cs" />
     <Compile Include="TNDBS\PawnClassification.cs" />
     <Compile Include="TaleLibrary\ReceivedNewsObject.cs" />
     <Compile Include="TaleLibrary\TaleEntry.cs" />
     <Compile Include="TaleLibrary\TaleNewsNegative.cs" />
+    <Compile Include="TNDBS\PawnKnowledgeCard.cs" />
+    <Compile Include="TNDBS\TaleNewsColonyEstablished.cs" />
+    <Compile Include="TNDBS\TaleNewsNeutralIndividual.cs" />
     <Compile Include="TNDBS\TaleNewsPawnBanished.cs" />
     <Compile Include="TaleLibrary\TaleNews.cs" />
     <Compile Include="TaleLibrary\EventHandler_Kidnapping.cs" />
@@ -104,12 +119,17 @@
     <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
     <Compile Include="Transpilers\Transpiler_GenGuest_AddPrisonerSoldThoughts.cs" />
     <Compile Include="Transpilers\Transpiler_Pawn_PreKidnapped.cs" />
+    <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_SpecialThoughtsUtil_Banishment.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtUtil_OrganHarvesting.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtUtil_PawnExecution.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
+    <Compile Include="Transpilers\Transpiler_TPAAGG_Arrived.cs" />
+    <Compile Include="WorldObjects\ArrivalAction_Sender_Linker.cs" />
     <Compile Include="WorldObjects\InformationKnowledgeStorage.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TNExchange\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,3 +3,11 @@ fixed: banished bonded animals does not give colonist banished
 rewrite: died code rewritten
 rewrite/merge: execution into died
 rewritten most code in compliance of the new standard
+
+v1.3.4
+fixed: giving bloodlust to Bloodlust when Bloodlust is killing animals (I got some new ideas from this)
+pawn sold included in the system
+fixed: sending colonists via pods to factions not giving prisoner sold
+Placeholder letters for selling panws (**)
+translations for kidnap thoughts open for translation
+fixed many bugs related to data loading/saving by changing data and type structure

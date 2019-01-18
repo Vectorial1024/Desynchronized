@@ -10,12 +10,35 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnBanished : TaleNewsNegativeIndividual
     {
+        private bool isDeadly;
+
         public Pawn BanishmentVictim => PrimaryVictim;
+
+        public bool IsDeadly
+        {
+            get
+            {
+                return isDeadly;
+            }
+        }
+
+        [Obsolete]
         public bool BanishmentIsDeadly { get; }
+
+        public TaleNewsPawnBanished()
+        {
+
+        }
 
         public TaleNewsPawnBanished(Pawn victim, bool isBanishedToDie): base(victim, InstigatorInfo.NoInstigator)
         {
-            BanishmentIsDeadly = isBanishedToDie;
+            isDeadly = isBanishedToDie;
+        }
+
+        protected override void ConductSaveFileIO()
+        {
+            base.ConductSaveFileIO();
+            Scribe_Values.Look(ref isDeadly, "isDeadly");
         }
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)
@@ -44,7 +67,7 @@ namespace Desynchronized.TNDBS
                 ThoughtDef thoughtDefToGain = null;
                 if (!BanishmentVictim.IsPrisonerOfColony)
                 {
-                    if (BanishmentIsDeadly)
+                    if (IsDeadly)
                     {
                         thoughtDefToGain = ThoughtDefOf.ColonistBanishedToDie;
                     }
@@ -55,7 +78,7 @@ namespace Desynchronized.TNDBS
                 }
                 else
                 {
-                    if (BanishmentIsDeadly)
+                    if (IsDeadly)
                     {
                         thoughtDefToGain = ThoughtDefOf.PrisonerBanishedToDie;
                     }

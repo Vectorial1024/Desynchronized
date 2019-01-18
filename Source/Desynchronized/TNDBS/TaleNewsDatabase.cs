@@ -1,5 +1,6 @@
 ﻿using Desynchronized.TaleLibrary;
 using HugsLib.Utils;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Desynchronized.TNDBS
         /// </summary>
         private Dictionary<Pawn, List<TaleNewsReference>> newsKnowledgeMapping;
 
+        private List<PawnKnowledgeCard> knowledgeMappings;
+
         public List<TaleNews> TalesOfImportance
         {
             get
@@ -30,11 +33,21 @@ namespace Desynchronized.TNDBS
                 return talesOfImportance;
             }
         }
+
+        [Obsolete("")]
         public Dictionary<Pawn, List<TaleNewsReference>> NewsKnowledgeMapping
         {
             get
             {
                 return newsKnowledgeMapping;
+            }
+        }
+
+        public List<PawnKnowledgeCard> KnowledgeMappings
+        {
+            get
+            {
+                return knowledgeMappings;
             }
         }
 
@@ -52,6 +65,7 @@ namespace Desynchronized.TNDBS
             talesOfImportance = new List<TaleNews>();
             newsKnowledgeMapping = new Dictionary<Pawn, List<TaleNewsReference>>();
             nextUID = -1;
+            knowledgeMappings = new List<PawnKnowledgeCard>();
         }
 
         /// <summary>
@@ -61,14 +75,27 @@ namespace Desynchronized.TNDBS
         {
             base.ExposeData();
             // Scribe_Values.Look(ref listOfReadNews, "listOfReadNews");
-            Scribe_Values.Look(ref talesOfImportance, "talesOfImportance", new List<TaleNews>());
-            Scribe_Values.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping", new Dictionary<Pawn, List<TaleNewsReference>>());
+            Scribe_Collections.Look(ref talesOfImportance, "talesOfImportance", LookMode.Deep);
+            // Scribe_Values.Look(ref talesOfImportance, "talesOfImportance", new List<TaleNews>());
+            // Scribe_Collections.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping", LookMode.Reference, LookMode.Deep);
             Scribe_Values.Look(ref nextUID, "nextUID", -1);
+            Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
         }
 
         public int GetNextUID()
         {
-            return ++nextUID;
+            try
+            {
+                nextUID = checked(nextUID + 1);
+            }
+            catch (OverflowException ex)
+            {
+                Find.LetterStack.ReceiveLetter(DesynchronizedMain.MODPREFIX + "Overflow Occured", "Report this situation to Desynchronized; it is time for an upgrade.", LetterDefOf.ThreatBig);
+                DesynchronizedMain.LogError("Greetings, Ancient One. You have sucessfully broken this mod without exploiting any bug.\n" + ex.StackTrace);
+                nextUID = -1;
+            }
+
+            return nextUID;
         }
 
         /// <summary>
@@ -79,6 +106,12 @@ namespace Desynchronized.TNDBS
         /// <param name="news"></param>
         public void RegisterNewTale(TaleNews news)
         {
+            if (news == null)
+            {
+                DesynchronizedMain.LogError("An unexpected null TaleNews was received. Report this to Desynchronized.\n" + Environment.StackTrace);
+                return;
+            }
+
             if (!news.IsRegistered)
             {
                 news.BecomeRegistered(GetNextUID());
@@ -96,8 +129,10 @@ namespace Desynchronized.TNDBS
             return TalesOfImportance[id];
         }
 
+        [Obsolete("", true)]
         public void AssociateNewsRefToPawn(Pawn recipient, TaleNewsReference reference)
         {
+            /*
             if (!NewsKnowledgeMapping.Keys.Contains(recipient))
             {
                 NewsKnowledgeMapping.Add(recipient, null);
@@ -107,6 +142,23 @@ namespace Desynchronized.TNDBS
                 NewsKnowledgeMapping[recipient] = new List<TaleNewsReference>();
             }
             NewsKnowledgeMapping[recipient].Add(reference);
+            */
+        }
+
+        public void LinkPawnToNewsReference(Pawn recipient, TaleNewsReference reference)
+        {
+            foreach (PawnKnowledgeCard card in KnowledgeMappings)
+            {
+                if (recipient == card.Subject)
+                {
+                    card.ReceiveReference(reference);
+                    return;
+                }
+            }
+
+            // You are here because the given pawn does not have its own card.
+            PawnKnowledgeCard newCard = new PawnKnowledgeCard(recipient, reference);
+            KnowledgeMappings.Add(newCard);
         }
     }
 }

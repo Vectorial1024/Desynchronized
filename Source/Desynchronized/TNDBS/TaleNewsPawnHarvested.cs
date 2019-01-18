@@ -9,6 +9,11 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnHarvested: TaleNewsNegativeIndividual
     {
+        public TaleNewsPawnHarvested()
+        {
+
+        }
+
         public TaleNewsPawnHarvested(Pawn victim): base(victim, InstigatorInfo.NoInstigator)
         {
 
@@ -18,7 +23,6 @@ namespace Desynchronized.TNDBS
         {
             if (recipient == PrimaryVictim)
             {
-                Log.Error("Report: receipient is gaining MyOrganHarvested.");
                 recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.MyOrganHarvested);
             }
             else

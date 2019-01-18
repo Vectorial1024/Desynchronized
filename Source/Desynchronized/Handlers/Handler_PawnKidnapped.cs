@@ -35,7 +35,7 @@ namespace Desynchronized.Handlers
         /// 
         private static void GenerateAndProcessNews(Pawn victim, Pawn kidnapper)
         {
-            TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, (InstigatorInfo) kidnapper);
+            TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, kidnapper);
             Map mapOfOccurence = kidnapper.Map;
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)

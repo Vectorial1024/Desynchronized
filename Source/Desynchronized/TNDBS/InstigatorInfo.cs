@@ -7,7 +7,7 @@ using Verse;
 
 namespace Desynchronized.TNDBS
 {
-    public class InstigatorInfo
+    public class InstigatorInfo: IExposable
     {
         /// <summary>
         /// Our patch-mod should override this with Psychology mayor. Value can be null.
@@ -22,12 +22,35 @@ namespace Desynchronized.TNDBS
 
         public static InstigatorInfo NoInstigator => new InstigatorInfo(null);
 
-        public bool PlayerIsInstigator { get; }
+        private bool playerIsInstigator;
+        private Pawn instigator;
+
+        public bool PlayerIsInstigator
+        {
+            get
+            {
+                return playerIsInstigator;
+            }
+            private set
+            {
+                playerIsInstigator = value;
+            }
+        }
 
         /// <summary>
         /// The instigator. Can be null.
         /// </summary>
-        public Pawn Instigator { get; }
+        public Pawn Instigator
+        {
+            get
+            {
+                return instigator;
+            }
+            private set
+            {
+                instigator = value;
+            }
+        }
 
         /// <summary>
         /// For general usage. Input null for no instigator.
@@ -58,6 +81,12 @@ namespace Desynchronized.TNDBS
         public static InstigatorInfo GenerateAsPlayerInstigated()
         {
             return new InstigatorInfo();
+        }
+
+        public void ExposeData()
+        {
+            Scribe_Values.Look(ref playerIsInstigator, "playerIsInstigator", false);
+            Scribe_References.Look(ref instigator, "instigator");
         }
 
         /// <summary>

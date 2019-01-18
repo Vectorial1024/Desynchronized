@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Desynchronized.Transpilers
 {
+    /*
     /// <summary>
     /// Redirects code to hand-written ThoughtRedirector.GiveThoughtsAboutPrisonerSalesToPawn for maximum sanity
     /// </summary>
@@ -43,4 +44,5 @@ namespace Desynchronized.Transpilers
             }
         }
     }
+    */
 }

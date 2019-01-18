@@ -76,6 +76,17 @@ The Scheme filteres information about the following events that originate from o
 		<content>Hotfix v1.3.3, coming in hot!|- Resolved critical bug: when pawns (Colonists, Prisoners, Animals, etc.) die, NullReferenceExceptions should no longer be thrown|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.</content>
 	</HugsLib.UpdateFeatureDef>
 	
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>ModName_1_3_4</defName>
+		<assemblyVersion>1.3.4</assemblyVersion>
+		<content>Version 1.3.4 is finally here! There was an unexpected amount of bugs in the previous version, so I couldn't make it in time to post an update. But still, here we are!|- Rewritten data structures to kill bugs that occur in the saving/loading process
+- (Residue bugs from previous version's savefile may still be around, but should be less severe)
+- Included "Prisoner/Colonist sold" into the "information system"
+- Fixed bug: Gifting Colonists to Factions via drop-pods should now give mood debuff; this debuff applies to those in the map where the pods were launched
+- Fixed bug: Bloodlust pawns should no longer get "Killed Someone" when they kill animals
+- Flavour texts for "Colonist Kidnapped" and related Thoughts now open for translation|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and detailed changelogs.</content>
+	</HugsLib.UpdateFeatureDef>
+	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
 		<defName>ModName_1_2_0</defName>

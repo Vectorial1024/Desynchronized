@@ -10,9 +10,17 @@ namespace Desynchronized.TNDBS
     /// <summary>
     /// A TaleNews object links a Tale and a receipient Pawn together.
     /// </summary>
-    public abstract class TaleNews
+    public abstract class TaleNews: IExposable
     {
-        public int UniqueID { get; private set; } = -1;
+        private int uniqueID = -1;
+
+        public int UniqueID
+        {
+            get
+            {
+                return uniqueID;
+            }
+        }
 
         public bool IsRegistered
         {
@@ -22,32 +30,46 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        private readonly TaleNewsReference SampleReference;
-
         /// <summary>
-        /// The mother constructor of all. Also registers itself to the TNDBS.
-        /// <para/>
-        /// Do NOT abuse this constructor.
+        /// DO NOT USE THIS CONSTRUCTOR
         /// </summary>
+        [Obsolete("This constructor is reserved. Keep this empty.")]
         public TaleNews()
+        {
+            
+        }
+
+        public TaleNews(int dummy)
         {
             if (DesynchronizedMain.WeAreInDevMode)
             {
                 DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTale(this);
             }
-            SampleReference = new TaleNewsReference(this);
         }
+
+        public void ExposeData()
+        {
+            Scribe_Values.Look(ref uniqueID, "uniqueID", -1);
+            ConductSaveFileIO();
+        }
+
+        /// <summary>
+        /// Carry out Scribe IO operations here to recreate your instance.
+        /// <para/>
+        /// That said, please also provide an empty constructor for the whole mechanic to work.
+        /// </summary>
+        protected abstract void ConductSaveFileIO();
 
         public TaleNewsReference CreateReferenceForReceipient(Pawn receipient)
         {
-            return new TaleNewsReference(SampleReference, receipient);
+            return new TaleNewsReference(this, receipient);
         }
 
         public void BecomeRegistered(int ID)
         {
             if (!IsRegistered)
             {
-                UniqueID = ID;
+                uniqueID = ID;
             }
         }
 

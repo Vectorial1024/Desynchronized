@@ -10,42 +10,84 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnDied : TaleNewsNegativeIndividual
     {
-        public Pawn Victim => PrimaryVictim;
-        /// <summary>
-        /// This member is of type DamageInfo?. Be careful.
-        /// </summary>
-        public DamageInfo? DeathCause { get; }
-        public Pawn Killer
-        {
-            get
-            {
-                if (DeathCause.HasValue)
-                {
-                    return DeathCause.Value.Instigator as Pawn;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-        /// <summary>
-        /// Defaults to HUMANE if something went wrong in the constructor.
-        /// </summary>
-        public DeathBrutality BrutalityDegree { get; }
-
         public enum DeathMethod
         {
+            INDETERMINATE = -1,
             NON_EXECUTION = 0,
             EXECUTION = 1
         }
 
-        private DeathMethod MethodOfDeath { get; }
+        private DeathBrutality brutalityDegree;
 
+        private DamageDef killingBlowDamageType;
+
+        public Pawn Killer => Instigator;
+
+        public Pawn Victim => PrimaryVictim;
+
+        /// <summary>
+        /// Defaults to HUMANE if something went wrong.
+        /// </summary>
+        public DeathBrutality BrutalityDegree
+        {
+            get
+            {
+                return brutalityDegree;
+            }
+            private set
+            {
+                brutalityDegree = value;
+            }
+        }
+
+        public DamageDef KillingBlowDamageType
+        {
+            get
+            {
+                return killingBlowDamageType;
+            }
+        }
+
+        /// <summary>
+        /// This member is of type DamageInfo?. Be careful.
+        /// </summary>
+        [Obsolete]
+        public DamageInfo? DeathCause { get; }
+
+        private DeathMethod methodOfDeath = DeathMethod.INDETERMINATE;
+
+        public TaleNewsPawnDied()
+        {
+
+        }
+
+        public TaleNewsPawnDied(Pawn victim, DamageInfo? dinfo): base(victim, InstigatorInfo.NoInstigator)
+        {
+            // DesynchronizedMain.LogError("Dumping stacktrace: " + Environment.StackTrace);
+
+            methodOfDeath = DeathMethod.NON_EXECUTION;
+
+            if (dinfo.HasValue)
+            {
+                DamageInfo dinfoUnpacked = dinfo.Value;
+                killingBlowDamageType = dinfoUnpacked.Def;
+                if (dinfoUnpacked.Instigator is Pawn instigator)
+                {
+                    InstigatorInfo = (InstigatorInfo) instigator;
+                }
+            }
+        }
+
+        public TaleNewsPawnDied(Pawn victim, DeathBrutality brutality): base(victim, InstigatorInfo.NoInstigator)
+        {
+            methodOfDeath = DeathMethod.EXECUTION;
+        }
+
+        [Obsolete]
         private TaleNewsPawnDied(Pawn victim, DeathMethod method, object argument): base(victim, InstigatorInfo.NoInstigator)
         {
-            MethodOfDeath = method;
-            if (MethodOfDeath == DeathMethod.NON_EXECUTION)
+            methodOfDeath = method;
+            if (methodOfDeath == DeathMethod.NON_EXECUTION)
             {
                 DeathCause = argument as DamageInfo?;
                 InstigatorInfo = (InstigatorInfo) Killer;
@@ -67,19 +109,26 @@ namespace Desynchronized.TNDBS
 
         public static TaleNewsPawnDied GenerateAsExecution(Pawn victim, DeathBrutality brutality)
         {
-            return new TaleNewsPawnDied(victim, DeathMethod.EXECUTION, brutality);
+            return new TaleNewsPawnDied(victim, brutality);
         }
 
         public static TaleNewsPawnDied GenerateGenerally(Pawn victim, DamageInfo? dinfo)
         {
-            return new TaleNewsPawnDied(victim, DeathMethod.NON_EXECUTION, dinfo);
+            return new TaleNewsPawnDied(victim, dinfo);
+        }
+
+        protected override void ConductSaveFileIO()
+        {
+            base.ConductSaveFileIO();
+            Scribe_Values.Look(ref methodOfDeath, "methodOfDeath", DeathMethod.INDETERMINATE);
+            Scribe_Values.Look(ref brutalityDegree, "brutalityDegree", DeathBrutality.HUMANE);
+            Scribe_Defs.Look(ref killingBlowDamageType, "killingBlowDamageType");
         }
 
         /// <summary>
-        /// Handles the excitement of the killer when the killer has just killed somebody.
-        /// Can also be used to handle disappointment as well.
+        /// Handles the excitement (or disappointment) of the killer right when the kill happens.
         /// <para/>
-        /// You should check legitimacy before calling this method.
+        /// You should check legitimacy before calling this method, e.g., recipient.IsCapableOfThought()
         /// </summary>
         private void HandleExcitementOfKiller(Pawn recipient)
         {
@@ -93,7 +142,7 @@ namespace Desynchronized.TNDBS
                     return;
                 }
 
-                if (recipient == Killer && DeathCause.Value.Def.ExternalViolenceFor(Victim))
+                if (recipient == Killer && KillingBlowDamageType.ExternalViolenceFor(Victim))
                 {
                     // Confirmed NewsReceipient is Killer
 
@@ -103,13 +152,18 @@ namespace Desynchronized.TNDBS
                     // Why this check tho
                     if (recipient.story != null)
                     {
-                        // Try to add Bloodlust thoughts
-                        new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).Add();
-
-                        // Try to add Defeated Hostile Leader thoughts
-                        if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
+                        // Bloodlust thoughts for Bloodlust guys, currently only for human victims
+                        // We can expand upon this, and add in witnessed death (animals) with bloodlust
+                        if (Victim.RaceProps.Humanlike)
                         {
-                            new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).Add();
+                            // Try to add Bloodlust thoughts; will be auto-rejected if recipient does not have Bloodlust
+                            new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).Add();
+
+                            // Try to add Defeated Hostile Leader thoughts
+                            if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
+                            {
+                                new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).Add();
+                            }
                         }
                     }
                 }
@@ -213,7 +267,7 @@ namespace Desynchronized.TNDBS
             {
                 tempThought = new IndividualThoughtToAdd(ThoughtDefOf.KilledMyRival, recipient, Killer, 1f, Victim.relations.GetRivalDiedThoughtPowerFactor(opinion));
             }
-
+            
             tempThought?.Add();
         }
 
@@ -240,7 +294,7 @@ namespace Desynchronized.TNDBS
                 return;
             }
 
-            if (MethodOfDeath == DeathMethod.EXECUTION)
+            if (methodOfDeath == DeathMethod.EXECUTION)
             {
                 // Rather simple. Copied from vanilla code.
                 int forcedStage = (int)BrutalityDegree;

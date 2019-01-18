@@ -9,76 +9,56 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnSold : TaleNewsNegativeIndividual
     {
-        public TaleNewsPawnSold(Pawn victim) : base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnSold()
         {
 
         }
 
-        public SoldMethod MethodOfSales { get; }
-
-        public enum SoldMethod
+        public TaleNewsPawnSold(Pawn victim): this(victim, InstigatorInfo.NoInstigator)
         {
-            /// <summary>
-            /// Prisoner Sold
-            /// </summary>
-            SOLD_PRISONER,
-            /// <summary>
-            /// My Loved One Sold / Bonded Animal Sold
-            /// </summary>
-            SOLD_RELATIONSHIP
+
+        }
+
+        public TaleNewsPawnSold(Pawn victim, InstigatorInfo info): base (victim, info)
+        {
+
         }
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
-            bool isAboutPrisonerSold = PrimaryVictim.RaceProps.Humanlike;
-            bool isAboutAnimalSold = PrimaryVictim.RaceProps.Animal;
+            if (!recipient.IsCapableOfThought())
+            {
+                return;
+            }
 
             if (recipient == PrimaryVictim)
             {
-                if (isAboutPrisonerSold)
-                {
-                    // I was sold
-                }
+                // I was sold
             }
             else
             {
-                if (MethodOfSales == SoldMethod.SOLD_PRISONER)
+                // Animal or Prisoner sold
+                if (PrimaryVictim.RaceProps.Animal)
                 {
-                    // recipient.needs.mood.thoughts.memories.TryGainMemory(mostImportantRelation.soldThought, playerNegotiator);
+                    // ADDITIONAL TODO
+                }
+                else if (PrimaryVictim.RaceProps.Humanlike)
+                {
+                    // Some prisoner was sold
+                    if (PrimaryVictim.IsPrisonerOfColony)
+                    {
+                        recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.KnowPrisonerSold, Instigator);
+                    }
                 }
 
-                if (PrimaryVictim.RaceProps.Humanlike)
+                // Relationship was sold, if there is any
+                PawnRelationDef relation = recipient.GetMostImportantRelation(PrimaryVictim);
+                if (relation != null)
                 {
-                    /*
-                    if ()
+                    ThoughtDef soldThought = relation.soldThought;
+                    if (soldThought != null)
                     {
-
-                    }
-                    foreach (Pawn potentiallyRelatedPawn in PotentiallyRelatedPawns)
-                    {
-                        if (!potentiallyRelatedPawn.Dead && potentiallyRelatedPawn.needs.mood != null)
-                        {
-                            PawnRelationDef mostImportantRelation = potentiallyRelatedPawn.GetMostImportantRelation(pawn);
-                            if (mostImportantRelation != null && mostImportantRelation.soldThought != null)
-                            {
-                                potentiallyRelatedPawn.needs.mood.thoughts.memories.TryGainMemory(mostImportantRelation.soldThought, playerNegotiator);
-                            }
-                        }
-                    }
-                    RemoveMySpouseMarriageRelatedThoughts();
-                    */
-                }
-                if (isAboutPrisonerSold)
-                {
-                    // Prisoner sold
-                    recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.KnowPrisonerSold);
-                }
-                else if (isAboutAnimalSold)
-                {
-                    PawnRelationDef relation = recipient.GetMostImportantRelation(PrimaryVictim);
-                    if (relation == PawnRelationDefOf.Bond)
-                    {
-                        // Bonded sold
+                        recipient.needs.mood.thoughts.memories.TryGainMemory(soldThought, Instigator);
                     }
                 }
             }

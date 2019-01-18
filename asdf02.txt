@@ -1,0 +1,25 @@
+TravelingTransportPods -> TransportPodsArrivalAction_GiveGift -> .Arrived() -> ...
+
+extension method for TPAA: remember sender
+
+flow:
+call remember sender
+.arrived() postfix: get sender, then call handler
+.arrived() main: genguest => nop
+
+flow:
+.pretraded() main: genguest => nop
+.pretraded() postfix: add thoughts
+
+flow:
+genguest prefix: "Incompatibility"
+
+V2:
+
+Objective:
+transfer sender info from TravelingTransportPods to TPAA_GiveGift, then finally to Handler
+Link TPAA_GiveGift instance back to TravelingTransportPods instance
+
+Add to tracker when pods do post add: sender is known, arrivalaction is also known (arrivalaction of givegift should already be known at launch)
+Load from tracker when pods do arrival action: original genguest is noped, the sender/arrivalaction pair is loaded
+Take the called arrivalaction instance, look for it in the pairs, get the sender, sender can be null, and give to handler

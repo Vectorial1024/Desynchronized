@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TaleLibrary;
+using Desynchronized.TestingGrounds;
 using Desynchronized.TNDBS;
 using Desynchronized.WorldObjects;
 using Harmony;
@@ -21,6 +22,17 @@ namespace Desynchronized
         }
 
         /// <summary>
+        /// Already includes a space character.
+        /// </summary>
+        public static string MODPREFIX
+        {
+            get
+            {
+                return "[V1024-DESYNC] ";
+            }
+        }
+
+        /// <summary>
         /// A very convenient property for myself to limit features to DevMode only.
         /// </summary>
         public static bool WeAreInDevMode => Prefs.DevMode;
@@ -37,12 +49,17 @@ namespace Desynchronized
 
         // public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
         public static TaleNewsDatabase TaleNewsDatabaseSystem { get; private set; }
+        public static ArrivalAction_Sender_Linker ArrivalActionAndSenderLinker { get; private set; }
+        public static DesynchronizedVersionTracker DesynchronizedVersionTracker { get; private set; }
 
         public override void WorldLoaded()
         {
             // InfoKnowStorage = UtilityWorldObjectManager.GetUtilityWorldObject<InformationKnowledgeStorage>();
             // CentralTaleDatabase = UtilityWorldObjectManager.GetUtilityWorldObject<CentralTaleDatabase>();
             TaleNewsDatabaseSystem = UtilityWorldObjectManager.GetUtilityWorldObject<TaleNewsDatabase>();
+            ArrivalActionAndSenderLinker = UtilityWorldObjectManager.GetUtilityWorldObject<ArrivalAction_Sender_Linker>();
+            DesynchronizedVersionTracker = UtilityWorldObjectManager.GetUtilityWorldObject<DesynchronizedVersionTracker>();
+            // ASDF obj = UtilityWorldObjectManager.GetUtilityWorldObject<ASDF>();
         }
 
         public override void DefsLoaded()
@@ -53,6 +70,11 @@ namespace Desynchronized
         private void PrepareModSettingHandles()
         {
             toggle = Settings.GetHandle<bool>("settingName", "toggleSetting_title", "This is just a test.", false);
+        }
+
+        public static void LogError(string message, bool ignoreLogLimit = false)
+        {
+            Log.Error(MODPREFIX + " " + message, ignoreLogLimit);
         }
     }
 }

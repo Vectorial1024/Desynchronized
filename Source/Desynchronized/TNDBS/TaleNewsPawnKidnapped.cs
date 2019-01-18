@@ -10,21 +10,49 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnKidnapped : TaleNewsNegativeIndividual
     {
-        public Pawn Kidnapper { get; }
+        private Faction kidnapperFaction;
+
+        public Pawn Kidnapper => Instigator;
 
         public Pawn KidnapVictim => PrimaryVictim;
 
-        public Faction KidnapperFaction { get; }
-
-        public TaleNewsPawnKidnapped(Pawn victim, InstigatorInfo instigatorInfo): base(victim, instigatorInfo)
+        public Faction KidnapperFaction
         {
-            Kidnapper = instigatorInfo.Instigator;
-            KidnapperFaction = Kidnapper.Faction;
+            get
+            {
+                return kidnapperFaction;
+            }
         }
 
+        public TaleNewsPawnKidnapped()
+        {
+
+        }
+
+        public TaleNewsPawnKidnapped(Pawn victim, Pawn kidnapper): base(victim, InstigatorInfo.NoInstigator)
+        {
+            if (kidnapper == null)
+            {
+                DesynchronizedMain.LogError("Kidnapper cannot be null! Fake News!\n" + Environment.StackTrace);
+            }
+            else
+            {
+                InstigatorInfo = (InstigatorInfo) kidnapper;
+                kidnapperFaction = kidnapper.Faction;
+            }
+        }
+
+        /*
         private static bool placeholderFoo(Pawn pawn, Pawn subject)
         {
             return pawn.Faction == subject.Faction || (!subject.IsWorldPawn() && !pawn.IsWorldPawn());
+        }
+        */
+
+        protected override void ConductSaveFileIO()
+        {
+            base.ConductSaveFileIO();
+            Scribe_References.Look(ref kidnapperFaction, "kidnapperFaction");
         }
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)
@@ -40,7 +68,7 @@ namespace Desynchronized.TNDBS
             recipient.needs.mood.thoughts.memories.TryGainMemory(Desynchronized_ThoughtDefOf.KnowColonistKidnapped);
 
             // Then give Friend/Rival Kidnapped thoughts
-            if (recipient.RaceProps.IsFlesh && placeholderFoo(KidnapVictim, recipient))
+            if (recipient.RaceProps.IsFlesh && PawnUtility.ShouldGetThoughtAbout(KidnapVictim, recipient))
             {
                 int opinion = recipient.relations.OpinionOf(KidnapVictim);
                 if (opinion >= 20)

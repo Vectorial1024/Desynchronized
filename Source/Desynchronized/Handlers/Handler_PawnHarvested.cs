@@ -20,6 +20,7 @@ namespace Desynchronized.Handlers
 
         private static void GenerateAndProcessNews(Pawn victim)
         {
+            // Definitely has potential here.
             if (!victim.RaceProps.Humanlike)
             {
                 return;
@@ -45,7 +46,7 @@ namespace Desynchronized.Handlers
                 TaleNewsReference reference = news.CreateReferenceForReceipient(other);
                 if (DesynchronizedMain.WeAreInDevMode)
                 {
-                    DesynchronizedMain.TaleNewsDatabaseSystem.AssociateNewsRefToPawn(other, reference);
+                    DesynchronizedMain.TaleNewsDatabaseSystem.LinkPawnToNewsReference(other, reference);
                 }
 
                 // If in the same map, activate right away
