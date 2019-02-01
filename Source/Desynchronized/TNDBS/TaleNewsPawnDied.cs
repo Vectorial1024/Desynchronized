@@ -117,6 +117,11 @@ namespace Desynchronized.TNDBS
             return new TaleNewsPawnDied(victim, dinfo);
         }
 
+        public override string GetNewsIdentifier()
+        {
+            return "Pawn Died";
+        }
+
         protected override void ConductSaveFileIO()
         {
             base.ConductSaveFileIO();

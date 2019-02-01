@@ -30,3 +30,7 @@ v1.8.1: Basic Crimes (Steal, Murder, Affair)
 v1.8.2: Legislative System and actual laws (Psychology?)
 v1.8.3: The Executive and Policing
 // v1.9: Whatever Remains
+
+// Optional branch: Abstractions
+ob.1: Colonial abstraction
+ob.2: 

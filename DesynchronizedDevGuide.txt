@@ -1,14 +1,41 @@
-Colonist left unburied at Thoughts Situation - Special (Not required as it is map-dependent)
-Prisoner sold in Thoughts Memory Misc
-Know Buried in Sarcophagus in Thoughts Memory Misc (Not required as Vanilla game has implemented this.)
-Know Butchered Humanlike Corpse in Thoughts Memory Misc (Not required as Vanilla game has implemented this.)
-Witnessed Death Ally? in Thoughts Memory Misc (Not required as it only applies to Colonists in proximity)
-Colonist/Prisoner/Bonded Banished/Banishment (to Die) in Thoughts Memory Misc
-Failed/Successfully Rescue Relatives in Thoughts Memory Misc; additional mechanics required [***]
-All Death-related thoughts in Thoughts Memory Misc; additional mechanics required
+Additional algorithm to organ harvesting:
+Stealing from prisoner and donating from one should give different thoughts.
+Additional thoughts related to organ donations, and family members' reactions when receiving donation, etc.
 
-Colonist Banishment done
-Prisoner Sold done
-Colonist unburied [should be done]
-Bonded Animal Banishment done
-All Death-related thoughts done done
+Refinement of Human Meat treatment:
+Colonists wouldnt know, but certain conditions (e.g. Gourmand) will trigger a Stark Realization
+SR will apply the debuff 1.5x strong and 1.5x long, etc.
+
+Algorithm for Memory recall:
+Everyone will be able to remember something from the past from time to time.
+Bad mood will tend to cause bad memories to resurface, and vice versa.
+Older people can have more memory recalled at the same time.
+
+Revival
+A whole basket of thoughts, just like "Pawn Died"
+
+Inside-Job Assasination
+(Credits: u/Muznick)
+Pawns may lie about other events if they determine that it is OK for them to lie.
+Lying strength mainly depends on social skill
+This opens up playstyle where undesirables are silently purged one by one.
+
+Additional (Misc?) Thoughts
+(Credits: u/uglychip)
+Made something impressive
+Psychic drone relief
+
+Additional need: Social
+All humanlike pawns have a new need: Social
+The Social need is just similar to Rest, Food, and Joy need.
+Social need has Social Fulfillment
+SF naturally decays to Base Level; Base Level is normally 0
+SF naturally (but only slowly) decreases (to represent the human nature of being a social animal)
+Net Social Fulfillment (NSF) = Absolute Social Fulfillment (ASF) - Base Level (BL)
++ve SF levels gives mood bonus, while -ve SF levels gives mood penalty
+Neutral and positive social interactions give positive SF; others give negative SF
+Having more friends (and, by extension, family members), *decreases* the Base Level, while having more rivals *increases* the Base Level
+Opinions towards pawns will magnify the SF offset of the interactions. Preferrably, friends and families produce more positive SF deltas, while rivals produce more negative SF deltas.
+New Mental Break: Social Anxiety: SF decrement rate is increased; Base Level is negatively offset
+New Mental Break: Demotivation: social interactions no longer gives SF deltas.
+Modify Mental Break: Hide in Room: SF decay rate moderately increased

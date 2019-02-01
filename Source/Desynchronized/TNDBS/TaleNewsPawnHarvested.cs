@@ -19,6 +19,11 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public override string GetNewsIdentifier()
+        {
+            return "Pawn Organ-Harvested";
+        }
+
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
             if (recipient == PrimaryVictim)

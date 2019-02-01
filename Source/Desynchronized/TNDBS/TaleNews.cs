@@ -47,22 +47,15 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public override string ToString()
+        {
+            return GetNewsIdentifier() + (IsRegistered ? "(ID is " + UniqueID + ")" : "");
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref uniqueID, "uniqueID", -1);
             ConductSaveFileIO();
-        }
-
-        /// <summary>
-        /// Carry out Scribe IO operations here to recreate your instance.
-        /// <para/>
-        /// That said, please also provide an empty constructor for the whole mechanic to work.
-        /// </summary>
-        protected abstract void ConductSaveFileIO();
-
-        public TaleNewsReference CreateReferenceForReceipient(Pawn receipient)
-        {
-            return new TaleNewsReference(this, receipient);
         }
 
         public void BecomeRegistered(int ID)
@@ -73,10 +66,26 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        public void ActivateForReceipient(Pawn receipient)
+        /// <summary>
+        /// Wrapper method to let the recipient react to the news.
+        /// </summary>
+        /// <param name="recipient"></param>
+        public void ActivateForReceipient(Pawn recipient)
         {
-            GiveThoughtsToReceipient(receipient);
+            GiveThoughtsToReceipient(recipient);
         }
+
+        public TaleNewsReference CreateReferenceForReceipient(Pawn receipient)
+        {
+            return new TaleNewsReference(this, receipient);
+        }
+
+        /// <summary>
+        /// Carry out Scribe IO operations here to recreate your instance.
+        /// <para/>
+        /// That said, please also provide an empty constructor for the whole mechanic to work.
+        /// </summary>
+        protected abstract void ConductSaveFileIO();
 
         /// <summary>
         /// Called to apply Thoughts to the receipient.
@@ -86,5 +95,11 @@ namespace Desynchronized.TNDBS
         /// </summary>
         /// <param name="recipient"></param>
         protected abstract void GiveThoughtsToReceipient(Pawn recipient);
+
+        /// <summary>
+        /// Returns a string which is used to identify the type of TaleNews.
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetNewsIdentifier();
     }
 }

@@ -47,6 +47,8 @@ namespace Desynchronized.Handlers
                 }
 
                 TaleNewsReference reference = news.CreateReferenceForReceipient(other);
+                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
+
                 // If the news can be given directly, do so, else store it "somewhere else".
                 if (other.Map == mapOfOccurence)
                 {

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Desynchronized
 {
+    /*
     public class TestClass
     {
         public static void TestMethod()
@@ -13,4 +14,5 @@ namespace Desynchronized
             // ThoughtRedirector.HandleThoughtsAboutDeath(null, null, null);
         }
     }
+    */
 }

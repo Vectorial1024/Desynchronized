@@ -35,6 +35,11 @@ namespace Desynchronized.TNDBS
             isDeadly = isBanishedToDie;
         }
 
+        public override string GetNewsIdentifier()
+        {
+            return "Pawn Banished";
+        }
+
         protected override void ConductSaveFileIO()
         {
             base.ConductSaveFileIO();

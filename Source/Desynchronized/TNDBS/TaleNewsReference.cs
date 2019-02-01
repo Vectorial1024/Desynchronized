@@ -47,13 +47,19 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        public bool ReferenceIsComplete
+        public bool ReferenceIsValid
         {
             get
             {
-                return Recipient != null;
+                return Recipient != null && UnderlyingTaleNews != null;
             }
         }
+
+        public static TaleNewsReference NullReference = new TaleNewsReference()
+        {
+            underlyingTaleNews = null,
+            recipient = null
+        };
 
         /// <summary>
         /// DO NOT USE THIS CONSTRUCTOR EXPLICITLY.
@@ -82,6 +88,18 @@ namespace Desynchronized.TNDBS
             this.recipient = recipient;
         }
 
+        public override string ToString()
+        {
+            if (this == NullReference)
+            {
+                return "Null Reference";
+            }
+            else
+            {
+                return "Reference to TaleNews about " + UnderlyingTaleNews.ToString();
+            }
+        }
+
         public static bool BothRefsAreEqual(TaleNewsReference one, TaleNewsReference two)
         {
             return one.UnderlyingTaleNews == two.UnderlyingTaleNews;
@@ -94,6 +112,11 @@ namespace Desynchronized.TNDBS
             Scribe_References.Look(ref recipient, "recipient");
         }
 
+        /// <summary>
+        /// Attempts to activate news, and let the recipient react to the news.
+        /// <para/>
+        /// Will do nothing if the news has already been activated before.
+        /// </summary>
         public void ActivateNews()
         {
             if (!HasBeenActivated)

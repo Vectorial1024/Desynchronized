@@ -53,6 +53,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesynchronizedMain.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="TestingGrounds\ZXCV.cs" />
     <Compile Include="TNDBS\DeathBrutality.cs" />
     <Compile Include="TNDBS\InstigatorInfo.cs" />
+    <Compile Include="TNDBS\NewsSpreadUtility.cs" />
     <Compile Include="TNDBS\PawnClassification.cs" />
     <Compile Include="TaleLibrary\ReceivedNewsObject.cs" />
     <Compile Include="TaleLibrary\TaleEntry.cs" />

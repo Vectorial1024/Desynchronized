@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Desynchronized (v1.3.4)</name>
+	<name>Desynchronized (v1.4)</name>
 	<author>Vectorial1024</author>
-	<targetVersion>1.0.2059</targetVersion>
+	<supportedVersions>
+		<li>1.0</li>
+	</supportedVersions>
 	<description>Change your Colonists' minds.
 
 A continuation of Closed Doors, this mod changes how your Colonists react to the outside world.
 
-Your Colonists will now be unable to get Thoughts from events happening outside of their own Map, even some new Thoughts created by this mod too, opening some new playstyles for experimentation. But still, be wary, as your Colonists will soon be able to exchange news with each other, spreading information that you may deem undesirable, causing unexpected mess and chaos among order.
-
-Ask yourself: is knowledge power, or is ignorance bliss?
+Mainly: What will happen when colonists lose their omniscience and become oblivious to events that transpire behind closed doors or beyond their sweet homes?
 
 - Requires HugsLib. Place this below HugsLib.
 - Safe to add to existing saves
-- Unsafe to remove from existing saves
+- Please do not remove from existing saves
 - Should have no problems with other mods
-- Is still a WIP
 	</description>
 </ModMetaData>

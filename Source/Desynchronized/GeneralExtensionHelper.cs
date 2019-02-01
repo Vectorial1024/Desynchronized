@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using Verse;
 
 namespace Desynchronized
@@ -158,6 +159,60 @@ namespace Desynchronized
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Extension method. Determines and returns the chance of the provided pawn to spread TaleNews.
+        /// <para/>
+        /// Invalid pawns (e.g. animals) will return 0.
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static float GetBaseNewsSpreadChance(this Pawn instance)
+        {
+            TraitSet traitSet = instance.story.traits ?? null;
+            if (traitSet == null)
+            {
+                return 0;
+            }
+            else
+            {
+                if (false)
+                {
+                    // Gossiper (or Socialiser) trait
+                    return 0.05f;
+                }
+                else if (false)
+                {
+                    // Psychopath or Secret-keeper
+                    return 0.005f;
+                }
+                else
+                {
+                    // Normal people
+                    return 0.02f;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Extension method. This method calculates the cumulative chance
+        /// for news-spreading as if the news-spreading check is done multiple times
+        /// <para/>
+        /// As an analogy, it is as if you rolled n dices, and you are looking for the
+        /// probability that any one of them has a 3 facing up.
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="iterations"></param>
+        /// <returns></returns>
+        public static float GetActualNewsSpreadChance(this Pawn instance, uint iterations = 1)
+        {
+            /*
+             * The geometric sequence reduction formula is used to optimize performance when
+             * given a sufficiently-high iterations parameter.
+             * And suprisingly, the resulting formula is quite simple.
+             */
+            return 1 - Mathf.Pow(1 - GetBaseNewsSpreadChance(instance), iterations);
         }
     }
 }

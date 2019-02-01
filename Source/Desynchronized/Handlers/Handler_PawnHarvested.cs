@@ -1,6 +1,7 @@
 ﻿using Desynchronized.TaleLibrary;
 using Desynchronized.TNDBS;
 using Harmony;
+using HugsLib.Settings;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -44,10 +45,7 @@ namespace Desynchronized.Handlers
                     FileLog.Log("Processing Pawn " + other + ", " + other.Name);
                 }
                 TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                if (DesynchronizedMain.WeAreInDevMode)
-                {
-                    DesynchronizedMain.TaleNewsDatabaseSystem.LinkPawnToNewsReference(other, reference);
-                }
+                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
 
                 // If in the same map, activate right away
                 // otherwise, the social interaction code would take care of it

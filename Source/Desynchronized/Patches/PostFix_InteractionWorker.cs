@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.TNDBS;
+using Harmony;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,24 @@ namespace Desynchronized.Patches
         [HarmonyPostfix]
         public static void PostFix(InteractionWorker __instance, Pawn initiator, Pawn recipient)
         {
-            if (__instance is InteractionWorker_Chitchat chitchatWorker)
+            if (DesynchronizedMain.NewsSpreadIsActive)
             {
-
-            }
-            else if (__instance is InteractionWorker_DeepTalk deeptalkWorker)
-            {
-
+                if (__instance is InteractionWorker_Chitchat chitchatWorker)
+                {
+                    if (Rand.Value <= initiator.GetActualNewsSpreadChance() || true)
+                    {
+                        NewsSpreadUtility.SpreadNews(initiator, recipient, NewsSpreadUtility.SpreadMode.RANDOM);
+                        // DesynchronizedMain.LogError(initiator + " has chit-chat with " + recipient);
+                    }
+                }
+                else if (__instance is InteractionWorker_DeepTalk deeptalkWorker)
+                {
+                    if (Rand.Value <= initiator.GetActualNewsSpreadChance(3) || true)
+                    {
+                        NewsSpreadUtility.SpreadNews(initiator, recipient, NewsSpreadUtility.SpreadMode.DISTINCT);
+                        // DesynchronizedMain.LogError(initiator + " has deep talk with " + recipient);
+                    }
+                }
             }
         }
     }

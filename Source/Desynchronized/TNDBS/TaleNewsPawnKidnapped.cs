@@ -49,6 +49,11 @@ namespace Desynchronized.TNDBS
         }
         */
 
+        public override string GetNewsIdentifier()
+        {
+            return "Pawn Kidnapped";
+        }
+
         protected override void ConductSaveFileIO()
         {
             base.ConductSaveFileIO();

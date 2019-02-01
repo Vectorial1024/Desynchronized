@@ -4,29 +4,21 @@
 [list]
 [*]Requires HugsLib (warning should be given if you don't have HugsLib); place this mod below HugsLib
 [*]Safe to add to existing saves
-[*][b]Unsafe to remove[/b] from existing saves
+[*]Please [b]do not remove[/b] from existing saves
 [*]Should have no problems with other mods
-[*]Is still a WIP
-[*]May/Will support other mods
+[*]Will support other mods
 [*]GitHub repo link is here: https://github.com/Vectorial1024/Desynchronized
 [/list]
 [h1]Mod Description[/h1]
-A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how your Colonists react to the outside world.
+A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how your colonists react to the outside world.
 
-Your Colonists will now be unable to get Thoughts from events happening outside of their own Map, even some new Thoughts created by this mod too, opening some new playstyles for experimentation.
-
-But still, be wary, as your Colonists will soon be able to exchange news with each other, spreading information that you may deem undesirable, causing unexpected mess and chaos among order.
-
-Ask yourself: is knowledge power, or is ignorance bliss?
-
-[b]This mod is still a WIP, features may be missing. I will be adding more features over time to make this mod more complete.[/b]
+A question: What will happen when colonists lose their omniscience and become oblivious to events that transpire behind closed doors or beyond their sweet homes?
 
 [h1]Features List[/h1]
 Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
 [list]
-[*]Colonists will not get deboffs from distant Executions, Organ Harvests, and etc.
-[*]Colonists will now get debuffs related to kidnap events; they also receives additional thoughts when their family members are kidnapped
-[*]More raid-related thoughts to follow in v1.4
+[*]Colonists will generally not react to events that does not happen inside their own maps.
+[*]Colonists will now have a small chance to spread news about events that has happened, spreading from those who know to those who do not. (Configurable in Mod Settings)
 [/list]
 [h1]About Non-Steam Downloads[/h1]
 Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
@@ -37,9 +29,9 @@ Non-Steam downloads are all centralized onto the GitHub page. You may find them 
 Help us out in our common pursuit of success on the Rim by:
 [list]
 [*][b]Reporting Bugs:[/b] no one wants an infestation here. Visit "Reporting Bugs" down there.
-[*][b]Suggesting Features:[/b] we need innovative tactics to manage the people. Visit "Feature Suggestions" down there.
+[*][b]Suggesting Features:[/b] we need new ideas to keep things interesting. Visit "Feature Suggestions" down there.
 [*][b]Inspecting the Code:[/b] sometimes, underlying problems are not obvious to spot. Visit the GitHub page to read the code.
-[*]Translating the Texts: there's nothing to translate at the moment, but the time will come.
+[*][b]Translating the Texts[/b]: if you are a native speaker of your language, you are most welcome to contribute by translating the texts to your own language. [i]I still need to find a way to efficiently manage this, though.[/i]
 [/list]
 [h1]The GitHub Repo of This Mod[/h1]
 To streamline things, I am centralizing many things onto the GitHub repo found at https://github.com/Vectorial1024/Desynchronized
@@ -55,8 +47,8 @@ In the GitHub page, you will find:
 This mod would not have been here without the following people:
 [list]
 [*]MoobyNooby for keeping the code live so they can be passed on
-[*]Y'all subscribers for investing your time in this WIP product
-[*]Jaxe and his [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url], a fine mod that allows me to exclude unnecessary directories to reduce file size (reduced from 20MB due to redundant compiler-generated files, down to <2MB, containing only the core files necessary for this mod)
+[*]Y'all subscribers for investing your time in this [i]ex-[/i]WIP product
+[*][strike]Jaxe and his [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url], a fine mod that allows me to exclude unnecessary directories to reduce file size (reduced from 20MB due to redundant compiler-generated files, down to <2MB, containing only the core files necessary for this mod)[/strike] Apparently his mod broke, but still he deserves some credit
 [*]pardeike's Harmony library and UnlimitedHugs' HugsLib for providing much-needed convenience to make mods
 [*]Tynan for this game; and most importantly,
 [*]That one guy who first got an idea and eventually catalyzed the creation of this mod

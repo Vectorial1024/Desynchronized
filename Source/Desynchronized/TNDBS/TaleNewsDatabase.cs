@@ -145,7 +145,7 @@ namespace Desynchronized.TNDBS
             */
         }
 
-        public void LinkPawnToNewsReference(Pawn recipient, TaleNewsReference reference)
+        public void LinkNewsReferenceToPawn(TaleNewsReference reference, Pawn recipient)
         {
             foreach (PawnKnowledgeCard card in KnowledgeMappings)
             {
@@ -159,6 +159,26 @@ namespace Desynchronized.TNDBS
             // You are here because the given pawn does not have its own card.
             PawnKnowledgeCard newCard = new PawnKnowledgeCard(recipient, reference);
             KnowledgeMappings.Add(newCard);
+        }
+
+        /// <summary>
+        /// Always returns a List<>; an empty List<> is returned as the default value
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public List<TaleNewsReference> ListAllKnowledgeOfPawn(Pawn target)
+        {
+            foreach (PawnKnowledgeCard card in KnowledgeMappings)
+            {
+                if (card.Subject == target)
+                {
+                    return card.KnowledgeList;
+                }
+            }
+
+            // We are here because the pawn is not in the list of cards.
+            // Perhaps the given pawn is not supposed to have a card; returning an empty list.
+            return new List<TaleNewsReference>();
         }
     }
 }

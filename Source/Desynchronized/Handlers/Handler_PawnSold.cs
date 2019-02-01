@@ -77,6 +77,8 @@ namespace Desynchronized.Handlers
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
                 TaleNewsReference reference = news.CreateReferenceForReceipient(other);
+                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
+
                 // If the news can be given directly, do so, else store it "somewhere else".
                 if (other.Map == mapOfOccurence)
                 {

@@ -24,6 +24,11 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public override string GetNewsIdentifier()
+        {
+            return "Pawn Sold";
+        }
+
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
             if (!recipient.IsCapableOfThought())
