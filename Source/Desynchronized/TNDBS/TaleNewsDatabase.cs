@@ -82,6 +82,22 @@ namespace Desynchronized.TNDBS
             Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
         }
 
+        public void AddPawnIntoPawnKnowledgeList(Pawn pawn, bool isQuick = true)
+        {
+            if (!isQuick)
+            {
+                foreach (PawnKnowledgeCard card in knowledgeMappings)
+                {
+                    if (card.Subject == pawn)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            knowledgeMappings.Add(new PawnKnowledgeCard(pawn));
+        }
+
         /// <summary>
         /// In response to the NullRef bug in v1.4.0.0:
         /// Call to initialize the Pawn Knowledge List
@@ -99,7 +115,7 @@ namespace Desynchronized.TNDBS
                 {
                     if (pawn.RaceProps.Humanlike)
                     {
-                        knowledgeMappings.Add(new PawnKnowledgeCard(pawn));
+                        AddPawnIntoPawnKnowledgeList(pawn);
                     }
                 }
             }

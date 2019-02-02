@@ -80,6 +80,7 @@
     <Compile Include="Patches\PostFix_TaleManager_AddTale.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
     <Compile Include="Patches\PostFix_TransportPods_PostAdd.cs" />
+    <Compile Include="Patches\PostFix_WorldPawns_PawnAdded.cs" />
     <Compile Include="Patches\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_Executions.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_GeneralThoughts.cs" />
