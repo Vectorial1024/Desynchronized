@@ -27,14 +27,21 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        /// <summary>
+        /// DO NOT USE THIS EXPLICITLY.
+        /// </summary>
         public PawnKnowledgeCard()
         {
 
         }
 
+        /// <summary>
+        /// Constructs this object with the subject pawn defined.
+        /// </summary>
+        /// <param name="subject"></param>
         public PawnKnowledgeCard(Pawn subject): this()
         {
-
+            this.subject = subject;
         }
 
         /// <summary>

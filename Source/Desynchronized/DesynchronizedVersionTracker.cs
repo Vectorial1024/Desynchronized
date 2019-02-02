@@ -29,13 +29,16 @@ namespace Desynchronized
         {
             base.ExposeData();
             Scribe_Values.Look(ref versionOfMod, "versionOfMod", typeof(DesynchronizedMain).Assembly.GetName().Version.ToString());
-            Version before = new Version(versionOfMod);
-            Version after = typeof(DesynchronizedMain).Assembly.GetName().Version;
-            if (before < after)
+            Version versionWithinSaveFile = new Version(versionOfMod);
+
+            // Sanity check; only do this after the vars are loaded.
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                // Condition is true only when an older version is loaded;
-                // Latest version and no version should just have the default (latest) version
-                // Check the version, and apply updates accordingly.
+                if (versionWithinSaveFile <= new Version(1, 4, 0, 0))
+                {
+                    // Fixing the bug: Forgetting to initialize the Pawn Knowledge List
+                    DesynchronizedMain.TaleNewsDatabaseSystem.PopulatePawnKnowledgeMapping();
+                }
             }
         }
     }

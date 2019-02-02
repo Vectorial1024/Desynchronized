@@ -65,7 +65,7 @@ namespace Desynchronized.TNDBS
             talesOfImportance = new List<TaleNews>();
             newsKnowledgeMapping = new Dictionary<Pawn, List<TaleNewsReference>>();
             nextUID = -1;
-            knowledgeMappings = new List<PawnKnowledgeCard>();
+            PopulatePawnKnowledgeMapping();
         }
 
         /// <summary>
@@ -80,6 +80,29 @@ namespace Desynchronized.TNDBS
             // Scribe_Collections.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping", LookMode.Reference, LookMode.Deep);
             Scribe_Values.Look(ref nextUID, "nextUID", -1);
             Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
+        }
+
+        /// <summary>
+        /// In response to the NullRef bug in v1.4.0.0:
+        /// Call to initialize the Pawn Knowledge List
+        /// </summary>
+        public void PopulatePawnKnowledgeMapping()
+        {
+            // Just in case someone called this code while everything is running fine...
+            if (knowledgeMappings == null)
+            {
+                knowledgeMappings = new List<PawnKnowledgeCard>();
+
+                // All humanlike pawns in the world are eligible to use this service.
+                // The "dead" criteria covers those dead-and-revive pawns.
+                foreach (Pawn pawn in Find.World.worldPawns.AllPawnsAliveOrDead)
+                {
+                    if (pawn.RaceProps.Humanlike)
+                    {
+                        knowledgeMappings.Add(new PawnKnowledgeCard(pawn));
+                    }
+                }
+            }
         }
 
         public int GetNextUID()
