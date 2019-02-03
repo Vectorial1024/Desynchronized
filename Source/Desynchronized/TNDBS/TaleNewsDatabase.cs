@@ -98,6 +98,19 @@ namespace Desynchronized.TNDBS
             knowledgeMappings.Add(new PawnKnowledgeCard(pawn));
         }
 
+        public PawnKnowledgeCard GetOrInitializePawnKnowledgeCard(Pawn pawn)
+        {
+            foreach (PawnKnowledgeCard card in KnowledgeMappings)
+            {
+                if (card.Subject == pawn)
+                {
+                    return card;
+                }
+            }
+
+            return new PawnKnowledgeCard(pawn);
+        }
+
         /// <summary>
         /// In response to the NullRef bug in v1.4.0.0:
         /// Call to initialize the Pawn Knowledge List

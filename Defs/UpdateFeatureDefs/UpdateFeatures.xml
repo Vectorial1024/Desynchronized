@@ -101,6 +101,12 @@ The Scheme filteres information about the following events that originate from o
 		<assemblyVersion>1.4.1</assemblyVersion>
 		<content>Hotfix v1.4.1 coming through!|- Resolved minor bug: NullReferenceExceptions when pawns are ticking|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs, and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_4_2</defName>
+		<assemblyVersion>1.4.2</assemblyVersion>
+		<content>Hotfix v1.4.2 coming through!|- Resolved critical bug: Unable to generate world properly when starting out with a new colony (introduced in v1.4.1)|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs, and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

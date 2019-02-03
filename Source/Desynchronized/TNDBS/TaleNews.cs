@@ -49,7 +49,7 @@ namespace Desynchronized.TNDBS
 
         public override string ToString()
         {
-            return GetNewsIdentifier() + (IsRegistered ? "(ID is " + UniqueID + ")" : "");
+            return GetNewsIdentifier() + (IsRegistered ? " (ID: " + UniqueID + ")" : "");
         }
 
         public void ExposeData()

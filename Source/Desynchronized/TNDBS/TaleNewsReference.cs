@@ -92,7 +92,7 @@ namespace Desynchronized.TNDBS
         {
             if (this == NullReference)
             {
-                return "Null Reference";
+                return "Null Reference (not an Exception)";
             }
             else
             {

@@ -84,13 +84,23 @@ namespace Desynchronized.TNDBS
 
         private static void AttemptToTransmitNews(Pawn initiator, Pawn receiver, TaleNewsReference news)
         {
-            DesynchronizedMain.LogError("Attempting to transmit news " + news.ToString());
+            // DesynchronizedMain.LogError("Attempting to transmit " + news.ToString());
 
             if (news == TaleNewsReference.NullReference)
             {
-                DesynchronizedMain.LogError("It was a null news. Nothing was done.");
+                // DesynchronizedMain.LogError("It was a null news. Nothing was done.");
                 return;
             }
+
+            /*
+             * We will lazily handle the KnowledgeCards:
+             * whenever an attempt was made to transmit news,
+             * the KnowledgeCards of both the initiator and the receiver is validated
+             * before we do any processing.
+             */
+
+            // DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(initiator);
+            DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(receiver);
 
             foreach (TaleNewsReference reference in DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(receiver))
             {

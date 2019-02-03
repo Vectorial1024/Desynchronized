@@ -8,6 +8,7 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
     [HarmonyPatch(typeof(WorldPawns))]
     [HarmonyPatch("AddPawn", MethodType.Normal)]
     public class PostFix_WorldPawns_PawnAdded
@@ -18,4 +19,5 @@ namespace Desynchronized.Patches
             DesynchronizedMain.TaleNewsDatabaseSystem.AddPawnIntoPawnKnowledgeList(p);
         }
     }
+    */
 }
