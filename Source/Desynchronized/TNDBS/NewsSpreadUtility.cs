@@ -100,7 +100,7 @@ namespace Desynchronized.TNDBS
              */
 
             // DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(initiator);
-            DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(receiver);
+            // DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(receiver);
 
             foreach (TaleNewsReference reference in DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(receiver))
             {
