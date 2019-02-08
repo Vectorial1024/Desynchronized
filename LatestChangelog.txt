@@ -1,26 +1,24 @@
-It's finally here: Version 1.4. After 2 months in development, I am proud to announce that we have reached a major milestone of development: the completion of the news-spreading system.
+Version 1.4.3 is here to bring you some New Year happiness.
 
-- New concept: Tale-News (TN). A TN is a representation of an in-game event that has occured. The list of in-game events that can be represented by  the TN system will be expanded in the future as development continues. Details are on GitHub.
-- New behavior: TN spreading. When doing chit-chat and deep-talk, the initiator has a small chance to tell the recipient one entry of TN. Details are on GitHub.
-- New settings: You have the option to disable the TN-spreading behavior (which is enabled by default). Consult your Mod Settings for details.
-- Known issue: (Steam only) Mod size boomed back up to 20MB. PublisherPlus died after the recent RimWorld update.
+- Clarification/New Pawn stat: News spread tendency (NST). This is the value that this mod will use in calculating likeliness for pawns to spread news. It is a Social stat. Base value of NST is 0.02 (2%).
+- New trait spectrum related to NST: Gossiper (+0.03 NST) and Secret-keeper (-0.015 NST). This trait spectrum is less common than average.
+- Fixed bug: pawns trying to spread news will no longer have 50% chance to throw ArgumentOutOfRangeException.
+- (Steam only) An attempt was made to reduce mod file size (from ~27 MB to ~15 MB)
 
-Many thanks to the cumulative 7000 subscribers of this mod! Your support has propelled me forward even when times are tough, to encourage me to finish what I started.
-
-And also, 新年快樂! Happy Chinese New Year!
+If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ )
 
 Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.
 
 //////
 
-Version 1.4! We have finally reached a development milestone.
-
-[h1]Version 1.4.0: Outline[/h1]
+Version 1.4.3! Just realized the Steam Changelog section is a bit messy...
+[h1]Version 1.4.3: Outline[/h1]
 [list]
-[*]New concept: Tale-News (TN). A TN is a representation of an in-game event that has occured. The list of in-game events that can be represented by  the TN system will be expanded in the future as development continues. Details are on GitHub.
-[*]New behavior: TN spreading. When doing chit-chat and deep-talk, the initiator has a small chance to tell the recipient one entry of TN. Details are on GitHub.
-[*]New settings: You have the option to disable the TN-spreading behavior (which is enabled by default). Consult your Mod Settings for details.
-[*]Known issue: (Steam only) Mod size boomed back up to 20MB. PublisherPlus died after the recent RimWorld update.
+[*]Clarification/New Pawn stat: News spread tendency (NST). This is the value that this mod will use in calculating likeliness for pawns to spread news. It is a Social stat. Base value of NST is 0.02 (2%).
+[*]New trait spectrum related to NST: Gossiper (+0.03 NST) and Secret-keeper (-0.015 NST). This trait spectrum is less common than average.
+[*]Fixed bug: pawns trying to spread news will no longer have 50% chance to throw ArgumentOutOfRangeException.
+[*](Steam only) An attempt was made to reduce mod file size (from ~27 MB to ~15 MB)
 [/list]
+If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ )
 
 Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find feature elaborations, detailed changelogs and previous releases.

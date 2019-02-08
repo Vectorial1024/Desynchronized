@@ -39,3 +39,21 @@ Opinions towards pawns will magnify the SF offset of the interactions. Preferrab
 New Mental Break: Social Anxiety: SF decrement rate is increased; Base Level is negatively offset
 New Mental Break: Demotivation: social interactions no longer gives SF deltas.
 Modify Mental Break: Hide in Room: SF decay rate moderately increased
+
+Refinement mechanics: Forgetfulness
+Each TaleNews has a Relevance value to a Pawn
+Relevance can be influenced by many factors subject to discussion
+Over time, the TN with low Relevance are forgotten
+"Forgotten" TN can be Remembered; such remembrance generates a thought with less strength and duration compared to the original thought
+
+Refinement mechanics: Information Confidence
+If a colonist receives a TN first-hand, such TN will always have a 100% Confidence
+(Maybe the 100% confidence is not permanent; but that's another story)
+When spreading TN, the spreader will have an option to lie about the TN
+The chance of lying can depend on several factors; one might be the Severity, another might be the Estimated Relevance calculated by the spreader, yet another could be Opinion
+The receiver of TN will then also have a chance to determine if the spreader is lying
+If the lie is not discovered, the TN Confidence will get a 100% rating, else 0%.
+The Confidence rating from lies can be further adjusted based on social skills, etc.
+Each colonist will have his own "Information Confidence Average"
+A 50% ICA goves 0 mood delta; the more the ICA deviates from 50%, the stronger the directed mood delta is for the colonist
+The colonist will get the "Information confidence (v.strong/strong/weak/v.weak)" thought based on his ICA

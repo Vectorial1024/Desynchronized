@@ -62,7 +62,10 @@ namespace Desynchronized.TNDBS
 
         public void ReceiveReference(TaleNewsReference reference)
         {
-            KnowledgeList.Add(reference);
+            if (reference != TaleNewsReference.NullReference)
+            {
+                KnowledgeList.Add(reference);
+            }
         }
     }
 }

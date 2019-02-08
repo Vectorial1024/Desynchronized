@@ -50,7 +50,7 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                result = listInitiator[Rand.Int % listInitiator.Count];
+                result = listInitiator[(int)((uint)Rand.Int % listInitiator.Count)];
             }
         }
 
@@ -78,7 +78,7 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                result = listDistinct[Rand.Int % listDistinct.Count];
+                result = listDistinct[(int)((uint)Rand.Int % listDistinct.Count)];
             }
         }
 
