@@ -1,13 +1,9 @@
-﻿using Desynchronized.TaleLibrary;
-using Desynchronized.TestingGrounds;
+﻿using Desynchronized.Handlers;
 using Desynchronized.TNDBS;
-using Desynchronized.WorldObjects;
-using Harmony;
 using HugsLib;
 using HugsLib.Settings;
 using HugsLib.Utils;
 using System;
-using System.Reflection;
 using Verse;
 
 namespace Desynchronized
@@ -38,24 +34,20 @@ namespace Desynchronized
         /// </summary>
         public static bool WeAreInDevMode => Prefs.DevMode;
 
-        public override string ModIdentifier
-        {
-            get
-            {
-                return MODID;
-            }
-        }
+        public override string ModIdentifier => MODID;
 
         private SettingHandle<bool> toggle;
 
         // public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
         public static TaleNewsDatabase TaleNewsDatabaseSystem { get; private set; }
-        public static ArrivalAction_Sender_Linker ArrivalActionAndSenderLinker { get; private set; }
+        public static Linker_ArrivalActionAndSender ArrivalActionAndSenderLinker { get; private set; }
         public static DesynchronizedVersionTracker DesynchronizedVersionTracker { get; private set; }
         public static SettingHandle<bool> SettingHandle_NewsSpread { get; private set; }
         public static bool NewsSpreadIsActive => SettingHandle_NewsSpread;
         [Obsolete("Not implemented yet.")]
         public static SettingHandle<bool> SettingHandle_LocalizedNews { get; private set; }
+        [Obsolete("For testing only.")]
+        // public static SettingHandle<EnumTest> SettingHandle_EnumTest { get; private set; }
         public static bool LocalizedNews => SettingHandle_LocalizedNews;
 
         public override void WorldLoaded()
@@ -63,7 +55,7 @@ namespace Desynchronized
             // InfoKnowStorage = UtilityWorldObjectManager.GetUtilityWorldObject<InformationKnowledgeStorage>();
             // CentralTaleDatabase = UtilityWorldObjectManager.GetUtilityWorldObject<CentralTaleDatabase>();
             TaleNewsDatabaseSystem = UtilityWorldObjectManager.GetUtilityWorldObject<TaleNewsDatabase>();
-            ArrivalActionAndSenderLinker = UtilityWorldObjectManager.GetUtilityWorldObject<ArrivalAction_Sender_Linker>();
+            ArrivalActionAndSenderLinker = UtilityWorldObjectManager.GetUtilityWorldObject<Linker_ArrivalActionAndSender>();
             DesynchronizedVersionTracker = UtilityWorldObjectManager.GetUtilityWorldObject<DesynchronizedVersionTracker>();
             // ASDF obj = UtilityWorldObjectManager.GetUtilityWorldObject<ASDF>();
         }
@@ -80,6 +72,8 @@ namespace Desynchronized
             SettingHandle_LocalizedNews = Settings.GetHandle("toggleLocalizedNews", "toggleLocalizedNews_title", "This is also a test. Do not touch. Default value is true.", true);
             // Is auto-disabled when \"Localized News\" is disabled.
             SettingHandle_NewsSpread = Settings.GetHandle("toggleNewsSpreading", "News Spreading", "If enabled, news of various events will follow Colonists around and spread to other places.\n\nEnabled by default.\n\n", true);
+
+            // SettingHandle_EnumTest = Settings.GetHandle("enumTest", "Enum Test Title", "Enum Test Desc", EnumTest.EnumDefault, null, "enumTest_");
         }
 
         public override void SettingsChanged()

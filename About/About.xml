@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Desynchronized (v1.4.3)</name>
+	<name>Desynchronized (v1.4.4)</name>
 	<author>Vectorial1024</author>
 	<supportedVersions>
 		<li>1.0</li>
 	</supportedVersions>
 	<description>Change your Colonists' minds.
 
-A continuation of Closed Doors, this mod changes how your Colonists react to the outside world.
+A continuation of MoobyNooby's ClosedDoors, this mod changes how your colonists react to the outside world.
 
-Mainly: What will happen when colonists lose their omniscience and become oblivious to events that transpire behind closed doors or beyond their sweet homes?
+As your colonists are scattered across the globe, so are their knowledge. The inability for them to know everything at the get go creates an inevitable desynchronization of understanding.
+
+How should your colonists comprehend the unforgiving and absurd world around them?
 
 - Requires HugsLib. Place this below HugsLib.
 - Safe to add to existing saves

@@ -11,3 +11,9 @@ fixed: sending colonists via pods to factions not giving prisoner sold
 Placeholder letters for selling panws (**)
 translations for kidnap thoughts open for translation
 fixed many bugs related to data loading/saving by changing data and type structure
+
+v1.4.4
+fixed: nullreferenceexception for Finish Off from Allow Tools
+trimmed unused mod files
+mod size minimized thanks to Mehni's PublisherPlus patch
+Known: loading previous version will display one-time error of "Could not find class" InformationKnowledgeStorage, CentralTaleDatabase, ArrivalAction_Sender_Linker

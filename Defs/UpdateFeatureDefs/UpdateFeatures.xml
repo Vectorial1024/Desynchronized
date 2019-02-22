@@ -116,6 +116,15 @@ The Scheme filteres information about the following events that originate from o
 - Fixed bug: pawns trying to spread news will no longer have 50% chance to throw ArgumentOutOfRangeException.
 - (Steam only) An attempt was made to reduce mod file size (from ~27 MB to ~15 MB)|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ )|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_4_4</defName>
+		<assemblyVersion>1.4.4</assemblyVersion>
+		<content>Version 1.4.4 is here to do some house-keeping work.|- Fixed bug: doing Finish Off (from Allow Tools) on human pawns will no longer throw NullReferenceException
+- Fixed bug that might have broken the entire TNDBS
+- Removed unused/now-irrelevant code
+- (Steam only) Reduced mod size down to &lt;1 MB (credits to Mehni's PublisherPlus patch!)|One known issue: when loading a save-game that was made with a previous version of this mod enabled, the game will show some &lt;b&gt;one-time errors&lt;/b&gt; along the lines of "Could not find class" in the debug log. The affected classes are: InformationKnowledgeStorage, CentralTaleDatabase, ArrivalAction_Sender_Linker. &lt;b&gt;This is harmless.&lt;/b&gt;|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

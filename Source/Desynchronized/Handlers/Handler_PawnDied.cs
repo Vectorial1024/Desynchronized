@@ -1,10 +1,5 @@
-﻿using Desynchronized.TaleLibrary;
-using Desynchronized.TNDBS;
+﻿using Desynchronized.TNDBS;
 using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.Handlers
@@ -28,6 +23,8 @@ namespace Desynchronized.Handlers
              * Some possibilities:
              * 1. Victim died on the ground.
              * 2. Victim died while being carried around.
+             * 
+             * [General Case] ?? [General Case (victim died before code)] ?? [Victim died in Embrace (ewww)]
              */
             TaleNewsPawnDied news = TaleNewsPawnDied.GenerateGenerally(victim, dinfo);
             Map mapOfOccurence = victim.Map ?? victim.Corpse?.Map ?? victim.CarriedBy?.Map ?? null;

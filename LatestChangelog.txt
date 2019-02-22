@@ -1,24 +1,30 @@
-Version 1.4.3 is here to bring you some New Year happiness.
+Version 1.4.4 is here to do some house-keeping work.
 
-- Clarification/New Pawn stat: News spread tendency (NST). This is the value that this mod will use in calculating likeliness for pawns to spread news. It is a Social stat. Base value of NST is 0.02 (2%).
-- New trait spectrum related to NST: Gossiper (+0.03 NST) and Secret-keeper (-0.015 NST). This trait spectrum is less common than average.
-- Fixed bug: pawns trying to spread news will no longer have 50% chance to throw ArgumentOutOfRangeException.
-- (Steam only) An attempt was made to reduce mod file size (from ~27 MB to ~15 MB)
+- Fixed bug: doing Finish Off (from Allow Tools) on human pawns will no longer throw NullReferenceException
+- Fixed bug that might have broken the entire TNDBS
+- Removed unused/now-irrelevant code
+- (Steam only) Reduced mod size down to <1 MB (credits to Mehni's PublisherPlus patch!)
 
-If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ )
+One known issue: when loading a save-game that was made with a previous version of this mod enabled, the game will show some &lt;b&gt;one-time errors&lt;/b&gt; along the lines of "Could not find class" in the debug log. The affected classes are: InformationKnowledgeStorage, CentralTaleDatabase, ArrivalAction_Sender_Linker. &lt;b&gt;This is harmless.&lt;/b&gt;
+
+If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
 Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.
 
 //////
 
-Version 1.4.3! Just realized the Steam Changelog section is a bit messy...
-[h1]Version 1.4.3: Outline[/h1]
+Version 1.4.4! This is more of some house-keeping than new features.
+
+[h1]Version 1.4.4: Outline[/h1]
 [list]
-[*]Clarification/New Pawn stat: News spread tendency (NST). This is the value that this mod will use in calculating likeliness for pawns to spread news. It is a Social stat. Base value of NST is 0.02 (2%).
-[*]New trait spectrum related to NST: Gossiper (+0.03 NST) and Secret-keeper (-0.015 NST). This trait spectrum is less common than average.
-[*]Fixed bug: pawns trying to spread news will no longer have 50% chance to throw ArgumentOutOfRangeException.
-[*](Steam only) An attempt was made to reduce mod file size (from ~27 MB to ~15 MB)
+[*]Fixed bug: doing Finish Off (from Allow Tools) on human pawns will no longer throw NullReferenceException
+[*]Fixed bug that might have broken the entire TNDBS
+[*]Removed unused/now-irrelevant code
+[*](Steam only) Reduced mod size down to <1 MB (credits to Mehni's PublisherPlus patch!)
 [/list]
-If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ )
+[h1]Known Issues[/h1]
+When loading a save-game that was made with a previous version of this mod enabled, the game will show some [b]one-time errors[/b] along the lines of "Could not find class" in the debug log. The affected classes are: InformationKnowledgeStorage, CentralTaleDatabase, ArrivalAction_Sender_Linker. [b]This is harmless.[/b]
+
+If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
 Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find feature elaborations, detailed changelogs and previous releases.

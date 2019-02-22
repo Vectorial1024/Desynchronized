@@ -41,10 +41,7 @@ namespace Desynchronized.TNDBS
 
         public TaleNews(int dummy)
         {
-            if (DesynchronizedMain.WeAreInDevMode)
-            {
-                DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTale(this);
-            }
+            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTale(this);
         }
 
         public override string ToString()
@@ -72,7 +69,14 @@ namespace Desynchronized.TNDBS
         /// <param name="recipient"></param>
         public void ActivateForReceipient(Pawn recipient)
         {
-            GiveThoughtsToReceipient(recipient);
+            try
+            {
+                GiveThoughtsToReceipient(recipient);
+            }
+            catch (Exception ex)
+            {
+                DesynchronizedMain.LogError("Cannot give thought(s). Something went wrong.\n" + ex.ToString());
+            }
         }
 
         public TaleNewsReference CreateReferenceForReceipient(Pawn receipient)

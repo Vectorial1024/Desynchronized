@@ -1,14 +1,11 @@
 ﻿using HugsLib.Utils;
 using RimWorld.Planet;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
-namespace Desynchronized.WorldObjects
+namespace Desynchronized.Handlers
 {
-    public class ArrivalAction_Sender_Linker: UtilityWorldObject
+    public class Linker_ArrivalActionAndSender: UtilityWorldObject
     {
         private Dictionary<TransportPodsArrivalAction_GiveGift, int> internalMapping;
 
@@ -22,7 +19,6 @@ namespace Desynchronized.WorldObjects
         {
             base.ExposeData();
             Scribe_Collections.Look(ref internalMapping, "internalMapping", LookMode.Deep, LookMode.Value);
-            // Scribe_Values.Look(ref internalMapping, "internalMapping", new Dictionary<TransportPodsArrivalAction_GiveGift, int>());
         }
 
         public void EstablishRelationship(TransportPodsArrivalAction_GiveGift actionInstance, int senderTileID)
@@ -39,13 +35,9 @@ namespace Desynchronized.WorldObjects
             {
                 return null;
             }
-
-            Map map = Current.Game.FindMap(internalMapping[actionInstance]);
-
-            // Clean up the datatype
+            Map result = Current.Game.FindMap(internalMapping[actionInstance]);
             internalMapping.Remove(actionInstance);
-
-            return map;
+            return result;
         }
     }
 }

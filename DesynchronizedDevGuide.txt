@@ -57,3 +57,7 @@ The Confidence rating from lies can be further adjusted based on social skills, 
 Each colonist will have his own "Information Confidence Average"
 A 50% ICA goves 0 mood delta; the more the ICA deviates from 50%, the stronger the directed mood delta is for the colonist
 The colonist will get the "Information confidence (v.strong/strong/weak/v.weak)" thought based on his ICA
+
+Multiplayer and What Not
+Zetrith's Multiplayer
+Phi Mod Multiplayer
