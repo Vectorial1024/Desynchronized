@@ -20,7 +20,7 @@ namespace Desynchronized.TNDBS
 
         public static Pawn RepresentativeOfPlayer => GetRepresentativeOfPlayerInGame();
 
-        public static InstigatorInfo NoInstigator => new InstigatorInfo(null);
+        public static InstigatorInfo NoInstigator => GenerateNormally();
 
         private bool playerIsInstigator;
         private Pawn instigator;
@@ -53,34 +53,29 @@ namespace Desynchronized.TNDBS
         }
 
         /// <summary>
-        /// For general usage. Input null for no instigator.
+        /// Do not use this constructor explicitly.
         /// </summary>
-        /// <param name="instigator"></param>
-        private InstigatorInfo(Pawn instigator = null)
+        public InstigatorInfo()
         {
-            // Pawn-instigated
-            PlayerIsInstigator = false;
-            Instigator = instigator;
+
         }
 
-        /// <summary>
-        /// For when the Player instigated the process.
-        /// </summary>
-        private InstigatorInfo()
+        public static InstigatorInfo GenerateNormally(Pawn instigator = null)
         {
-            // Player-instigated
-            PlayerIsInstigator = true;
-            Instigator = RepresentativeOfPlayer;
-        }
-
-        public static InstigatorInfo GenerateNormally(Pawn instigator)
-        {
-            return new InstigatorInfo(instigator);
+            return new InstigatorInfo()
+            {
+                PlayerIsInstigator = false,
+                Instigator = instigator
+            };
         }
 
         public static InstigatorInfo GenerateAsPlayerInstigated()
         {
-            return new InstigatorInfo();
+            return new InstigatorInfo()
+            {
+                PlayerIsInstigator = true,
+                Instigator = null
+            };
         }
 
         public void ExposeData()

@@ -33,7 +33,7 @@ namespace Desynchronized.TNDBS
                     SelectNewsRandomly(initiator, receiver, out result);
                     break;
                 default:
-                    result = null;
+                    result = TaleNewsReference.DefaultReference;
                     break;
             }
 
@@ -42,11 +42,12 @@ namespace Desynchronized.TNDBS
 
         private static void SelectNewsRandomly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
-            List<TaleNewsReference> listInitiator = DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(initiator);
+            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(initiator);
 
             if (listInitiator.Count == 0)
             {
-                result = TaleNewsReference.NullReference;
+                result = TaleNewsReference.DefaultReference;
             }
             else
             {
@@ -56,8 +57,10 @@ namespace Desynchronized.TNDBS
 
         private static void SelectNewsDistinctly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
-            List<TaleNewsReference> listInitiator = DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(initiator);
-            List<TaleNewsReference> listReceiver = DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(receiver);
+            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(initiator);
+            List<TaleNewsReference> listReceiver = receiver.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(receiver);
 
             // Distinct List
             List<TaleNewsReference> listDistinct = new List<TaleNewsReference>();
@@ -74,7 +77,7 @@ namespace Desynchronized.TNDBS
             // Select one random entry from the distinct list
             if (listDistinct.Count == 0)
             {
-                result = TaleNewsReference.NullReference;
+                result = TaleNewsReference.DefaultReference;
             }
             else
             {
@@ -86,33 +89,13 @@ namespace Desynchronized.TNDBS
         {
             // DesynchronizedMain.LogError("Attempting to transmit " + news.ToString());
 
-            if (news == TaleNewsReference.NullReference)
+            if (news == null || news.IsDefaultReference())
             {
                 // DesynchronizedMain.LogError("It was a null news. Nothing was done.");
                 return;
             }
 
-            /*
-             * We will lazily handle the KnowledgeCards:
-             * whenever an attempt was made to transmit news,
-             * the KnowledgeCards of both the initiator and the receiver is validated
-             * before we do any processing.
-             */
-
-            // DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(initiator);
-            // DesynchronizedMain.TaleNewsDatabaseSystem.GetOrInitializePawnKnowledgeCard(receiver);
-
-            foreach (TaleNewsReference reference in DesynchronizedMain.TaleNewsDatabaseSystem.ListAllKnowledgeOfPawn(receiver))
-            {
-                if (TaleNewsReference.BothRefsAreEqual(reference, news))
-                {
-                    reference.ActivateNews();
-                    return;
-                }
-            }
-
-            DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(news, receiver);
-            news.ActivateNews();
+            receiver.GetNewsKnowledgeTracker().KnowNews(news.ReferencedTaleNews);
         }
     }
 }

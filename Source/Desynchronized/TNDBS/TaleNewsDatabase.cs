@@ -1,4 +1,5 @@
-﻿using HugsLib.Utils;
+﻿using Harmony;
+using HugsLib.Utils;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,16 @@ namespace Desynchronized.TNDBS
         /// <summary>
         /// Initialized in PostAdd and ExposeData
         /// </summary>
+        /// 
+        [Obsolete]
         private Dictionary<Pawn, List<TaleNewsReference>> newsKnowledgeMapping;
 
+        private List<Pawn_NewsKnowledgeTracker> knowledgeTrackerMasterList;
+
+        [Obsolete]
         private List<PawnKnowledgeCard> knowledgeMappings;
 
+        [Obsolete("This is unsafe code.")]
         public List<TaleNews> TalesOfImportance
         {
             get
@@ -40,6 +47,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        [Obsolete]
         public List<PawnKnowledgeCard> KnowledgeMappings
         {
             get
@@ -48,21 +56,76 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public List<Pawn_NewsKnowledgeTracker> KnowledgeTrackerMasterList
+        {
+            get
+            {
+                return knowledgeTrackerMasterList;
+            }
+        }
+
         /// <summary>
-        /// Initialized in PostAdd and ExposeData
+        /// Stores the next UID that will be given to newer TaleNews.
         /// </summary>
         private int nextUID;
 
         /// <summary>
-        /// Use this in place of the Constructor.
+        /// Lets us access the TaleNews inside the TaleNewsDatabase. You should supply a proper index.
+        /// <para/>
+        /// Usually, you need not and should not set the index of TaleNews manually.
+        /// </summary>
+        /// <param name="param">The UID of the TaleNews you intend to retrieve</param>
+        /// <returns>The TaleNews if it exists; null otherwise.</returns>
+        public TaleNews this[int param]
+        {
+            get
+            {
+                if (param < 0)
+                {
+                    return null;
+                }
+                if (param < talesOfImportance.Count)
+                {
+                    return talesOfImportance[param];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private void ResetOrInitialize()
+        {
+            nextUID = 0;
+            if (talesOfImportance == null)
+            {
+                talesOfImportance = new List<TaleNews>();
+            }
+            else
+            {
+                talesOfImportance.Clear();
+            }
+            // Doing this ensures the DefaultTaleNews always getting the 0th position.
+            RegisterNewTaleNews(TaleNews.DefaultTaleNews);
+            if (knowledgeTrackerMasterList == null)
+            {
+                knowledgeTrackerMasterList = new List<Pawn_NewsKnowledgeTracker>();
+            }
+            else
+            {
+                knowledgeTrackerMasterList.Clear();
+            }
+            // DesynchronizedMain.LogError("Self-patching.");
+        }
+
+        /// <summary>
+        /// Use this method as a constructor
         /// </summary>
         public override void PostAdd()
         {
             base.PostAdd();
-            talesOfImportance = new List<TaleNews>();
-            newsKnowledgeMapping = new Dictionary<Pawn, List<TaleNewsReference>>();
-            nextUID = -1;
-            PopulatePawnKnowledgeMapping();
+            ResetOrInitialize();
         }
 
         /// <summary>
@@ -71,14 +134,42 @@ namespace Desynchronized.TNDBS
         public override void ExposeData()
         {
             base.ExposeData();
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                // We can run the clean-up code during saving.
+                ConsolidateLists();
+            }
+
             // Scribe_Values.Look(ref listOfReadNews, "listOfReadNews");
             Scribe_Collections.Look(ref talesOfImportance, "talesOfImportance", LookMode.Deep);
             // Scribe_Values.Look(ref talesOfImportance, "talesOfImportance", new List<TaleNews>());
             // Scribe_Collections.Look(ref newsKnowledgeMapping, "newsKnowledgeMapping", LookMode.Reference, LookMode.Deep);
-            Scribe_Values.Look(ref nextUID, "nextUID", -1);
-            Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
+            Scribe_Values.Look(ref nextUID, "nextUID", 0);
+            // Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
+            Scribe_Collections.Look(ref knowledgeTrackerMasterList, "knowledgeTrackerMasterList", LookMode.Deep);
+
+            // DesynchronizedMain.LogError("It is now " + Scribe.mode.ToString());
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                // DesynchronizedMain.LogError("Before, knowledgeTrackerMasterList: " + knowledgeTrackerMasterList);
+                // DesynchronizedMain.LogError("");
+                if (knowledgeTrackerMasterList == null)
+                {
+                    knowledgeTrackerMasterList = new List<Pawn_NewsKnowledgeTracker>();
+                }
+            }
+            // DesynchronizedMain.LogError("After, knowledgeTrackerMasterList: " + knowledgeTrackerMasterList);
         }
 
+        /// <summary>
+        /// This method is a gateway to let us access the database to "clean it up" before actually saving it.
+        /// </summary>
+        private void ConsolidateLists()
+        {
+            // DumpAllTaleNewsReferences_v1450();
+        }
+
+        [Obsolete("", true)]
         public void AddPawnIntoPawnKnowledgeList(Pawn pawn, bool isQuick = true)
         {
             if (!isQuick)
@@ -95,6 +186,7 @@ namespace Desynchronized.TNDBS
             knowledgeMappings.Add(new PawnKnowledgeCard(pawn));
         }
 
+        [Obsolete("", true)]
         public PawnKnowledgeCard GetOrInitializePawnKnowledgeCard(Pawn pawn)
         {
             foreach (PawnKnowledgeCard card in KnowledgeMappings)
@@ -112,6 +204,8 @@ namespace Desynchronized.TNDBS
         /// In response to the NullRef bug in v1.4.0.0:
         /// Call to initialize the Pawn Knowledge List
         /// </summary>
+        /// 
+        [Obsolete]
         public void PopulatePawnKnowledgeMapping()
         {
             // Just in case someone called this code while everything is running fine...
@@ -119,20 +213,14 @@ namespace Desynchronized.TNDBS
             {
                 knowledgeMappings = new List<PawnKnowledgeCard>();
 
-                // All humanlike pawns in the world are eligible to use this service.
-                // The "dead" criteria covers those dead-and-revive pawns.
-                foreach (Pawn pawn in Find.World.worldPawns.AllPawnsAliveOrDead)
-                {
-                    if (pawn.RaceProps.Humanlike)
-                    {
-                        AddPawnIntoPawnKnowledgeList(pawn);
-                    }
-                }
+                // v1.4.5 revisit:
+                // Eventually everyone will have their own KnowledgeCard so no need to initialize everyone.
             }
         }
 
         public int GetNextUID()
         {
+            int result = nextUID;
             try
             {
                 nextUID = checked(nextUID + 1);
@@ -141,10 +229,10 @@ namespace Desynchronized.TNDBS
             {
                 Find.LetterStack.ReceiveLetter(DesynchronizedMain.MODPREFIX + "Overflow Occured", "Report this situation to Desynchronized; it is time for an upgrade.", LetterDefOf.ThreatBig);
                 DesynchronizedMain.LogError("Greetings, Ancient One. You have sucessfully broken this mod without exploiting any bug.\n" + ex.StackTrace);
-                nextUID = -1;
+                nextUID = 0;
             }
 
-            return nextUID;
+            return result;
         }
 
         /// <summary>
@@ -153,7 +241,7 @@ namespace Desynchronized.TNDBS
         /// In current implementation, the constructor of TaleNews will also register itself to here.
         /// </summary>
         /// <param name="news"></param>
-        public void RegisterNewTale(TaleNews news)
+        public void RegisterNewTaleNews(TaleNews news)
         {
             if (news == null)
             {
@@ -163,11 +251,12 @@ namespace Desynchronized.TNDBS
 
             if (!news.IsRegistered)
             {
-                news.BecomeRegistered(GetNextUID());
-                TalesOfImportance.Add(news);
+                news.ReceiveRegistrationID(GetNextUID());
+                talesOfImportance.Add(news);
             }
         }
 
+        [Obsolete("Use the [] operators instead.", true)]
         public TaleNews SafelyGetTaleNews(int id)
         {
             if (id < 0 || id >= TalesOfImportance.Count)
@@ -178,36 +267,10 @@ namespace Desynchronized.TNDBS
             return TalesOfImportance[id];
         }
 
-        [Obsolete("", true)]
-        public void AssociateNewsRefToPawn(Pawn recipient, TaleNewsReference reference)
-        {
-            /*
-            if (!NewsKnowledgeMapping.Keys.Contains(recipient))
-            {
-                NewsKnowledgeMapping.Add(recipient, null);
-            }
-            if (NewsKnowledgeMapping[recipient] == null)
-            {
-                NewsKnowledgeMapping[recipient] = new List<TaleNewsReference>();
-            }
-            NewsKnowledgeMapping[recipient].Add(reference);
-            */
-        }
-
+        [Obsolete("You could directly use the new extension method for the pawns.")]
         public void LinkNewsReferenceToPawn(TaleNewsReference reference, Pawn recipient)
         {
-            foreach (PawnKnowledgeCard card in KnowledgeMappings)
-            {
-                if (recipient == card.Subject)
-                {
-                    card.ReceiveReference(reference);
-                    return;
-                }
-            }
-
-            // You are here because the given pawn does not have its own card.
-            PawnKnowledgeCard newCard = new PawnKnowledgeCard(recipient, reference);
-            KnowledgeMappings.Add(newCard);
+            recipient.GetNewsKnowledgeTracker().ReceiveReference(reference);
         }
 
         /// <summary>
@@ -215,19 +278,199 @@ namespace Desynchronized.TNDBS
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        public List<TaleNewsReference> ListAllKnowledgeOfPawn(Pawn target)
+        /// 
+        [Obsolete("You could rely on our new extension method for the pawns.")]
+        public List<TaleNewsReference> ListAllAwarenessOfPawn(Pawn target)
         {
-            foreach (PawnKnowledgeCard card in KnowledgeMappings)
+            return target.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+        }
+
+        /// <summary>
+        /// This is the self-patching method to be released in v1.4.5, targetting the v1.4 family.
+        /// <para/>
+        /// It completely wipes the TaleNews database, and also removes 
+        /// invalid PawnKnowledgeCards that has a null subject.
+        /// </summary>
+        internal void SelfPatching_NullVictims()
+        {
+            ResetOrInitialize();
+        }
+
+        // test
+        /*
+        public override void Tick()
+        {
+            base.Tick();
+            if (!hasDone)
             {
-                if (card.Subject == target)
+                DumpAllTaleNewsReferences_v1450();
+                hasDone = true;
+                // DesynchronizedMain.LogError("Cleaning");
+                // RedButtonReset();
+                // TaleNewsDebugSystem();
+            }
+        }
+        */
+
+        [Obsolete]
+        private void TaleNewsDebugSystem()
+        {
+            // DEBUG
+            TaleNewsDatabase tndbs = this;
+            FileLog.Log("System time is " + DateTime.Now.ToShortTimeString() + "; beginning log.");
+            FileLog.Log("To optimize performance, all logs will now temporarily be buffered.");
+            foreach (PawnKnowledgeCard card in tndbs.KnowledgeMappings)
+            {
+                FileLog.LogBuffered("Loading new card...");
+                if (card == null)
                 {
-                    return card.KnowledgeList;
+                    FileLog.LogBuffered("Loaded card is null.");
+                }
+                else
+                {
+                    FileLog.LogBuffered("Loaded card exists.");
+                    Pawn pawn = card.Subject;
+                    if (pawn == null)
+                    {
+                        FileLog.LogBuffered("Subject of card is null.");
+                    }
+                    else
+                    {
+                        FileLog.LogBuffered("Subject of card exists; name: " + pawn);
+                        FileLog.LogBuffered("Checking TaleNews list...");
+                        List<TaleNewsReference> listReferences = card.KnowledgeList;
+                        if (listReferences == null)
+                        {
+                            FileLog.LogBuffered("This card has a null list.");
+                        }
+                        else
+                        {
+                            if (listReferences.Count == 0)
+                            {
+                                FileLog.LogBuffered("This list is empty.");
+                            }
+                            else
+                            {
+                                foreach (TaleNewsReference reference in listReferences)
+                                {
+                                    if (reference == null)
+                                    {
+                                        FileLog.LogBuffered("Reading null entry.");
+                                    }
+                                    else
+                                    {
+                                        if (reference.UnderlyingTaleNews == null)
+                                        {
+                                            FileLog.LogBuffered("INVALID ENTRY! Null underlying news.");
+                                        }
+                                        else
+                                        {
+                                            FileLog.LogBuffered("Reading entry: " + reference.ToString());
+                                            if (reference.UnderlyingTaleNews is TaleNewsPawnDied taleNewsPawnDied)
+                                            {
+                                                FileLog.LogBuffered("Entry is TaleNewsPawnDied.");
+                                                Pawn primaryVictim = taleNewsPawnDied.PrimaryVictim;
+                                                if (primaryVictim == null)
+                                                {
+                                                    FileLog.LogBuffered("Victim is NULL!!!");
+                                                }
+                                                else
+                                                {
+                                                    FileLog.LogBuffered("Victim is " + primaryVictim);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            // We are here because the pawn is not in the list of cards.
-            // Perhaps the given pawn is not supposed to have a card; returning an empty list.
-            return new List<TaleNewsReference>();
+            FileLog.Log("System time is now " + DateTime.Now.ToShortDateString() + "; releasing results:");
+            FileLog.FlushBuffer();
+        }
+
+        private void DumpAllTaleNewsReferences_v1450()
+        {
+            /*
+            // DEBUG
+            TaleNewsDatabase tndbs = this;
+            FileLog.Log("System time is " + DateTime.Now.ToShortTimeString() + "; beginning log.");
+            FileLog.Log("To optimize performance, all logs will now temporarily be buffered.");
+            foreach (Pawn_NewsKnowledgeTracker tracker in tndbs.KnowledgeTrackerMasterList)
+            {
+                FileLog.LogBuffered("Loading new card...");
+                if (tracker == null)
+                {
+                    FileLog.LogBuffered("Loaded card is null.");
+                }
+                else
+                {
+                    FileLog.LogBuffered("Loaded card exists.");
+                    Pawn pawn = tracker.Pawn;
+                    if (pawn == null)
+                    {
+                        FileLog.LogBuffered("Subject of card is null.");
+                    }
+                    else
+                    {
+                        FileLog.LogBuffered("Subject of card exists; name: " + pawn);
+                        FileLog.LogBuffered("Checking TaleNews list...");
+                        List<TaleNewsReference> listReferences = tracker.ListOfAllKnownNews;
+                        if (listReferences == null)
+                        {
+                            FileLog.LogBuffered("This card has a null list.");
+                        }
+                        else
+                        {
+                            if (listReferences.Count == 0)
+                            {
+                                FileLog.LogBuffered("This list is empty.");
+                            }
+                            else
+                            {
+                                foreach (TaleNewsReference reference in listReferences)
+                                {
+                                    if (reference == null)
+                                    {
+                                        FileLog.LogBuffered("Reading null entry.");
+                                    }
+                                    else
+                                    {
+                                        if (reference.UnderlyingTaleNews == null)
+                                        {
+                                            FileLog.LogBuffered("INVALID ENTRY! Null underlying news.");
+                                        }
+                                        else
+                                        {
+                                            FileLog.LogBuffered("Reading entry: " + reference.ToString());
+                                            if (reference.UnderlyingTaleNews is TaleNewsPawnDied taleNewsPawnDied)
+                                            {
+                                                FileLog.LogBuffered("Entry is TaleNewsPawnDied.");
+                                                Pawn primaryVictim = taleNewsPawnDied.PrimaryVictim;
+                                                if (primaryVictim == null)
+                                                {
+                                                    FileLog.LogBuffered("Victim is NULL!!!");
+                                                }
+                                                else
+                                                {
+                                                    FileLog.LogBuffered("Victim is " + primaryVictim);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            FileLog.Log("System time is now " + DateTime.Now.ToShortDateString() + "; releasing results:");
+            FileLog.FlushBuffer();
+            */
         }
     }
 }

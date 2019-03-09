@@ -125,6 +125,18 @@ The Scheme filteres information about the following events that originate from o
 - Removed unused/now-irrelevant code
 - (Steam only) Reduced mod size down to &lt;1 MB (credits to Mehni's PublisherPlus patch!)|One known issue: when loading a save-game that was made with a previous version of this mod enabled, the game will show some &lt;b&gt;one-time errors&lt;/b&gt; along the lines of "Could not find class" in the debug log. The affected classes are: InformationKnowledgeStorage, CentralTaleDatabase, ArrivalAction_Sender_Linker. &lt;b&gt;This is harmless.&lt;/b&gt;|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_4_5</defName>
+		<assemblyVersion>1.4.5</assemblyVersion>
+		<content>Version 1.4.5 is finally here! While I haven't got the time to update this in the past few weeks, this gave me plenty of time to test and patch the mod.|- Fixed bug: NullReferenceException when spreading news
+- Fixed bug: Finishing Off (from Allow Tools) on human pawns will no longer throw NullReferenceException (for real this time)
+- Fixed bug: spreading news should no longer give the sender another mood debuff of the same event
+- Changed news spread base chance due to traits from 5%/2%/0.05% to 40%/25%/10%
+- Changed feature: Increased the number of dice throw from 3 to 5 for Deep Talk news spread checking
+- Changed data structure to minimize size of data inside save-files
+- Some underlying API changes here and there|The bugs that this version patches has essentially made all the previous TaleNews entries useless. Hence, previous entries of TaleNews will be discarded; your colonists will receive TaleNews correctly with a fresh start.|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

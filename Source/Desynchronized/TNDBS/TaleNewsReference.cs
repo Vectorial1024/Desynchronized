@@ -6,17 +6,26 @@ using Verse;
 
 namespace Desynchronized.TNDBS
 {
+    /// <summary>
+    /// A glorified key-value pair to express whether a pawn has heard of some certain TaleNews.
+    /// <para/>
+    /// Also contains some functions to help with implementing and running the TNDBS.
+    /// </summary>
     public class TaleNewsReference: IExposable
     {
         // Pivate attributes as required by IExposable
         private bool hasBeenActivated = false;
+        [Obsolete("Use the new int indexing method instead.", true)]
         private TaleNews underlyingTaleNews;
+        private int uidOfReferencedTaleNews = -1;
+        [Obsolete("Use subject instead.", true)]
         private Pawn recipient;
+        private Pawn cachedSubject;
 
         /// <summary>
         /// True if the Receipient has reacted to the Underlying TaleNews before.
         /// </summary>
-        public bool HasBeenActivated
+        public bool HasEverActivated
         {
             get
             {
@@ -25,8 +34,20 @@ namespace Desynchronized.TNDBS
         }
 
         /// <summary>
+        /// Retrieves the TaleNews referenced by this TNRef object.
+        /// </summary>
+        public TaleNews ReferencedTaleNews
+        {
+            get
+            {
+                return DesynchronizedMain.TaleNewsDatabaseSystem?[uidOfReferencedTaleNews];
+            }
+        }
+
+        /// <summary>
         /// The underlying, actual TaleNews object that this reference is pointing to.
         /// </summary>
+        [Obsolete("Use the new int indexing method instead.", true)]
         public TaleNews UnderlyingTaleNews
         {
             get
@@ -39,6 +60,8 @@ namespace Desynchronized.TNDBS
         /// The receipient of the Underlying TaleNews.
         /// Ask your TaleNews object to generate a TaleNewsReference for your receipient.
         /// </summary>
+        /// 
+        [Obsolete("Use subject instead.", true)]
         public Pawn Recipient
         {
             get
@@ -47,14 +70,39 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        /// <summary>
+        /// The subject of this TaleNewsReference, and the recipient of the referenced TaleNews.
+        /// </summary>
+        public Pawn CachedSubject
+        {
+            get
+            {
+                return cachedSubject;
+            }
+            internal set
+            {
+                if (cachedSubject == null)
+                {
+                    cachedSubject = value;
+                }
+            }
+        }
+
         public bool ReferenceIsValid
         {
             get
             {
-                return Recipient != null && UnderlyingTaleNews != null;
+                TaleNews tempTaleNews = ReferencedTaleNews;
+                return CachedSubject != null && tempTaleNews != null && !(tempTaleNews is DefaultTaleNews);
             }
         }
 
+        public static readonly TaleNewsReference DefaultReference = new TaleNewsReference(null)
+        {
+            uidOfReferencedTaleNews = 0
+        };
+
+        [Obsolete("Use DefaultReference instead.", true)]
         public static TaleNewsReference NullReference = new TaleNewsReference()
         {
             underlyingTaleNews = null,
@@ -64,15 +112,20 @@ namespace Desynchronized.TNDBS
         /// <summary>
         /// DO NOT USE THIS CONSTRUCTOR EXPLICITLY.
         /// </summary>
+        /// 
+        [Obsolete("Rewrite code to reconstruct the TaleNewsReference properly.", true)]
         public TaleNewsReference()
         {
 
         }
 
-        [Obsolete("", true)]
-        public TaleNewsReference(TaleNews news)
+        /// <summary>
+        /// Used by RimWorld to reconstruct the TaleNewsReference when loading from save.
+        /// </summary>
+        /// <param name="subject">The owner of this TaleNewsReference</param>
+        public TaleNewsReference(Pawn subject)
         {
-            underlyingTaleNews = news;
+            CachedSubject = subject;
         }
 
         [Obsolete("", true)]
@@ -82,34 +135,66 @@ namespace Desynchronized.TNDBS
             this.recipient = recipient;
         }
 
-        public TaleNewsReference(TaleNews news, Pawn recipient)
+        public TaleNewsReference(TaleNews news, Pawn recipient): this(recipient)
         {
-            underlyingTaleNews = news;
-            this.recipient = recipient;
+            if (!news.IsRegistered)
+            {
+                throw new ArgumentException("Unregisterd TaleNews received.");
+            }
+            else
+            {
+                uidOfReferencedTaleNews = news.UniqueID;
+            }
         }
 
         public override string ToString()
         {
-            if (this == NullReference)
+            if (IsDefaultReference())
             {
-                return "Null Reference (not an Exception)";
+                return "Default Reference";
             }
             else
             {
-                return "Reference to TaleNews about " + UnderlyingTaleNews.ToString();
+                return "Reference to TaleNews about " + ReferencedTaleNews.ToString();
             }
         }
 
-        public static bool BothRefsAreEqual(TaleNewsReference one, TaleNewsReference two)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="one"></param>
+        /// <param name="two"></param>
+        /// <returns></returns>
+        /// 
+        // We are able to make this method extremely fast by switching over to the index-pointing method.
+        public static bool RefsAreEquivalent(TaleNewsReference one, TaleNewsReference two)
         {
-            return one.UnderlyingTaleNews == two.UnderlyingTaleNews;
+            return one.uidOfReferencedTaleNews == two.uidOfReferencedTaleNews;
+        }
+
+        public bool RefIsEquivalentTo(TaleNewsReference other)
+        {
+            return RefsAreEquivalent(this, other);
+        }
+
+        public bool IsReferencingTaleNews(TaleNews news)
+        {
+            return uidOfReferencedTaleNews == news.UniqueID;
         }
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref hasBeenActivated, "hasBeenActivated", false);
-            Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
-            Scribe_References.Look(ref recipient, "recipient");
+            Scribe_Values.Look(ref uidOfReferencedTaleNews, "newsUID", -1);
+            Scribe_Values.Look(ref hasBeenActivated, "activated", false);
+            // Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
+            // Scribe_References.Look(ref recipient, "recipient");
+        }
+
+        public bool IsDefaultReference()
+        {
+            // Supposedly when UID == 0 it is the default reference.
+            return uidOfReferencedTaleNews == 0;
+            // return underlyingTaleNews is DefaultTaleNews;
         }
 
         /// <summary>
@@ -119,9 +204,9 @@ namespace Desynchronized.TNDBS
         /// </summary>
         public void ActivateNews()
         {
-            if (!HasBeenActivated)
+            if (!HasEverActivated)
             {
-                UnderlyingTaleNews.ActivateForReceipient(Recipient);
+                ReferencedTaleNews.ActivateForReceipient(CachedSubject);
                 hasBeenActivated = true;
             }
         }

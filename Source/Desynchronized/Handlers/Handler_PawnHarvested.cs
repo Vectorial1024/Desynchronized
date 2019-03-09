@@ -30,22 +30,13 @@ namespace Desynchronized.Handlers
                 return;
             }
 
-            TaleNewsPawnHarvested news = new TaleNewsPawnHarvested(victim);
+            TaleNewsPawnHarvested harvestNews = new TaleNewsPawnHarvested(victim);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
-                if (DesynchronizedMain.WeAreInDevMode)
-                {
-                    FileLog.Log("Processing Pawn " + other + ", " + other.Name);
-                }
-                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
-
-                // If in the same map, activate right away
-                // otherwise, the social interaction code would take care of it
                 if (other.Map == mapOfOccurence)
                 {
-                    reference.ActivateNews();
+                    other.GetNewsKnowledgeTracker().KnowNews(harvestNews);
                 }
             }
         }

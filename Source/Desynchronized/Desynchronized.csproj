@@ -61,7 +61,9 @@
   <ItemGroup>
     <Compile Include="DesynchronizedMain.cs" />
     <Compile Include="DesynchronizedVersionTracker.cs" />
+    <Compile Include="Desynchronized_StatDefOf.cs" />
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
+    <Compile Include="Desynchronized_VersionTracker.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
     <Compile Include="Handlers\Handler_PawnBanished.cs" />
     <Compile Include="Handlers\Handler_PawnDied.cs" />
@@ -86,9 +88,11 @@
     <Compile Include="Redirection\KidnappingTaleRedirector.cs" />
     <Compile Include="Redirection\ThoughtRedirector.cs" />
     <Compile Include="TNDBS\DeathBrutality.cs" />
+    <Compile Include="TNDBS\DefaultTaleNews.cs" />
     <Compile Include="TNDBS\InstigatorInfo.cs" />
     <Compile Include="TNDBS\NewsSpreadUtility.cs" />
     <Compile Include="TNDBS\PawnKnowledgeCard.cs" />
+    <Compile Include="TNDBS\Pawn_NewsKnowledgeTracker.cs" />
     <Compile Include="TNDBS\TaleNewsColonyEstablished.cs" />
     <Compile Include="TNDBS\TaleNewsNeutralIndividual.cs" />
     <Compile Include="TNDBS\TaleNewsPawnBanished.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="TNDBS\TaleNewsNegativeIndividual.cs" />
     <Compile Include="TNDBS\TaleNewsPawnSold.cs" />
     <Compile Include="TNDBS\TaleNewsReference.cs" />
+    <Compile Include="TNDBS\TaleNewsTypeEnum.cs" />
     <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
     <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />

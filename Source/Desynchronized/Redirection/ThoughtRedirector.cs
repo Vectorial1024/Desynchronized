@@ -20,7 +20,7 @@ namespace Desynchronized.Redirection
         /// <param name="victim">The pawn of this Execution</param>
         /// <param name="def">The correct ThoughtDef as determined by ThoughtUtility</param>
         /// <param name="stage">Stage index, required to genearte the correct thought details</param>
-        [Obsolete]
+        [Obsolete("", true)]
         public static void GiveThoughtsAboutExecutionToPawn(Pawn receipient, Pawn victim, ThoughtDef def, int stage)
         {
             // FileLog.Log("Victim's corpse: " + victim.Corpse + "; the corps is inside map " + victim.Corpse.Map);
@@ -40,7 +40,7 @@ namespace Desynchronized.Redirection
         /// <param name="victim">The pawn that the ThoughtDef is about; should not be null to guarantee functionality</param>
         /// <param name="def">The actual ThoughtDef to be added</param>
         /// 
-        [Obsolete]
+        [Obsolete("", true)]
         public static void GiveThoughtsAboutBanishmentToPawn(Pawn receipient, Pawn victim, ThoughtDef def)
         {
             if (def == ThoughtDefOf.ColonistBanished || def == ThoughtDefOf.ColonistBanishedToDie || def == ThoughtDefOf.PrisonerBanishedToDie)
@@ -73,7 +73,7 @@ namespace Desynchronized.Redirection
         /// <param name="receipient">The pawn: either a Colonist or a Prisoner</param>
         /// <param name="prisoner">The prisoner that was sold; currently unused, but I see potential.</param>
         /// 
-        [Obsolete]
+        [Obsolete("", true)]
         public static void GiveThoughtsAboutPrisonerSalesToPawn(Pawn receipient, Pawn prisoner)
         {
             /*

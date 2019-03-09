@@ -6,7 +6,7 @@
     <label>news spread tendency (NST)</label>
     <description>How likely this person will spread news. Higher likeliness will result in faster news spread among people, and vice versa.</description>
     <category>PawnSocial</category>
-    <defaultBaseValue>0.02</defaultBaseValue>
+    <defaultBaseValue>0.25</defaultBaseValue>
     <minValue>0.001</minValue>
     <toStringStyle>PercentTwo</toStringStyle>
     <displayPriorityInCategory>10</displayPriorityInCategory>

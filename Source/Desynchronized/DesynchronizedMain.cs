@@ -58,6 +58,11 @@ namespace Desynchronized
             ArrivalActionAndSenderLinker = UtilityWorldObjectManager.GetUtilityWorldObject<Linker_ArrivalActionAndSender>();
             DesynchronizedVersionTracker = UtilityWorldObjectManager.GetUtilityWorldObject<DesynchronizedVersionTracker>();
             // ASDF obj = UtilityWorldObjectManager.GetUtilityWorldObject<ASDF>();
+
+            if (DesynchronizedVersionTracker.VersionOfModWithinSave < new Version(1, 4, 5, 0))
+            {
+                TaleNewsDatabaseSystem.SelfPatching_NullVictims();
+            }
         }
 
         public override void DefsLoaded()

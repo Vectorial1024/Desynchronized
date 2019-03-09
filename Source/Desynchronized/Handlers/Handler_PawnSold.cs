@@ -11,13 +11,6 @@ namespace Desynchronized.Handlers
 {
     public class Handler_PawnSold
     {
-        [Obsolete("", true)]
-        public static void HandlePawnSold(Pawn victim)
-        {
-            SendOutNotificationLetter(victim);
-            GenerateAndProcessNews(victim);
-        }
-
         public static void HandlePawnSold_ByTrade(Pawn victim, Pawn negotiator)
         {
             TaleNewsPawnSold news = new TaleNewsPawnSold(victim, (InstigatorInfo) negotiator);
@@ -49,40 +42,20 @@ namespace Desynchronized.Handlers
         /// <summary>
         /// A change in code structure results in this slight variation from the usual.
         /// </summary>
-        /// <param name="soldNews">The TaleNews object for this sales.</param>
+        /// <param name="salesNews">The TaleNews object for this sales.</param>
         /// <param name="mapOfOccurence">The Map where the sales occured/was initiated.</param>
-        private static void DistributeNews(TaleNewsPawnSold soldNews, Map mapOfOccurence)
+        private static void DistributeNews(TaleNewsPawnSold salesNews, Map mapOfOccurence)
         {
-            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
+            if (mapOfOccurence == null)
             {
-                if (other.Map == mapOfOccurence)
-                {
-                    soldNews.ActivateForReceipient(other);
-                }
+                return;
             }
-        }
 
-        /// <summary>
-        /// Generate a TaleNews for everybody.
-        /// I have no better idea right now, so this would have to suffice.
-        /// </summary>
-        /// <param name="victim"></param>
-        private static void GenerateAndProcessNews(Pawn victim)
-        {
-            TaleNewsPawnSold news = new TaleNewsPawnSold(victim);
-            // TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, (InstigatorInfo)kidnapper);
-            Map mapOfOccurence = victim.Map;
-
-            // The criteria for activating this thought is not foolproof, will need work later
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
-                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
-
-                // If the news can be given directly, do so, else store it "somewhere else".
                 if (other.Map == mapOfOccurence)
                 {
-                    reference.ActivateNews();
+                    other.GetNewsKnowledgeTracker().KnowNews(salesNews);
                 }
             }
         }

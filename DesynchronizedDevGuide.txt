@@ -61,3 +61,56 @@ The colonist will get the "Information confidence (v.strong/strong/weak/v.weak)"
 Multiplayer and What Not
 Zetrith's Multiplayer
 Phi Mod Multiplayer
+
+Additional mechanics affecting faction ratings
+Good actions boost relations (duh)
+Bad actions reduce relations (duh)
+Justified actions depends on context:
+Direct quote from u/DoomAngelBlade:
+Relationship of a pawn towards faction.
+
+
+
+If a FACTION did a raid against colony and destroyed alot of stuff - Colonists should have a mood buff when faction member was killed.
+
+"A murderer just died. World is getting brighter"
+
+"A menace is liberated. Because of that we or someone else might see another day"
+
+
+
+Or if a FACTION killed friends/relatives/love of his life/etc. - also add a "REVENGE" against faction, giving a mood boost for each of the faction member killed.
+
+"We clean the world from a trash "FACTION" is"
+
+
+
+If there is a "Radio call with a pawn chased" scenario - refusing it would impact negatively on a colonist who hates the faction that chases pawn would impact negatively on mood of a colonist.
+
+"We let those savages get an innocent person"
+
+"We look upon rapists,murderers,thieves,torturers and their actions but do nothing to protect the innocent. We should have helped"
+
+Also add proffession related relationships towards pawns.
+
+I know that there are patients who like to say F U to doctors and do nothing but.
+
+When a doctor just pulls you from death's hands - the first thing that you will do is thank the doctor, not insult him.
+
+Or your love/relative.
+
+"PAWN saved his/her life. I am thankful to PAWN".
+
+"PAWN tried to help him/her, but failed. I still respect PAWN's attempt to make it better"
+
+"PAWN failed to save him/her! That [INSULT of some kind]!"
+
+
+
+Or if a piece of defensive equipment that is worn by pawn let's him survive the attack(Flak chests,marine armors,helmets,etc.).
+
+"Because of PAWN's hard work - I will see another day"
+
+"PAWN didn't do this good. Because of him I am hurt"
+
+"He was clearly doing this terrible so I could die"

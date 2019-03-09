@@ -13,6 +13,9 @@ namespace Desynchronized.Patches
     [HarmonyPatch("Interacted", MethodType.Normal)]
     public class PostFix_InteractionWorker
     {
+        //private static int debuggingChitChatCount = 0;
+        //private static int debuggingDeepTalkCount = 0;
+
         [HarmonyPostfix]
         public static void PostFix(InteractionWorker __instance, Pawn initiator, Pawn recipient)
         {
@@ -20,18 +23,19 @@ namespace Desynchronized.Patches
             {
                 if (__instance is InteractionWorker_Chitchat chitchatWorker)
                 {
-                    if (Rand.Value <= initiator.GetActualNewsSpreadChance() || true)
+                    // debuggingChitChatCount++;
+                    if (Rand.Value <= initiator.GetActualNewsSpreadChance())
                     {
                         NewsSpreadUtility.SpreadNews(initiator, recipient, NewsSpreadUtility.SpreadMode.RANDOM);
-                        // DesynchronizedMain.LogError(initiator + " has chit-chat with " + recipient);
+                        // DesynchronizedMain.LogError(initiator + " has chit-chat with " + recipient + "; it has been the " + debuggingChitChatCount + "th chit-chat so far.");
                     }
                 }
                 else if (__instance is InteractionWorker_DeepTalk deeptalkWorker)
                 {
-                    if (Rand.Value <= initiator.GetActualNewsSpreadChance(3) || true)
+                    if (Rand.Value <= initiator.GetActualNewsSpreadChance(5))
                     {
                         NewsSpreadUtility.SpreadNews(initiator, recipient, NewsSpreadUtility.SpreadMode.DISTINCT);
-                        // DesynchronizedMain.LogError(initiator + " has deep talk with " + recipient);
+                        // DesynchronizedMain.LogError(initiator + " has deep talk with " + recipient + "; it has been the " + debuggingDeepTalkCount + "th deep-talk so far.");
                     }
                 }
             }

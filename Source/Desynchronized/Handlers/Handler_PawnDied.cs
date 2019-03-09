@@ -26,21 +26,19 @@ namespace Desynchronized.Handlers
              * 
              * [General Case] ?? [General Case (victim died before code)] ?? [Victim died in Embrace (ewww)]
              */
-            TaleNewsPawnDied news = TaleNewsPawnDied.GenerateGenerally(victim, dinfo);
-            Map mapOfOccurence = victim.Map ?? victim.Corpse?.Map ?? victim.CarriedBy?.Map ?? null;
+            Map mapOfOccurence = victim.Map ?? victim.Corpse?.Map ?? victim.CarriedBy?.Map;
             if (mapOfOccurence == null)
             {
                 return;
             }
 
+            TaleNewsPawnDied deathNews = TaleNewsPawnDied.GenerateGenerally(victim, dinfo);
+
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
-                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
-
                 if (other.Map == mapOfOccurence)
                 {
-                    reference.ActivateNews();
+                    other.GetNewsKnowledgeTracker().KnowNews(deathNews);
                 }
             }
         }

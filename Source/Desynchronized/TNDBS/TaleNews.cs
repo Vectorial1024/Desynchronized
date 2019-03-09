@@ -30,6 +30,8 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public static readonly TaleNews DefaultTaleNews = new DefaultTaleNews();
+
         /// <summary>
         /// DO NOT USE THIS CONSTRUCTOR
         /// </summary>
@@ -41,7 +43,14 @@ namespace Desynchronized.TNDBS
 
         public TaleNews(int dummy)
         {
-            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTale(this);
+            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
+        }
+
+        public static TaleNews GenerateTaleNewsGenerally(TaleNewsTypeEnum typeEnum)
+        {
+            TaleNews newsInstance = Activator.CreateInstance(typeEnum.GetTypeForEnum()) as TaleNews;
+            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(newsInstance);
+            return newsInstance;
         }
 
         public override string ToString()
@@ -55,6 +64,15 @@ namespace Desynchronized.TNDBS
             ConductSaveFileIO();
         }
 
+        internal void ReceiveRegistrationID(int ID)
+        {
+            if (!IsRegistered)
+            {
+                uniqueID = ID;
+            }
+        }
+
+        [Obsolete("Security has tightened.", true)]
         public void BecomeRegistered(int ID)
         {
             if (!IsRegistered)

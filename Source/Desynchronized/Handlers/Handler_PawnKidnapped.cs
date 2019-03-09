@@ -30,8 +30,10 @@ namespace Desynchronized.Handlers
         /// 
         private static void GenerateAndProcessNews(Pawn victim, Pawn kidnapper)
         {
-            TaleNewsPawnKidnapped news = new TaleNewsPawnKidnapped(victim, kidnapper);
+            // The map can't possibly be null;
+            // I don;t think the player can abandon the map in the middle/at the end of a firefight.
             Map mapOfOccurence = kidnapper.Map;
+            TaleNewsPawnKidnapped kidnapNews = new TaleNewsPawnKidnapped(victim, kidnapper);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
@@ -41,13 +43,9 @@ namespace Desynchronized.Handlers
                     continue;
                 }
 
-                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
-
-                // If the news can be given directly, do so, else store it "somewhere else".
                 if (other.Map == mapOfOccurence)
                 {
-                    reference.ActivateNews();
+                    other.GetNewsKnowledgeTracker().KnowNews(kidnapNews);
                 }
             }
         }

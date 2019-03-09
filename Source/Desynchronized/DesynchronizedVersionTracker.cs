@@ -9,7 +9,26 @@ namespace Desynchronized
 {
     public class DesynchronizedVersionTracker : UtilityWorldObject
     {
+        // We will do "previous version" and "current version"
+
         private string versionOfMod;
+
+        public Version VersionOfModWithinSave
+        {
+            get
+            {
+                if (versionOfMod == null)
+                {
+                    return new Version(0, 0, 0, 0);
+                }
+                else
+                {
+                    return new Version(versionOfMod);
+                }
+            }
+        }
+
+        public static Version CurrentVersion => typeof(DesynchronizedMain).Assembly.GetName().Version;
 
         public string VersionOfMod
         {
@@ -27,19 +46,23 @@ namespace Desynchronized
 
         public override void ExposeData()
         {
+            // Actually IO-ing
             base.ExposeData();
-            Scribe_Values.Look(ref versionOfMod, "versionOfMod", typeof(DesynchronizedMain).Assembly.GetName().Version.ToString());
-            Version versionWithinSaveFile = new Version(versionOfMod);
+            Scribe_Values.Look(ref versionOfMod, "versionOfMod");
+            // DesynchronizedMain.LogError("It is now " + Scribe.mode);
+            // DesynchronizedMain.LogError("Saved with version (string) " + versionOfMod);
 
-            // Sanity check; only do this after the vars are loaded.
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            // The actual processing
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
-                if (versionWithinSaveFile <= new Version(1, 4, 0, 0))
+                // For some reason this value did not get included in the save-file.
+                // Just making sure the string is stored properly, so it could be saved properly too.
+                if (versionOfMod == null)
                 {
-                    // Fixing the bug: Forgetting to initialize the Pawn Knowledge List
-                    DesynchronizedMain.TaleNewsDatabaseSystem.PopulatePawnKnowledgeMapping();
+                    versionOfMod = typeof(DesynchronizedMain).Assembly.GetName().Version.ToString();
                 }
             }
+            // DesynchronizedMain.LogError("Ending phase; string is " + VersionOfMod);
         }
     }
 }

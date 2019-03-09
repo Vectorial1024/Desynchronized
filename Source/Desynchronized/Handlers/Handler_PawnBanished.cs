@@ -23,17 +23,19 @@ namespace Desynchronized.Handlers
 
         private static void GenerateAndProcessNews(Pawn victim, bool banishmentIsDeadly)
         {
-            TaleNewsPawnBanished news = new TaleNewsPawnBanished(victim, banishmentIsDeadly);
             Map mapOfOccurence = victim.Map;
+            if (mapOfOccurence == null)
+            {
+                return;
+            }
+
+            TaleNewsPawnBanished banishmentNews = new TaleNewsPawnBanished(victim, banishmentIsDeadly);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
-                TaleNewsReference reference = news.CreateReferenceForReceipient(other);
-                DesynchronizedMain.TaleNewsDatabaseSystem.LinkNewsReferenceToPawn(reference, other);
-
                 if (other.Map == mapOfOccurence)
                 {
-                    reference.ActivateNews();
+                    other.GetNewsKnowledgeTracker().KnowNews(banishmentNews);
                 }
             }
         }

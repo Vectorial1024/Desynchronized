@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using Desynchronized.TNDBS;
+using RimWorld;
 using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
@@ -170,29 +171,7 @@ namespace Desynchronized
         /// <returns></returns>
         public static float GetBaseNewsSpreadChance(this Pawn instance)
         {
-            TraitSet traitSet = instance.story.traits ?? null;
-            if (traitSet == null)
-            {
-                return 0;
-            }
-            else
-            {
-                if (false)
-                {
-                    // Gossiper (or Socialiser) trait
-                    return 0.05f;
-                }
-                else if (false)
-                {
-                    // Psychopath or Secret-keeper
-                    return 0.005f;
-                }
-                else
-                {
-                    // Normal people
-                    return 0.02f;
-                }
-            }
+            return instance.GetStatValue(Desynchronized_StatDefOf.NewsSpreadTendency);
         }
 
         /// <summary>
@@ -213,6 +192,26 @@ namespace Desynchronized
              * And suprisingly, the resulting formula is quite simple.
              */
             return 1 - Mathf.Pow(1 - GetBaseNewsSpreadChance(instance), iterations);
+        }
+
+        public static Pawn_NewsKnowledgeTracker GetNewsKnowledgeTracker(this Pawn instance)
+        {
+            if (instance == null)
+            {
+                return null;
+            }
+            List<Pawn_NewsKnowledgeTracker> masterList = DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList;
+            foreach (Pawn_NewsKnowledgeTracker tracker in masterList)
+            {
+                if (tracker.Pawn == instance)
+                {
+                    return tracker;
+                }
+            }
+
+            Pawn_NewsKnowledgeTracker newTracker = Pawn_NewsKnowledgeTracker.GenerateNewTrackerForPawn(instance);
+            DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList.Add(newTracker);
+            return newTracker;
         }
     }
 }

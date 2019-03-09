@@ -6,6 +6,7 @@ using Verse;
 
 namespace Desynchronized.TNDBS
 {
+    [Obsolete("Use Pawn_NewsKnowledgeTracker instead.")]
     public class PawnKnowledgeCard : IExposable
     {
         private Pawn subject;
@@ -62,7 +63,7 @@ namespace Desynchronized.TNDBS
 
         public void ReceiveReference(TaleNewsReference reference)
         {
-            if (reference != TaleNewsReference.NullReference)
+            if (reference != null && !reference.IsDefaultReference())
             {
                 KnowledgeList.Add(reference);
             }
