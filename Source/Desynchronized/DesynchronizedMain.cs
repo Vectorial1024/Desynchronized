@@ -1,5 +1,6 @@
 ﻿using Desynchronized.Handlers;
 using Desynchronized.TNDBS;
+using Desynchronized.Utilities;
 using HugsLib;
 using HugsLib.Settings;
 using HugsLib.Utils;
@@ -38,6 +39,8 @@ namespace Desynchronized
 
         private SettingHandle<bool> toggle;
 
+        public static readonly string Desync_PawnIsReferencedString = "Desync_ReferencedByTaleNews";
+
         // public static InformationKnowledgeStorage InfoKnowStorage { get; private set; }
         public static TaleNewsDatabase TaleNewsDatabaseSystem { get; private set; }
         public static Linker_ArrivalActionAndSender ArrivalActionAndSenderLinker { get; private set; }
@@ -49,6 +52,7 @@ namespace Desynchronized
         [Obsolete("For testing only.")]
         // public static SettingHandle<EnumTest> SettingHandle_EnumTest { get; private set; }
         public static bool LocalizedNews => SettingHandle_LocalizedNews;
+        public static HallOfFigures TheHallOfFigures { get; private set; }
 
         public override void WorldLoaded()
         {
@@ -57,12 +61,14 @@ namespace Desynchronized
             TaleNewsDatabaseSystem = UtilityWorldObjectManager.GetUtilityWorldObject<TaleNewsDatabase>();
             ArrivalActionAndSenderLinker = UtilityWorldObjectManager.GetUtilityWorldObject<Linker_ArrivalActionAndSender>();
             DesynchronizedVersionTracker = UtilityWorldObjectManager.GetUtilityWorldObject<DesynchronizedVersionTracker>();
+            TheHallOfFigures = UtilityWorldObjectManager.GetUtilityWorldObject<HallOfFigures>();
             // ASDF obj = UtilityWorldObjectManager.GetUtilityWorldObject<ASDF>();
 
             if (DesynchronizedVersionTracker.VersionOfModWithinSave < new Version(1, 4, 5, 0))
             {
                 TaleNewsDatabaseSystem.SelfPatching_NullVictims();
             }
+            TaleNewsDatabaseSystem.SelfVerify();
         }
 
         public override void DefsLoaded()

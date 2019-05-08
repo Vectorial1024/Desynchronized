@@ -13,9 +13,30 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string GetNewsIdentifier()
         {
             return "Default TaleNews";
+        }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
+
+        internal override void SelfVerify()
+        {
+            // No need to self-verify; this is always valid.
+            return;
+        }
+
+        public override bool PawnIsInvolved(Pawn pawn)
+        {
+            return false;
         }
 
         protected override void ConductSaveFileIO()

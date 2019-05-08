@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desynchronized.TNDBS.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace Desynchronized.TNDBS
         [Obsolete("Use subject instead.", true)]
         private Pawn recipient;
         private Pawn cachedSubject;
+        private WitnessShockGrade shockGrade;
+        private int tickReceived;
 
         /// <summary>
         /// True if the Receipient has reacted to the Underlying TaleNews before.
@@ -88,12 +91,28 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public int TickReceived
+        {
+            get
+            {
+                return tickReceived;
+            }
+        }
+
         public bool ReferenceIsValid
         {
             get
             {
                 TaleNews tempTaleNews = ReferencedTaleNews;
                 return CachedSubject != null && tempTaleNews != null && !(tempTaleNews is DefaultTaleNews);
+            }
+        }
+
+        public WitnessShockGrade ShockGrade
+        {
+            get
+            {
+                return shockGrade;
             }
         }
 
@@ -182,10 +201,18 @@ namespace Desynchronized.TNDBS
             return uidOfReferencedTaleNews == news.UniqueID;
         }
 
+        internal void ChangeReferencedUID(int newID)
+        {
+            uidOfReferencedTaleNews = newID;
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref uidOfReferencedTaleNews, "newsUID", -1);
             Scribe_Values.Look(ref hasBeenActivated, "activated", false);
+            Scribe_Values.Look(ref shockGrade, "shockGrade", WitnessShockGrade.BY_NEWS);
+            // test
+            Scribe_Values.Look(ref tickReceived, "tickReceived", Find.TickManager.TicksGame);
             // Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
             // Scribe_References.Look(ref recipient, "recipient");
         }
@@ -202,12 +229,15 @@ namespace Desynchronized.TNDBS
         /// <para/>
         /// Will do nothing if the news has already been activated before.
         /// </summary>
-        public void ActivateNews()
+        public void ActivateNews(WitnessShockGrade shockGrade)
         {
+            this.shockGrade = shockGrade;
+
             if (!HasEverActivated)
             {
                 ReferencedTaleNews.ActivateForReceipient(CachedSubject);
                 hasBeenActivated = true;
+                tickReceived = Find.TickManager.TicksGame;
             }
         }
 

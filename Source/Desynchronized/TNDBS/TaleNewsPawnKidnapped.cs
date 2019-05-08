@@ -99,5 +99,11 @@ namespace Desynchronized.TNDBS
             }
             // TODO
         }
+
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            // Placeholder
+            return 3;
+        }
     }
 }

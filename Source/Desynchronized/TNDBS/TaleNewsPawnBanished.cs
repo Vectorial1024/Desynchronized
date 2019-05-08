@@ -109,5 +109,11 @@ namespace Desynchronized.TNDBS
                 recipient.needs.mood.thoughts.memories.TryGainMemory(thoughtDefToGain, BanishmentVictim);
             }
         }
+
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            // Placeholder
+            return 3;
+        }
     }
 }

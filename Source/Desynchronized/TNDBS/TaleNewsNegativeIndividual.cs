@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desynchronized.TNDBS.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,7 +48,7 @@ namespace Desynchronized.TNDBS
 
         }
 
-        public TaleNewsNegativeIndividual(Pawn victim, InstigatorInfo instigInfo): base(167)
+        public TaleNewsNegativeIndividual(Pawn victim, InstigatorInfo instigInfo): base(new LocationInfo(victim.MapHeld, victim.PositionHeld))
         {
             primaryVictim = victim;
             InstigatorInfo = instigInfo;
@@ -65,6 +66,33 @@ namespace Desynchronized.TNDBS
         {
             Scribe_References.Look(ref primaryVictim, "primaryVictim", true);
             Scribe_Deep.Look(ref instigatorInfo, "instigatorInfo");
+        }
+
+        public override bool PawnIsInvolved(Pawn pawn)
+        {
+            if (PrimaryVictim != null && pawn == PrimaryVictim)
+            {
+                return true;
+            }
+            if (Instigator != null && pawn == Instigator)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public override bool IsValid()
+        {
+            return (PrimaryVictim != null);
+        }
+
+        internal override void SelfVerify()
+        {
+            if (LocationOfOccurence == null)
+            {
+                LocationOfOccurence = LocationInfo.EmptyLocationInfo;
+            }
         }
     }
 }

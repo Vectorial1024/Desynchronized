@@ -1,7 +1,7 @@
 // v1.4: The TNDBS
 v1.4.0: TNDBS [Done]
 v1.4.1: New Traits (Spreading Only) [Done]
-v1.4.1.1: AllowTool compatibility (FinishOff job driver)
+v1.4.1.1: AllowTool compatibility (FinishOff job driver) [Done]
 v1.4.2: Schizophrenia/Dementia, Forgetfulness, and News Relevance
 v1.4.3: User Interface to read the Tale-News
 // v1.5: Life, Death, and Well-Being

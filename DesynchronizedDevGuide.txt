@@ -114,3 +114,8 @@ Or if a piece of defensive equipment that is worn by pawn let's him survive the 
 "PAWN didn't do this good. Because of him I am hurt"
 
 "He was clearly doing this terrible so I could die"
+
+Alignment, Aspiration, and Faction reputation
+ach action taken by your colonists will generate alignment points
+enough alignment points, and you gain an aspiration
+faction reputation can be reshaped to reflect how they view your ideas. Compatible alignments get higher points, incompatible ones lower points

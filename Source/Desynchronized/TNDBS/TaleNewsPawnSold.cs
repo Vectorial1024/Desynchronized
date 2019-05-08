@@ -24,6 +24,12 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            // Placeholder
+            return 3;
+        }
+
         public override string GetNewsIdentifier()
         {
             return "Pawn Sold";
@@ -65,6 +71,15 @@ namespace Desynchronized.TNDBS
                     {
                         recipient.needs.mood.thoughts.memories.TryGainMemory(soldThought, Instigator);
                     }
+                }
+
+                // Remove marriage-related memories, etc.
+                Pawn spouse = PrimaryVictim.GetSpouse();
+                if (spouse != null && recipient == spouse && !recipient.Dead)
+                {
+                    MemoryThoughtHandler memories = recipient.needs.mood.thoughts.memories;
+                    memories.RemoveMemoriesOfDef(ThoughtDefOf.GotMarried);
+                    memories.RemoveMemoriesOfDef(ThoughtDefOf.HoneymoonPhase);
                 }
             }
         }

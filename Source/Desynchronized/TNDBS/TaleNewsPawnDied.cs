@@ -1,9 +1,11 @@
-﻿using RimWorld;
+﻿using Desynchronized.TNDBS.Utilities;
+using RimWorld;
 using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -40,7 +42,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        public DamageDef KillingBlowDamageType
+        public DamageDef KillingBlowDamageDef
         {
             get
             {
@@ -55,6 +57,14 @@ namespace Desynchronized.TNDBS
         public DamageInfo? DeathCause { get; }
 
         private DeathMethod methodOfDeath = DeathMethod.INDETERMINATE;
+
+        public DeathMethod MethodOfDeath
+        {
+            get
+            {
+                return methodOfDeath;
+            }
+        }
 
         public TaleNewsPawnDied()
         {
@@ -131,10 +141,113 @@ namespace Desynchronized.TNDBS
         }
 
         /// <summary>
+        /// Attempts to process this TaleNews as an execution event. Completes processing and returns true if successful; aborts and returns false otherwise.
+        /// </summary>
+        /// <param name="recipient"></param>
+        /// <returns></returns>
+        private bool TryProcessAsExecutionEvent(ref Pawn recipient)
+        {
+            bool result = false;
+
+            if (methodOfDeath == DeathMethod.EXECUTION)
+            {
+                result = true;
+
+                // Rather simple. Copied from vanilla code.
+                int forcedStage = (int)BrutalityDegree;
+                ThoughtDef thoughtToGive = Victim.IsColonist ? ThoughtDefOf.KnowColonistExecuted : ThoughtDefOf.KnowGuestExecuted;
+                recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(thoughtToGive, forcedStage), null);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Attempts to give the killer their appropriate excitement (or disappointment). Aborts if there is no killer.
+        /// </summary>
+        /// <param name="recipient"></param>
+        private void TryProcessKillerHigh(ref Pawn recipient)
+        {
+            // Killer != null => DamageInfo != null
+            if (Killer != null)
+            {
+                // Currently you can't really kill yourself.
+                // That would be something interesting, but we don't do that here.
+                if (recipient == Killer)
+                {
+                    // IDK, is this something we can consider checking?
+                    if (KillingBlowDamageDef.ExternalViolenceFor(Victim))
+                    {
+                        // Why this check tho
+                        if (recipient.story != null)
+                        {
+                            // Bloodlust thoughts for Bloodlust guys, currently only for human victims
+                            // We can expand upon this, and add in witnessed death (animals) with bloodlust
+                            if (Victim.RaceProps.Humanlike)
+                            {
+                                // Try to add Bloodlust thoughts; will be auto-rejected if recipient does not have Bloodlust
+                                new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).Add();
+
+                                // Try to add Defeated Hostile Leader thoughts
+                                if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
+                                {
+                                    new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).Add();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*
+            // Note that "animal bonds" is a type of relationships.
+            if (Killer != Victim && Killer == recipient)
+            {
+                HandleExcitementOfKiller(recipient);
+            }
+            */
+        }
+
+        /// <summary>
+        /// Attempts to give the recipient eye-witness thoughts; general thoughts otherwise.
+        /// </summary>
+        /// <param name="recipient"></param>
+        private void TryProcessEyeWitness(ref Pawn recipient)
+        {
+            // There is potential to expand upon this condition.
+            if (Victim.RaceProps.Humanlike)
+            {
+                if (recipient.CanWitnessOtherPawn(Victim))
+                {
+                    GiveOutEyewitnessThoughts(recipient);
+                }
+                else
+                {
+                    GiveOutGenericThoughts(recipient);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Attempts to give the recipient thoughts that are derived from their relationship statuses, if there are any.
+        /// </summary>
+        /// <param name="recipient"></param>
+        private void TryProcessRelationshipThoughts(ref Pawn recipient)
+        {
+            // Check if there is any relationship at all
+            if (Victim.relations.PotentiallyRelatedPawns.Contains(recipient))
+            {
+                GiveOutRelationshipBasedThoughts(recipient);
+            }
+        }
+
+        /// <summary>
         /// Handles the excitement (or disappointment) of the killer right when the kill happens.
         /// <para/>
         /// You should check legitimacy before calling this method, e.g., recipient.IsCapableOfThought()
         /// </summary>
+        /// 
+        [Obsolete("", true)]
         private void HandleExcitementOfKiller(Pawn recipient)
         {
             // Killer != null => DamageInfo != null
@@ -147,7 +260,7 @@ namespace Desynchronized.TNDBS
                     return;
                 }
 
-                if (recipient == Killer && KillingBlowDamageType.ExternalViolenceFor(Victim))
+                if (recipient == Killer && KillingBlowDamageDef.ExternalViolenceFor(Victim))
                 {
                     // Confirmed NewsReceipient is Killer
 
@@ -299,42 +412,137 @@ namespace Desynchronized.TNDBS
                 return;
             }
 
+            if (!TryProcessAsExecutionEvent(ref recipient))
+            {
+                // Someone killed another one.
+                TryProcessKillerHigh(ref recipient);
+                TryProcessEyeWitness(ref recipient);
+            }
+
+            // These are general thoughts.
+            TryProcessRelationshipThoughts(ref recipient);
+            GiveOutFriendOrRivalDiedThoughts(recipient);
+        }
+
+        /*
+        private List<Thought_Memory> DetermineMemoriesToBeAdded(Pawn recipient)
+        {
+            List<Thought_Memory> resultList = new List<Thought_Memory>();
+
+            if (!recipient.IsCapableOfThought())
+            {
+                return;
+            }
+
+            if (!TryAppendAsExecutionEvent(recipient, resultList))
+            {
+                // Someone killed another one.
+                TryProcessKillerHigh(ref recipient);
+                TryProcessEyeWitness(ref recipient);
+            }
+
+            // These are general thoughts.
+            TryProcessRelationshipThoughts(ref recipient);
+            GiveOutFriendOrRivalDiedThoughts(recipient);
+        }
+
+        private bool TryAppendAsExecutionEvent(Pawn recipient, List<Thought_Memory> io)
+        {
+            bool result = false;
+
             if (methodOfDeath == DeathMethod.EXECUTION)
             {
-                // Rather simple. Copied from vanilla code.
+                // Rather simple. Adapted from vanilla code.
                 int forcedStage = (int)BrutalityDegree;
                 ThoughtDef thoughtToGive = Victim.IsColonist ? ThoughtDefOf.KnowColonistExecuted : ThoughtDefOf.KnowGuestExecuted;
-                recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(thoughtToGive, forcedStage), null);
+                io.Add(ThoughtMaker.MakeThought(thoughtToGive, forcedStage));
+            }
+
+            return result;
+        }
+
+        private void TryAppendKillerHigh(Pawn recipient, List<Thought_Memory> io)
+        {
+            // Killer != null => DamageInfo != null
+            if (Killer != null)
+            {
+                // Currently you can't really kill yourself.
+                // That would be something interesting, but we don't do that here.
+                if (recipient == Killer)
+                {
+                    // IDK, is this something we can consider checking?
+                    if (KillingBlowDamageDef.ExternalViolenceFor(Victim))
+                    {
+                        // Why this check tho
+                        if (recipient.story != null)
+                        {
+                            // Bloodlust thoughts for Bloodlust guys, currently only for human victims
+                            // We can expand upon this, and add in witnessed death (animals) with bloodlust
+                            if (Victim.RaceProps.Humanlike)
+                            {
+                                // Try to add Bloodlust thoughts; will be auto-rejected if recipient does not have Bloodlust
+                                io.Add(new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).thought);
+
+                                // Try to add Defeated Hostile Leader thoughts
+                                if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
+                                {
+                                    io.Add(new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).thought);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*
+            // Note that "animal bonds" is a type of relationships.
+            if (Killer != Victim && Killer == recipient)
+            {
+                HandleExcitementOfKiller(recipient);
+            }
+            
+        }
+        */
+
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            // Again, this code is also a placeholder.
+
+            float result = pawn.GetSocialProximityScoreForOther(Victim);
+            // We have 2500 tick for 1 RW hour; hence, 60000 tick for 1 RW day
+            result += (int)reference.ShockGrade * Mathf.Pow(0.5f, (1.0f / (60000 * 15)) * (Find.TickManager.TicksGame - reference.TickReceived));
+            float victimKindScore = Victim.RaceProps.Animal ? 1 : 10;
+            // First determine thought by relations
+            ThoughtDef potentialGivenThought = pawn.GetMostImportantRelation(Victim)?.GetGenderSpecificDiedThought(Victim) ?? null;
+            // If there exists none, then determine by factions
+            if (potentialGivenThought == null)
+            {
+                if ((bool) pawn.Faction?.Equals(Victim.Faction))
+                {
+                    potentialGivenThought = ThoughtDefOf.KnowColonistDied;
+                }
+            }
+
+            float relationalDeathImpact;
+            if (potentialGivenThought != null)
+            {
+                relationalDeathImpact = Mathf.Abs(ThoughtMaker.MakeThought(potentialGivenThought).MoodOffset());
             }
             else
             {
-                // Note that "animal bonds" is a type of relationships.
-                if (Killer != Victim && Killer == recipient)
-                {
-                    HandleExcitementOfKiller(recipient);
-                }
-
-                // There is potential to expand upon this condition.
-                if (Victim.RaceProps.Humanlike)
-                {
-                    if (recipient.CanWitnessOtherPawn(Victim))
-                    {
-                        GiveOutEyewitnessThoughts(recipient);
-                    }
-                    else
-                    {
-                        GiveOutGenericThoughts(recipient);
-                    }
-                }
+                relationalDeathImpact = 0;
             }
 
-            // Check if there is any relationship at all to make the code clearer
-            if (Victim.relations.PotentiallyRelatedPawns.Contains(recipient))
+            float mainImpact = (victimKindScore + relationalDeathImpact);
+            mainImpact *= 1 + Mathf.Abs(((float)pawn.relations.OpinionOf(Victim)) / 50);
+            if (pawn.Faction != null)
             {
-                GiveOutRelationshipBasedThoughts(recipient);
+                mainImpact *= 1 + Mathf.Abs(((float)pawn.Faction.RelationWith(Victim.Faction).goodwill) / 50);
             }
 
-            GiveOutFriendOrRivalDiedThoughts(recipient);
+            result += mainImpact * Mathf.Pow(0.5f, (1.0f / (60000 * 15 * 4)) * (Find.TickManager.TicksGame - reference.TickReceived));
+
+            return result;
         }
     }
 }

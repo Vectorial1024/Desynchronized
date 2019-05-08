@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.Utilities;
+using Harmony;
 using HugsLib.Utils;
 using RimWorld;
 using System;
@@ -158,6 +159,13 @@ namespace Desynchronized.TNDBS
                     knowledgeTrackerMasterList = new List<Pawn_NewsKnowledgeTracker>();
                 }
             }
+
+            /*
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                SelfVerify();
+            }
+            */
             // DesynchronizedMain.LogError("After, knowledgeTrackerMasterList: " + knowledgeTrackerMasterList);
         }
 
@@ -294,6 +302,92 @@ namespace Desynchronized.TNDBS
         internal void SelfPatching_NullVictims()
         {
             ResetOrInitialize();
+        }
+
+        /// <summary>
+        /// Method used to self-verify and self-patch this TNDBS object in case when it is oaded form a previous version.
+        /// </summary>
+        internal void SelfVerify()
+        {
+            // Confirm all variables/structs are initialized.
+            if (talesOfImportance == null)
+            {
+                talesOfImportance = new List<TaleNews>();
+            }
+            if (knowledgeTrackerMasterList == null)
+            {
+                knowledgeTrackerMasterList = new List<Pawn_NewsKnowledgeTracker>();
+            }
+
+            // Validate all variables/structs
+            RemoveAllInvalidTaleNews();
+        }
+
+        private void RemoveAllInvalidTaleNews()
+        {
+            // Step 1: Identify all invalid TaleNews, and label them.
+            Dictionary<int, int> newsIDPairing = new Dictionary<int, int>();
+            int currentNewsID = 0;
+            const int invalidID = -1;
+
+            foreach (TaleNews taleNews in talesOfImportance)
+            {
+                if (taleNews.IsValid())
+                {
+                    newsIDPairing.Add(taleNews.UniqueID, currentNewsID);
+                    currentNewsID++;
+                }
+                else
+                {
+                    newsIDPairing.Add(taleNews.UniqueID, invalidID);
+                }
+            }
+
+            // Step 2: Remove all invalid TaleNewsReferences, and update valid ones to point to the new ID.
+            // Also drops invalid Pawn_NewsKnowledgeTrackers
+            for (int i = knowledgeTrackerMasterList.Count - 1; i >= 0; i--)
+            {
+                Pawn_NewsKnowledgeTracker knowledgeTracker = knowledgeTrackerMasterList[i];
+
+                if (!knowledgeTracker.IsValid())
+                {
+                    knowledgeTrackerMasterList.RemoveAt(i);
+                }
+                else
+                {
+                    for (int j = knowledgeTracker.ListOfAllKnownNews.Count - 1; j >= 0; j--)
+                    {
+                        int mappedResult = newsIDPairing[knowledgeTracker.ListOfAllKnownNews[j].ReferencedTaleNews.UniqueID];
+                        if (mappedResult == invalidID)
+                        {
+                            knowledgeTracker.ListOfAllKnownNews.RemoveAt(j);
+                        }
+                        else
+                        {
+                            knowledgeTracker.ListOfAllKnownNews[j].ChangeReferencedUID(mappedResult);
+                        }
+                    }
+                }
+            }
+
+            // Step 3: Re-enter TaleNews
+            List<TaleNews> tempList = new List<TaleNews>();
+            tempList.AddRange(talesOfImportance);
+            talesOfImportance = new List<TaleNews>();
+            nextUID = 0;
+
+            foreach (TaleNews taleNews in tempList)
+            {
+                if (newsIDPairing[taleNews.UniqueID] != invalidID)
+                {
+                    taleNews.ReRegisterWithID(nextUID);
+                    talesOfImportance.Add(taleNews);
+                    nextUID++;
+                }
+            }
+
+            // Should be ready now.
+            return;
         }
 
         // test
@@ -471,6 +565,20 @@ namespace Desynchronized.TNDBS
             FileLog.Log("System time is now " + DateTime.Now.ToShortDateString() + "; releasing results:");
             FileLog.FlushBuffer();
             */
+        }
+
+        public bool PawnIsInvolvedInSomeTaleNews(Pawn pawn)
+        {
+            int totalNewsCount = talesOfImportance.Count;
+            for (int i = 0; i < totalNewsCount; i++)
+            {
+                if (this[i].PawnIsInvolved(pawn))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -79,10 +79,14 @@
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
     <Compile Include="Patches\PostFix_TransportPods_PostAdd.cs" />
+    <Compile Include="Patches\PostFix_WorldPawnGC_PawnImportanceReason.cs" />
+    <Compile Include="Patches\PostFix_WorldPawns_RemovePawn.cs" />
     <Compile Include="Patches\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
+    <Compile Include="Patches\PreFix_PawnRelations_PreSold.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_Executions.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_GeneralThoughts.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_OrganHarvested.cs" />
+    <Compile Include="Patches\PreFix_WorldPawns_DiscardPawn.cs" />
     <Compile Include="Patches\TPAA_ExtensionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redirection\KidnappingTaleRedirector.cs" />
@@ -106,10 +110,18 @@
     <Compile Include="TNDBS\TaleNewsReference.cs" />
     <Compile Include="TNDBS\TaleNewsTypeEnum.cs" />
     <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
+    <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
+    <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
+    <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />
+    <Compile Include="TNDBS\Utilities\WitnessShockGrade.cs" />
     <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
     <Compile Include="Transpilers\Transpiler_TPAAGG_Arrived.cs" />
+    <Compile Include="Utilities\HallOfFigures.cs" />
+    <Compile Include="Utilities\TNDBS_Verifier.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TNDBS\Utilities\TempStoreTNDBS_Extension.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

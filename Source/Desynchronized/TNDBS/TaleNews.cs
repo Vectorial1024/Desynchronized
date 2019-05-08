@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using Desynchronized.TNDBS.Utilities;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Desynchronized.TNDBS
     public abstract class TaleNews: IExposable
     {
         private int uniqueID = -1;
+
+        private LocationInfo locationInfo;
 
         public int UniqueID
         {
@@ -30,6 +33,18 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public LocationInfo LocationOfOccurence
+        {
+            get
+            {
+                return locationInfo;
+            }
+            protected set
+            {
+                locationInfo = value;
+            }
+        }
+
         public static readonly TaleNews DefaultTaleNews = new DefaultTaleNews();
 
         /// <summary>
@@ -41,8 +56,15 @@ namespace Desynchronized.TNDBS
             
         }
 
+        [Obsolete("Unsafe code; use constructor with Map parameter instead.")]
         public TaleNews(int dummy)
         {
+            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
+        }
+
+        public TaleNews(LocationInfo info)
+        {
+            locationInfo = info;
             DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
         }
 
@@ -55,13 +77,24 @@ namespace Desynchronized.TNDBS
 
         public override string ToString()
         {
-            return GetNewsIdentifier() + (IsRegistered ? " (ID: " + UniqueID + ")" : "");
+            return GetNewsIdentifier() + (IsRegistered ? " (ID: " + UniqueID + ") " : " " + (LocationOfOccurence != null? "(from " + LocationOfOccurence + ")" : ""));
         }
 
         public void ExposeData()
         {
             Scribe_Values.Look(ref uniqueID, "uniqueID", -1);
+            Scribe_Deep.Look(ref locationInfo, "locationInfo");
+            if (locationInfo == null)
+            {
+                locationInfo = LocationInfo.EmptyLocationInfo;
+            }
+
             ConductSaveFileIO();
+        }
+
+        internal void ReRegisterWithID(int ID)
+        {
+            uniqueID = ID;
         }
 
         internal void ReceiveRegistrationID(int ID)
@@ -71,6 +104,8 @@ namespace Desynchronized.TNDBS
                 uniqueID = ID;
             }
         }
+
+        internal abstract void SelfVerify();
 
         [Obsolete("Security has tightened.", true)]
         public void BecomeRegistered(int ID)
@@ -123,5 +158,22 @@ namespace Desynchronized.TNDBS
         /// </summary>
         /// <returns></returns>
         public abstract string GetNewsIdentifier();
+
+        /// <summary>
+        /// Determines if the given pawn is specifically involved in this TaleNews (e.g. the victim of the murder).
+        /// <para/>
+        /// Generally-involved pawns (e.g. colony established) should not return true.
+        /// </summary>
+        /// <param name="pawn"></param>
+        /// <returns></returns>
+        public abstract bool PawnIsInvolved(Pawn pawn);
+
+        /// <summary>
+        /// Determines if the TaleNews is valid; the TaleNews should be able to convey its meaning with the variables it have.
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool IsValid();
+
+        public abstract float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference);
     }
 }

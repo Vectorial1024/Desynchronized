@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desynchronized.TNDBS.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,11 @@ namespace Desynchronized.TNDBS
             };
         }
 
+        public bool IsValid()
+        {
+            return (pawn != null);
+        }
+
         public void ExposeData()
         {
             Scribe_References.Look(ref pawn, "pawn");
@@ -75,20 +81,20 @@ namespace Desynchronized.TNDBS
         /// Finds the TaleNewsReference of the given TaleNews in the known list (or generates a new one if it does not exist), and activates it.
         /// </summary>
         /// <param name="news"></param>
-        public void KnowNews(TaleNews news)
+        public void KnowNews(TaleNews news, WitnessShockGrade shockGrade)
         {
             foreach (TaleNewsReference reference in newsKnowledgeList)
             {
                 if (reference.IsReferencingTaleNews(news))
                 {
-                    reference.ActivateNews();
+                    reference.ActivateNews(shockGrade);
                     return;
                 }
             }
 
             TaleNewsReference newReference = news.CreateReferenceForReceipient(Pawn);
             newsKnowledgeList.Add(newReference);
-            newReference.ActivateNews();
+            newReference.ActivateNews(shockGrade);
             return;
         }
 

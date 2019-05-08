@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TNDBS;
+using Desynchronized.TNDBS.Utilities;
 using RimWorld;
 using RimWorld.Planet;
 using System;
@@ -55,7 +56,7 @@ namespace Desynchronized.Handlers
             {
                 if (other.Map == mapOfOccurence)
                 {
-                    other.GetNewsKnowledgeTracker().KnowNews(salesNews);
+                    other.GetNewsKnowledgeTracker().KnowNews(salesNews, WitnessShockGrade.UNDEFINED);
                 }
             }
         }

@@ -213,5 +213,10 @@ namespace Desynchronized
             DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList.Add(newTracker);
             return newTracker;
         }
+
+        public static bool AlliedTo(this Faction self, Faction other)
+        {
+            return self.RelationKindWith(other) == FactionRelationKind.Ally;
+        }
     }
 }

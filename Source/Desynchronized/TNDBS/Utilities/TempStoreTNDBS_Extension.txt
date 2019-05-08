@@ -1,0 +1,136 @@
+﻿
+        private static TaleNewsPawnDied news;
+        private static Pawn recipient;
+        private static List<IndividualThoughtToAdd> resultList = new List<IndividualThoughtToAdd>();
+        private static Pawn Victim => news.Victim;
+        private static Pawn Killer => news.Killer;
+
+        public static IEnumerable<IndividualThoughtToAdd> CollectAllThoughtsToAdd(TaleNewsPawnDied news, Pawn recipient)
+        {
+            resultList.Clear();
+            if (!recipient.IsCapableOfThought())
+            {
+                return resultList.AsEnumerable();
+            }
+
+            TaleNewsPawnDied_Extensions.news = news;
+            TaleNewsPawnDied_Extensions.recipient = recipient;
+
+            if (!TryCollectExecutionThoughts())
+            {
+                // Someone killed another one.
+                TryCollectKillerHigh();
+                TryProcessEyeWitness(ref recipient);
+            }
+
+            // These are general thoughts.
+            TryProcessRelationshipThoughts(ref recipient);
+            GiveOutFriendOrRivalDiedThoughts(recipient);
+        }
+
+        private static bool TryCollectExecutionThoughts()
+        {
+            bool result = false;
+
+            if (news.MethodOfDeath == DeathMethod.EXECUTION)
+            {
+                result = true;
+
+                // Rather simple. Copied from vanilla code.
+                int forcedStage = (int)news.BrutalityDegree;
+                ThoughtDef thoughtToGive = Victim.IsColonist ? ThoughtDefOf.KnowColonistExecuted : ThoughtDefOf.KnowGuestExecuted;
+                IndividualThoughtToAdd tempThought = new IndividualThoughtToAdd(thoughtToGive, recipient);
+                tempThought.thought.SetForcedStage(forcedStage);
+                resultList.Add(tempThought);
+            }
+
+            return result;
+        }
+
+        private static void TryCollectKillerHigh()
+        {
+            // Killer != null => DamageInfo != null
+            if (Killer != null)
+            {
+                // Currently you can't really kill yourself.
+                // That would be something interesting, but we don't do that here.
+                if (recipient == Killer)
+                {
+                    // IDK, is this something we can consider checking?
+                    if (news.KillingBlowDamageDef.ExternalViolenceFor(Victim))
+                    {
+                        // Why this check tho
+                        if (recipient.story != null)
+                        {
+                            // Bloodlust thoughts for Bloodlust guys, currently only for human victims
+                            // We can expand upon this, and add in witnessed death (animals) with bloodlust
+                            if (Victim.RaceProps.Humanlike)
+                            {
+                                // Try to add Bloodlust thoughts; preliminarily reject if recipient does not have Bloodlust
+                                if (recipient.story.traits.HasTrait(TraitDefOf.Bloodlust))
+                                {
+                                    resultList.Add(new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient));
+                                }
+
+                                // Try to add Defeated Hostile Leader thoughts
+                                if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
+                                {
+                                    resultList.Add(new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*
+            // Note that "animal bonds" is a type of relationships.
+            if (Killer != Victim && Killer == recipient)
+            {
+                HandleExcitementOfKiller(recipient);
+            }
+            */
+        }
+
+        private static void TryCollectEyeWitnesses()
+        {
+            // There is potential to expand upon this condition.
+            if (Victim.RaceProps.Humanlike)
+            {
+                if (recipient.CanWitnessOtherPawn(Victim))
+                {
+                    // Witnessing.
+                    if (recipient.Faction == Victim.Faction)
+                    {
+                        resultList.Add(new IndividualThoughtToAdd(ThoughtDefOf.WitnessedDeathAlly, recipient));
+                    }
+                    else if (Victim.Faction == null || !Victim.Faction.HostileTo(recipient.Faction))
+                    {
+                        resultList.Add(new IndividualThoughtToAdd(ThoughtDefOf.WitnessedDeathNonAlly, recipient));
+                    }
+                    if (recipient.relations.FamilyByBlood.Contains(Victim))
+                    {
+                        resultList.Add(new IndividualThoughtToAdd(ThoughtDefOf.WitnessedDeathFamily, recipient));
+                    }
+                    if (recipient.story.traits.HasTrait())
+                    {
+
+                    }
+                    new IndividualThoughtToAdd(ThoughtDefOf.WitnessedDeathBloodlust, recipient).Add();
+                }
+                else
+                {
+                    // Generic.
+                    if (Victim.Faction == Faction.OfPlayer && Victim.Faction == recipient.Faction && Victim.HostFaction != recipient.Faction)
+                    {
+                        recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.KnowColonistDied, Victim);
+                    }
+                    bool prisonerIsInnocent = Victim.IsPrisonerOfColony && !Victim.guilt.IsGuilty && !Victim.InAggroMentalState;
+                    if (prisonerIsInnocent && recipient.Faction == Faction.OfPlayer && !recipient.IsPrisoner)
+                    {
+                        recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.KnowPrisonerDiedInnocent, Victim);
+                    }
+                    GiveOutGenericThoughts(recipient);
+                }
+            }
+        }

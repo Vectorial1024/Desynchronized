@@ -3,7 +3,7 @@
 	<!-- Use either "\n" or XML whitespace return to make linebreaks; both method works -->
 
 	<HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
-		<modNameReadable>Desynchronized</modNameReadable>
+		<modNameReadable>Desynchronized: Tales and News</modNameReadable>
 		<modIdentifier>com.vectorial1024.rimworld.desynchronized</modIdentifier>
 		<linkUrl>https://github.com/Vectorial1024/Desynchronized</linkUrl>
 	</HugsLib.UpdateFeatureDef>
@@ -136,6 +136,26 @@ The Scheme filteres information about the following events that originate from o
 - Changed feature: Increased the number of dice throw from 3 to 5 for Deep Talk news spread checking
 - Changed data structure to minimize size of data inside save-files
 - Some underlying API changes here and there|The bugs that this version patches has essentially made all the previous TaleNews entries useless. Hence, previous entries of TaleNews will be discarded; your colonists will receive TaleNews correctly with a fresh start.|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_4_6</defName>
+		<assemblyVersion>1.4.6</assemblyVersion>
+		<content>Version 1.4.6 is hastily pushed out in response to the unending inconclusive bug reports that I have been receiving since time immemorial.|- Restructured code of TaleNewsPawnDied.GiveThoughtsToReceipient in an attempt to make bug logs clearer and more sensible|For those that have reported errors of "Cannot give thoughts; something went wrong", please reproduce the error and post the log. The log you obtain this time should be slightly different than before.|If you would like to include your error logs when reporting bugs, please use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_5_0</defName>
+		<assemblyVersion>1.5.0</assemblyVersion>
+		<content>So many things have happened since the last proper update, and so much uncertainty await in the future, and here we are, packing version 1.5.0 for all to use.|- New feature: Pawns referenced by TaleNews will be kept by the game as world pawns
+- Hence, fixed bug: No more NullReferenceException when passing news (finally)
+- New feature: This mod will verify and fix most of its data when a savefile is loaded to make sure only valid data is loaded by the game
+- New feature: Pawns now assign a "news importance" score to every news they have received
+- New feature: News that have a higher importance score will be more likely to be transmitted
+- New feature: The news importance of pawn's death depends on several factors, but it mainly depends on the relationship between the news receiver and the victim
+- Note: News importance will naturally decay over time
+- Note: Other news types currently have place-holder, constant importance scores
+- Fixed bug: Selling pawns to other factions should no longer give "Loved one sold" thoughts to pawns off-map|With the newly-implemented, standardized self-verification feature, this update does not require you to start a new game. However, the self-verification will remove most of the existing TaleNews about pawn death because most of them are invalid; the victims they are describing are already discarded by the game, so the TaleNews become invalid. A handful of TaleNews are not affected, especially those about recent deaths (deaths in the last 24 in-game hours).|Colonies that rely on hunting and butchering will be most affected by this update since their games and poultries are forcibly retained even after their death. Hence, the next update will introduce "forgetfulness" to pawns. News with low importance will be "forgotten", allowing the dead to finally rest and pass on.|If you would like to include your error logs when reporting bugs, you are recommended to use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
 	
     <!--

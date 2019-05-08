@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desynchronized.TNDBS.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,7 @@ namespace Desynchronized.TNDBS
 
         private static void SelectNewsRandomly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
+            // Is now weighted random.
             List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().ListOfAllKnownNews;
             // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(initiator);
 
@@ -51,7 +53,43 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                result = listInitiator[(int)((uint)Rand.Int % listInitiator.Count)];
+                // Collect weights
+                List<float> weights = new List<float>();
+                float weightSum = 0;
+                foreach (TaleNewsReference reference in listInitiator)
+                {
+                    float importance = reference.ReferencedTaleNews.CalculateNewsImportanceForPawn(initiator, reference);
+                    weights.Add(importance);
+                    weightSum += importance;
+                }
+
+                // Normalize weights
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    weights[i] /= weightSum;
+                }
+
+                // Select index
+                float randomChoice = Rand.Value;
+                int selectedIndex = -1;
+                weightSum = 0;
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    float temp = weights[i];
+                    if (temp == 0)
+                    {
+                        continue;
+                    }
+
+                    weightSum += temp;
+                    if (temp >= randomChoice)
+                    {
+                        selectedIndex = i;
+                        break;
+                    }
+                }
+
+                result = listInitiator[selectedIndex];
             }
         }
 
@@ -95,7 +133,7 @@ namespace Desynchronized.TNDBS
                 return;
             }
 
-            receiver.GetNewsKnowledgeTracker().KnowNews(news.ReferencedTaleNews);
+            receiver.GetNewsKnowledgeTracker().KnowNews(news.ReferencedTaleNews, WitnessShockGrade.BY_NEWS);
         }
     }
 }

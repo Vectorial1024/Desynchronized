@@ -19,6 +19,12 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
+        {
+            // Placeholder
+            return 3;
+        }
+
         public override string GetNewsIdentifier()
         {
             return "Pawn Organ-Harvested";
