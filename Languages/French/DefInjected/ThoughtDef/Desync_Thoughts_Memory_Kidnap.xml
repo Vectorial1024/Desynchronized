@@ -3,7 +3,7 @@
   <!-- EN: colonist kidnapped -->
   <KnowColonistKidnapped.stages.colonist_kidnapped.label>coloniste kidnappé</KnowColonistKidnapped.stages.colonist_kidnapped.label>
   <!-- EN: One of our people was kidnapped. I don't feel safe staying around. -->
-  <KnowColonistKidnapped.stages.colonist_kidnapped.description>Un des nôtres a été kidnappé. Je ne trouve pas sûr de rester dans les environs.</KnowColonistKidnapped.stages.colonist_kidnapped.description>
+  <KnowColonistKidnapped.stages.colonist_kidnapped.description>Un des nôtres a été kidnappé. Je ne me sens pas en sécurité ici.</KnowColonistKidnapped.stages.colonist_kidnapped.description>
   
   <!-- EN: my friend {0} was kidnapped -->
   <PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>Mon ami(e) {0} a été kidnappé(e)</PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>
