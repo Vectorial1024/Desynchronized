@@ -3,7 +3,7 @@
   <!-- EN: colonist kidnapped -->
   <KnowColonistKidnapped.stages.colonist_kidnapped.label>coloniste kidnappé</KnowColonistKidnapped.stages.colonist_kidnapped.label>
   <!-- EN: One of our people was kidnapped. I don't feel safe staying around. -->
-  <KnowColonistKidnapped.stages.colonist_kidnapped.description>Un des notres a été kidnappé Je ne trouve pas sûr de rester dans les environs.</KnowColonistKidnapped.stages.colonist_kidnapped.description>
+  <KnowColonistKidnapped.stages.colonist_kidnapped.description>Un des nôtres a été kidnappé. Je ne trouve pas sûr de rester dans les environs.</KnowColonistKidnapped.stages.colonist_kidnapped.description>
   
   <!-- EN: my friend {0} was kidnapped -->
   <PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>Mon ami(e) {0} a été kidnappé(e).</PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>
@@ -18,7 +18,7 @@
   <!-- EN: my son {0} was kidnapped -->
   <MySonWasKidnapped.stages.my_son_was_kidnapped.label>Mon fils {0} a été kidnappé.</MySonWasKidnapped.stages.my_son_was_kidnapped.label>
   <!-- EN: My son was kidnapped. My own flesh and blood... -->
-  <MySonWasKidnapped.stages.my_son_was_kidnapped.description>Mon fils a été kidnappé Ma propre chair.. sang...</MySonWasKidnapped.stages.my_son_was_kidnapped.description>
+  <MySonWasKidnapped.stages.my_son_was_kidnapped.description>Mon fils a été kidnappé. Ma propre chair.. sang...</MySonWasKidnapped.stages.my_son_was_kidnapped.description>
   
   <!-- EN: my daughter {0} was kidnapped -->
   <MyDaughterWasKidnapped.stages.my_daughter_was_kidnapped.label>Ma fille {0} a été kidnappée.</MyDaughterWasKidnapped.stages.my_daughter_was_kidnapped.label>
@@ -28,7 +28,7 @@
   <!-- EN: my husband {0} was kidnapped -->
   <MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.label>Mon époux {0} a été kidnappé.</MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.label>
   <!-- EN: My husband was kidnapped. I am alone. -->
-  <MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.description>Mon époux a été kidnappé.Je suis seule..</MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.description>
+  <MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.description>Mon époux a été kidnappé. Je suis seule..</MyHusbandWasKidnapped.stages.my_husband_was_kidnapped.description>
   
   <!-- EN: my wife {0} was kidnapped -->
   <MyWifeWasKidnapped.stages.my_wife_was_kidnapped.label>Ma femme {0} a été kidnappée.</MyWifeWasKidnapped.stages.my_wife_was_kidnapped.label>
@@ -38,7 +38,7 @@
   <!-- EN: my fiance {0} was kidnapped -->
   <MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.label>Mon fiancé {0} a été kidnappé.</MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.label>
   <!-- EN: My fiance was kidnapped. Such a man... who knows what torture awaits him? -->
-  <MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.description>Mon fiancé a été kidnappé Un tel homme... Qui sait quelle torture l'attend?</MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.description>
+  <MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.description>Mon fiancé a été kidnappé. Un tel homme... Qui sait quelle torture l'attend?</MyFianceWasKidnapped.stages.my_fiance_was_kidnapped.description>
   
   <!-- EN: my fiancée {0} was kidnapped -->
   <MyFianceeWasKidnapped.stages.my_fiance_died.label>Ma fiancée {0} a été kidnappée.</MyFianceeWasKidnapped.stages.my_fiance_died.label>
@@ -46,7 +46,7 @@
   <MyFianceeWasKidnapped.stages.my_fiance_died.description>Ma fiancée a été kidnappée. Une telle femme... Qui sait quelle torture l'attend?</MyFianceeWasKidnapped.stages.my_fiance_died.description>
   
   <!-- EN: my lover {0} was kidnapped -->
-  <MyLoverWasKidnapped.stages.my_lover_was_kidnapped.label>Mon amour {0} a été kidnappé.</MyLoverWasKidnapped.stages.my_lover_was_kidnapped.label>
+  <MyLoverWasKidnapped.stages.my_lover_was_kidnapped.label>Mon amour {0} a été kidnappé(e).</MyLoverWasKidnapped.stages.my_lover_was_kidnapped.label>
   <!-- EN: My lover was kidnapped. I am so alone. -->
   <MyLoverWasKidnapped.stages.my_lover_was_kidnapped.description>Mon amour a été kidnappé(e). Je suis tellement seul(e).</MyLoverWasKidnapped.stages.my_lover_was_kidnapped.description>
   
