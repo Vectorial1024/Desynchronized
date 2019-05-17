@@ -8,12 +8,12 @@
   <!-- EN: my friend {0} was kidnapped -->
   <PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>Mon {0_gender ? ami : amie} {0} a été kidnapp{0_gender ? é : ée }.</PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.label>
   <!-- EN: Such a wonderful person, falling into enemy's hands. Will I ever see them again? -->
-  <PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.description>Une personne si merveilleuse, tombant entre les mains de l'ennemi. Le/La reverrai-je un jour ?</PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.description>
+  <PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.description>Une personne si merveilleuse, tombant entre les mains de l'ennemi. {0_gender ? Le : La } reverrai-je un jour ?</PawnWithGoodOpinionWasKidnapped.stages.my_friend_was_kidnapped.description>
   
   <!-- EN: my rival {0} was kidnapped -->
   <PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.label>Mon rival {0} a été kidnapp{0_gender ? é : ée }.</PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.label>
   <!-- EN: One of our people was kidnapped. I don't feel safe staying around. -->
-  <PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.description>Bien fait. Au moins je ne suis pas prêt de le/la revoir pendant un moment.</PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.description>
+  <PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.description>Bien fait. Au moins je ne suis pas prê{PAWN_gender ? t : te } de {0_gender ? le : la } revoir pendant un moment.</PawnWithBadOpinionWasKidnapped.stages.my_rival_was_kidnapped.description>
   
   <!-- EN: my son {0} was kidnapped -->
   <MySonWasKidnapped.stages.my_son_was_kidnapped.label>Mon fils {0} a été kidnappé.</MySonWasKidnapped.stages.my_son_was_kidnapped.label>
