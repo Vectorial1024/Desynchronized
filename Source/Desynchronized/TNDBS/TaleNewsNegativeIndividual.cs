@@ -39,7 +39,7 @@ namespace Desynchronized.TNDBS
         {
             get
             {
-                return InstigatorInfo.Instigator;
+                return InstigatorInfo.InstigatingPawn;
             }
         }
 

@@ -19,7 +19,9 @@ namespace Desynchronized.Patches
         [HarmonyPostfix]
         public static void PostFix(Pawn __instance, Pawn kidnapper)
         {
+            //Handler_PawnKidnapped.Signal_DefensiveBattle_PawnKidnapped(__instance.MapHeld);
             Handler_PawnKidnapped.HandlePawnKidnapped(__instance, kidnapper);
+            //Handler_PawnKidnapped.Signal_ClearSignal();
             // PawnKidnappedThoughtsUtility.OnPawnAboutToBeKidnapped_Rudimentary(__instance, kidnapper);
         }
     }

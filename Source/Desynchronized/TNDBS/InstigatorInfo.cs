@@ -24,6 +24,7 @@ namespace Desynchronized.TNDBS
 
         private bool playerIsInstigator;
         private Pawn instigator;
+        private Faction instigatingFaction;
 
         public bool PlayerIsInstigator
         {
@@ -40,15 +41,27 @@ namespace Desynchronized.TNDBS
         /// <summary>
         /// The instigator. Can be null.
         /// </summary>
-        public Pawn Instigator
+        public Pawn InstigatingPawn
         {
             get
             {
                 return instigator;
             }
-            private set
+            internal set
             {
                 instigator = value;
+            }
+        }
+
+        public Faction InstigatingFaction
+        {
+            get
+            {
+                return instigatingFaction;
+            }
+            internal set
+            {
+                instigatingFaction = value;
             }
         }
 
@@ -60,12 +73,20 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public InstigatorInfo(Faction instigFaction = null, Pawn instigPawn = null)
+        {
+            instigatingFaction = instigFaction;
+            instigator = instigPawn;
+            playerIsInstigator = false;
+        }
+
+        [Obsolete]
         public static InstigatorInfo GenerateNormally(Pawn instigator = null)
         {
             return new InstigatorInfo()
             {
                 PlayerIsInstigator = false,
-                Instigator = instigator
+                InstigatingPawn = instigator
             };
         }
 
@@ -74,23 +95,43 @@ namespace Desynchronized.TNDBS
             return new InstigatorInfo()
             {
                 PlayerIsInstigator = true,
-                Instigator = null
+                InstigatingPawn = null
             };
         }
 
         public void ExposeData()
         {
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                // Do some init here
+                if (instigatingFaction == null)
+                {
+                    instigatingFaction = instigator?.Faction ?? null;
+                }
+            }
+
             Scribe_Values.Look(ref playerIsInstigator, "playerIsInstigator", false);
             Scribe_References.Look(ref instigator, "instigator");
+            Scribe_References.Look(ref instigatingFaction, "instigatingFaction");
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                // Do some init here
+                if (instigatingFaction == null)
+                {
+                    instigatingFaction = instigator?.Faction ?? null;
+                }
+            }
         }
 
-        /// <summary>
-        /// Explicit cast for streamlining stuff.
-        /// </summary>
-        /// <param name="pawn"></param>
+        public static explicit operator InstigatorInfo(Faction faction)
+        {
+            return new InstigatorInfo(faction);
+        }
+
         public static explicit operator InstigatorInfo(Pawn pawn)
         {
-            return GenerateNormally(pawn);
+            return new InstigatorInfo(pawn?.Faction, pawn);
         }
     }
 }

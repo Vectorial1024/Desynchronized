@@ -74,6 +74,7 @@
     <Compile Include="Handlers\Linker_ArrivalActionAndSender.cs" />
     <Compile Include="Jurisdiction\InnocenceDatabase.cs" />
     <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
+    <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
     <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
     <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />
+    <Compile Include="TNDBS\Utilities\TaleNewsUtilExtender.cs" />
     <Compile Include="TNDBS\Utilities\WitnessShockGrade.cs" />
     <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />

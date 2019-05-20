@@ -11,24 +11,12 @@ namespace Desynchronized
 {
     public class DesynchronizedMain : ModBase
     {
-        public static string MODID
-        {
-            get
-            {
-                return "com.vectorial1024.rimworld.desynchronized";
-            }
-        }
+        public static string MODID => "com.vectorial1024.rimworld.desynchronized";
 
         /// <summary>
         /// Already includes a space character.
         /// </summary>
-        public static string MODPREFIX
-        {
-            get
-            {
-                return "[V1024-DESYNC] ";
-            }
-        }
+        public static string MODPREFIX => "[V1024-DESYNC] ";
 
         /// <summary>
         /// A very convenient property for myself to limit features to DevMode only.

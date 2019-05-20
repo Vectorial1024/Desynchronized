@@ -9,6 +9,9 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /// <summary>
+    /// Patches for the case when the player sells a Prisoner
+    /// </summary>
     [HarmonyPatch(typeof(Pawn_RelationsTracker))]
     [HarmonyPatch("Notify_PawnSold", MethodType.Normal)]
     public class PreFix_PawnRelations_PreSold
