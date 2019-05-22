@@ -32,6 +32,7 @@ Currently, this mod is confirmed to work nicely with the following mods:
 Currently, this mod does not work as intended if used with the following mods:
 [list]
 [*]Real Fog of War (version 10 Nov, 2018): Your Colonists will never be kidnapped by raiders due to an error
+[*]RuntimeGC: Pawns referenced by Tale-News will still be discarded by their WorldPawn GC
 [/list]
 [h1]About Non-Steam Downloads[/h1]
 Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases

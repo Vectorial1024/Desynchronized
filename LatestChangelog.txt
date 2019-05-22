@@ -17,7 +17,6 @@ Click on the link above to visit the GitHub online repo, where you can find the 
 //////
 
 Version 1.5.1 is here to kill some bugs.
-
 [h1]Version 1.5.1: Changelog[/h1]
 [list]
 [*]Added translation (French/Francais); credits to Mihokyo for helping out with the translation!
@@ -25,8 +24,9 @@ Version 1.5.1 is here to kill some bugs.
 [*]Fixed bug: no more complaints from RimWorld about null-null "dummy" faction relations and "non-existent" self-self faction relations
 [*]Fixed bug: no more ArgumentOutOfRangeException when attempting to randomly select a piece of news to transmit
 [*]Cleaned up left-over developer log spam
+[/list]
 [h1]Known Issues[/h1]
-There are no new or outstanding known issues.
+You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
 [h1]Concluding Notes[/h1]
 I have come up with a good way to manage translations. From now on, the localization XML file names will also mention the version of the mod, so it will be easier for translators to spot new texts that require translation.
