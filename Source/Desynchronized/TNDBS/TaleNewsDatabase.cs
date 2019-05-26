@@ -39,6 +39,14 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public IEnumerable<TaleNews> TalesOfImportance_ReadOnly
+        {
+            get
+            {
+                return talesOfImportance;
+            }
+        }
+
         [Obsolete("")]
         public Dictionary<Pawn, List<TaleNewsReference>> NewsKnowledgeMapping
         {

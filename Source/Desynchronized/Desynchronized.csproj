@@ -47,6 +47,10 @@
       <HintPath>D:\External Storage\source\reference\HugsLib\Assemblies\HugsLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RuntimeGC">
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\962732083\Assemblies\RuntimeGC.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compatibility\PostFix_RuntimeGC_CleanserUtils_TaleNewsPawns.cs" />
+    <Compile Include="Compatibility\RuntimeGC\TalePawnListManipulator.cs" />
+    <Compile Include="Compatibility\RuntimeGC\Transpiler_WorldPawnCleaner_GC.cs" />
     <Compile Include="DesynchronizedMain.cs" />
     <Compile Include="DesynchronizedVersionTracker.cs" />
     <Compile Include="Desynchronized_StatDefOf.cs" />
@@ -76,6 +83,7 @@
     <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
     <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
+    <Compile Include="Patches\PostFix_MentalBreakWanderConfused_Start.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />

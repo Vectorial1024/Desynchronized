@@ -167,6 +167,12 @@ The Scheme filteres information about the following events that originate from o
 - Fixed bug: no more ArgumentOutOfRangeException when attempting to randomly select a piece of news to transmit
 - Cleaned up left-over developer log spam|I have come up with a good way to manage translations. From now on, the localization XML file names will also mention the version of the mod, so it will be easier for translators to spot new texts that require translation.|As a result, we are now accepting translations.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_5_2</defName>
+		<assemblyVersion>1.5.2</assemblyVersion>
+		<content>Version 1.5.2 is here to improve compatibility.|- Compatibility: cleaning world pawns using RuntimeGC will not remove pawns referenced by the TaleNews system|Please note that, due to code protection, I am unable to prevent RuntimeGC from removing pawns when doing "deconstruct animal family", so please avoid using that feature.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

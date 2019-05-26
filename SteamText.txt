@@ -12,7 +12,7 @@
 [h1]Mod Description[/h1]
 A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how information spreads among your colonists.
 
-I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. (I think SrGrafo drew a comic about this.) That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable [i]desynchronization of understanding[/i].
+I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. (Credits to SrGrafo for [url=https://rimworldme.tumblr.com/post/165485304313/innocent-prisoners-of-rimworld]this comic[/url] that describes the frustration.) That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable [i]desynchronization of understanding[/i].
 
 With the news-spreading mechanism well-defined and working smoothly across several thousands of colonies galaxy-wide, I present you this question: how much should your pure, innocent colonists know? Should they know everything that has happened in the game, whether big or small, whether bright or dark?
 

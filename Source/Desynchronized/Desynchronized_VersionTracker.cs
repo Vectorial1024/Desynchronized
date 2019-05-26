@@ -30,7 +30,6 @@ namespace Desynchronized
             base.ExposeData();
             Scribe_Values.Look(ref versionOfMod, "versionOfMod");
             Version versionWithinSaveFile = new Version(versionOfMod);
-            int temp = 3;
             // DesynchronizedMain.LogError("It is now " + Scribe.mode);
             // DesynchronizedMain.LogError("Saved with version (string) " + versionOfMod);
 
