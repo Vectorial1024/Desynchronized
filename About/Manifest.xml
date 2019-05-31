@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Manifest>
     <identifier>Desynchronized</identifier>
-    <version>1.5.2.0</version>
+    <version>1.5.3.0</version>
     <dependencies>
         <li>HugsLib</li>
         <!--
@@ -21,11 +21,9 @@
         <li>HowManyModsDoesOneNeed &gt;= 9000.1</li>
     </loadBefore>
     -->
-    <!--
     <loadAfter>
-        <li>HugsLib</li>
+        <li>RuntimeGC</li>
     </loadAfter>
-    -->
     <!--
     <suggests>
         <li>ExpansionMod &gt;= 1.5</li>

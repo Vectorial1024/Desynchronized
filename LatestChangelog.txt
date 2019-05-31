@@ -1,26 +1,22 @@
-Version 1.5.2 is here to improve compatibility.
+Bug fixes! Another round of bug fixes for version 1.5.3!
 
-- Compatibility: cleaning world pawns using RuntimeGC will not remove pawns referenced by the TaleNews system
-
-Please note that, due to code protection, I am unable to prevent RuntimeGC from removing pawns when doing "deconstruct animal family", so please avoid using that feature.
+- Fixed bug: users without RuntimeGC should no longer receive errors of "unable to patch", etc.
+- Fixed bug: more refinements in calculating faction-faction goodwill
 
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
-Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.
+Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.
 
 //////
 
-Version 1.5.1 is here to enhance compatibility.
-[h1]Version 1.5.2: Changelog[/h1]
+Bug fixes! Another round of bug fixes for version 1.5.3!
+[h1]Version 1.5.3: Changelog[/h1]
 [list]
-[*]Compatibility: cleaning world pawns using RuntimeGC will not remove pawns referenced by the TaleNews system
-[*]Fixed bug: no more NullReferenceException when losing pawns during player-initiated attacks on faction bases
-[*]Fixed bug: no more complaints from RimWorld about null-null "dummy" faction relations and "non-existent" self-self faction relations
-[*]Fixed bug: no more ArgumentOutOfRangeException when attempting to randomly select a piece of news to transmit
-[*]Cleaned up left-over developer log spam
+[*]Fixed bug: users without RuntimeGC should no longer receive errors of "unable to patch", etc.
+[*]Fixed bug: more refinements in calculating faction-faction goodwill
 [/list]
 [h1]Known Issues[/h1]
-Using the "deconstruct animal family" feature in RuntimeGC will still remove pawns referenced by our TaleNews system. Unfortunately, I am unable to provide a fix for this because the relevant RuntimeGC code is protected.
+There are no new/outstanding known issues.
 
 You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
@@ -31,10 +27,11 @@ Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]h
 
 //////
 
-This is the v1.5.2 version of Desynchronized: Tales and News. It enhances compatibility with RuntimeGC.
+This is the v1.5.3 version of Desynchronized: Tales and News. It fixes some bugs.
 
 # Changelog
-- Partial fix for #11; see the Issue for more details.
+- Further enhanced #13
+- Fixed #20
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
 

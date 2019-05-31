@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TNDBS.Utilities;
+using Desynchronized.Utilities;
 using RimWorld;
 using RimWorld.Planet;
 using System;
@@ -535,19 +536,7 @@ namespace Desynchronized.TNDBS
 
             float mainImpact = (victimKindScore + relationalDeathImpact);
             mainImpact *= 1 + Mathf.Abs(((float)pawn.relations.OpinionOf(Victim)) / 50);
-            int interFactionGoodwill;
-            if (pawn.Faction == null)
-            {
-                interFactionGoodwill = 0;
-            }
-            else if (pawn.Faction == PrimaryVictim.Faction)
-            {
-                interFactionGoodwill = 100;
-            }
-            else
-            {
-                interFactionGoodwill = pawn.Faction.RelationWith(Victim.Faction).goodwill;
-            }
+            int interFactionGoodwill = pawn.Faction.GetGoodwillWith(Victim.Faction);
             mainImpact *= 1 + Mathf.Abs((float)interFactionGoodwill / 50);
 
             // Decays at a rate of half strength per year passed

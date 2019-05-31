@@ -22,4 +22,16 @@ namespace Desynchronized.Compatibility
 
     }
     */
+
+        /*
+    [HarmonyPatch]
+    public class TestPatcher_RuntimeGC
+    {
+        public static MethodBase TargetMethod()
+        {
+            DesynchronizedMain.LogError("Attempt to target internal class.");
+            return AccessTools.Method("RuntimeGC.CleanserUtil:InitUsedTalePawns");
+        }
+    }
+    */
 }

@@ -12,7 +12,7 @@
 [h1]Mod Description[/h1]
 A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how information spreads among your colonists.
 
-I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. (Credits to SrGrafo for [url=https://rimworldme.tumblr.com/post/165485304313/innocent-prisoners-of-rimworld]this comic[/url] that describes the frustration.) That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable [i]desynchronization of understanding[/i].
+I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. ([url=https://rimworldme.tumblr.com/post/165485304313/innocent-prisoners-of-rimworld]Descriptive comic by SrGrafo[/url]) That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable [i]desynchronization of understanding[/i].
 
 With the news-spreading mechanism well-defined and working smoothly across several thousands of colonies galaxy-wide, I present you this question: how much should your pure, innocent colonists know? Should they know everything that has happened in the game, whether big or small, whether bright or dark?
 
@@ -26,13 +26,14 @@ Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url]
 [h1]Compatibility with Other Mods[/h1]
 Currently, this mod is confirmed to work nicely with the following mods:
 [list]
-[*]Allow Tool (version 6 Nov, 2018)
+[*]Allow Tool (dated 6 Nov, 2018)
+[*]RuntimeGC (dated 31 May, 2019) (see notes below)
 [/list]
 [h1]Incompatible Combinations[/h1]
 Currently, this mod does not work as intended if used with the following mods:
 [list]
-[*]Real Fog of War (version 10 Nov, 2018): Your Colonists will never be kidnapped by raiders due to an error
-[*]RuntimeGC: Pawns referenced by Tale-News will still be discarded by their WorldPawn GC
+[*]Real Fog of War (dated 10 Nov, 2018): Your Colonists will never be kidnapped by raiders due to an error
+[*]RuntimeGC: "Deconstruct animal family" will still remove potentially-referenced pawns
 [/list]
 [h1]About Non-Steam Downloads[/h1]
 Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
@@ -52,21 +53,22 @@ To streamline things, I am centralizing many things onto the GitHub repo found a
 In the GitHub page, you will find:
 [list]
 [*]The source code and the xml files for this mod
+[*]The issues page for bug-tracking (shortcut: https://github.com/Vectorial1024/Desynchronized/issues)
 [*]A detailed feature list
-[*]A feature planning list (including plans to make this work with other mods)
+[*]Several decentralized planning lists
 [*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
 [*]Detailed changelogs
 [/list]
 [h1]Credits and Special Thanks[/h1]
 This mod would not have been here without the following people:
 [list]
+[*]Tynan and Ludeon: for making this game 
+[*]pardeike's Harmony library and UnlimitedHugs' HugsLib: for providing much-needed convenience to make mods
 [*]MoobyNooby: for open-sourcing ClosedDoors so his code can be passed on
-[*]The many subscribers (especially the early ones): for supporting this [i]ex-[/i]WIP product by subscribing to it
 [*]Mihokyo: for providing the French translations
+[*]The many subscribers (especially the early ones): for supporting this [i]ex-[/i]WIP product by subscribing to it
 [*][strike]Jaxe: for making the amazing [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url][/strike]
 [*]Mehni: for forking and updating the amazing PublisherPlus (https://github.com/Mehni/PublisherPlus); PublisherPlus allowed me to exclude unneccesary files during upload, reducing mod size to less than 2 MB.
-[*]pardeike's Harmony library and UnlimitedHugs' HugsLib: for providing much-needed convenience to make mods
-[*]Tynan for this game; and most importantly,
-[*]That one guy who first got an idea and eventually catalyzed the creation of this mod
+[*]SrGrafo: for (possibly) (indirectly?) inspiring the creation of this mod
 [/list]
 That's all. Wish y'all a successful run on the Rim!

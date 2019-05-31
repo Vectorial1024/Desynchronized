@@ -36,7 +36,7 @@
       <HintPath>D:\External Storage\source\reference\HugsLibChecker\$HugsLibChecker.dll</HintPath>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>D:\External Storage\source\Harmony\Release\net35\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -44,7 +44,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="HugsLib">
-      <HintPath>D:\External Storage\source\reference\HugsLib\Assemblies\HugsLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\Assemblies\HugsLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RuntimeGC">
@@ -127,6 +127,7 @@
     <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
     <Compile Include="Transpilers\Transpiler_TPAAGG_Arrived.cs" />
+    <Compile Include="Utilities\FactionUtilities.cs" />
     <Compile Include="Utilities\HallOfFigures.cs" />
     <Compile Include="Utilities\TNDBS_Verifier.cs" />
   </ItemGroup>
