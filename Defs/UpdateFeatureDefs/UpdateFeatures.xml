@@ -180,6 +180,17 @@ The Scheme filteres information about the following events that originate from o
 		<content>Bug fixes! Another round of bug fixes for version 1.5.3!|- Fixed bug: users without RuntimeGC should no longer receive errors of "unable to patch", etc.
 - Fixed bug: more refinements in calculating faction-faction goodwill|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_6_0</defName>
+		<assemblyVersion>1.6.0</assemblyVersion>
+		<content>The North remembers.|- New feature: new main tab for this mod
+- New feature: new tale-news UI to let us view tale-news in-game
+- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
+- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
+- Added mod setting: configure whether the new tale-news UI should auto-pause the game
+- More texts available for translation|There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

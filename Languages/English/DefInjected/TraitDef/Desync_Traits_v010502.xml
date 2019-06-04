@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
     <!-- EN: secret-keeper -->
-    <NewsSpreadTendency.degreeDatas.secret-keeper.label>secret-keeper</NewsSpreadTendency.degreeDatas.secret-keeper.label>
+    <NewsSpreadTendency.degreeDatas.secret-keeper.label>secret keeper</NewsSpreadTendency.degreeDatas.secret-keeper.label>
     <!-- EN: [PAWN_nameDef] is careful with [PAWN_possessive] words, and will often choose to keep all kinds of news close to [PAWN_possessive] heart. -->
     <NewsSpreadTendency.degreeDatas.secret-keeper.description>[PAWN_nameDef] is careful with [PAWN_possessive] words, and will often choose to keep all kinds of news close to [PAWN_possessive] heart.</NewsSpreadTendency.degreeDatas.secret-keeper.description>
 

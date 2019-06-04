@@ -25,7 +25,14 @@ namespace Desynchronized.TNDBS
             return 3;
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetDetailsPrintout()
+        {
+            // IDK what to do here for now.
+            string basic = base.GetDetailsPrintout();
+            return basic;
+        }
+
+        public override string GetNewsTypeName()
         {
             return "Pawn Organ-Harvested";
         }

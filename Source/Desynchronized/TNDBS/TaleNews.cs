@@ -77,7 +77,7 @@ namespace Desynchronized.TNDBS
 
         public override string ToString()
         {
-            return GetNewsIdentifier() + (IsRegistered ? " (ID: " + UniqueID + ") " : " " + (LocationOfOccurence != null? "(from " + LocationOfOccurence + ")" : ""));
+            return GetNewsTypeName() + (IsRegistered ? " (ID: " + UniqueID + ") " : " " + (LocationOfOccurence != null? "(from " + LocationOfOccurence + ")" : ""));
         }
 
         public void ExposeData()
@@ -154,10 +154,12 @@ namespace Desynchronized.TNDBS
         protected abstract void GiveThoughtsToReceipient(Pawn recipient);
 
         /// <summary>
-        /// Returns a string which is used to identify the type of TaleNews.
+        /// Returns a string that shows the type of the tale news.
+        /// <para/>
+        /// For example, TaleNewsPawnDied should return "Pawn died".
         /// </summary>
         /// <returns></returns>
-        public abstract string GetNewsIdentifier();
+        public abstract string GetNewsTypeName();
 
         /// <summary>
         /// Determines if the given pawn is specifically involved in this TaleNews (e.g. the victim of the murder).
@@ -175,5 +177,13 @@ namespace Desynchronized.TNDBS
         public abstract bool IsValid();
 
         public abstract float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference);
+
+        /// <summary>
+        /// Returns a multi-line string that shows the details of the tale-news. The most important information should be displayed in the first line.
+        /// <para/>
+        /// For example, for TaleNewsPawnDied, the first line should read "Victim: Vector", followed by the next line "Instigator: Matt"
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetDetailsPrintout();
     }
 }

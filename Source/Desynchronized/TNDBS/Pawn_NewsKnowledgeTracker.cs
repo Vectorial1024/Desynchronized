@@ -113,5 +113,18 @@ namespace Desynchronized.TNDBS
         {
             throw new NotImplementedException();
         }
+
+        public TaleNewsReference AttemptToObtainExistingReference(TaleNews news)
+        {
+            foreach (TaleNewsReference reference in newsKnowledgeList)
+            {
+                if (reference.ReferencedTaleNews.UniqueID == news.UniqueID)
+                {
+                    return reference;
+                }
+            }
+
+            return null;
+        }
     }
 }

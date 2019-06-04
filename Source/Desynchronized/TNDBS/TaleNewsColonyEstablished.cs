@@ -13,9 +13,14 @@ namespace Desynchronized.TNDBS
             throw new NotImplementedException();
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetDetailsPrintout()
         {
             throw new NotImplementedException();
+        }
+
+        public override string GetNewsTypeName()
+        {
+            return "Colony Established";
         }
 
         public override bool IsValid()

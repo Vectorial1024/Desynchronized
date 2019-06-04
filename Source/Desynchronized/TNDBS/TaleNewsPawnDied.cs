@@ -128,7 +128,7 @@ namespace Desynchronized.TNDBS
             return new TaleNewsPawnDied(victim, dinfo);
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Pawn Died";
         }
@@ -542,7 +542,30 @@ namespace Desynchronized.TNDBS
             // Decays at a rate of half strength per year passed
             result += mainImpact * Mathf.Pow(0.5f, (1.0f / (60000 * 15 * 4)) * (Find.TickManager.TicksGame - reference.TickReceived));
 
+            // DesynchronizedMain.LogError("Calculation gives result of " + result);
             return result;
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            if (Killer != null)
+            {
+                basic += "\nKilled by: " + Killer.Name;
+            }
+            else
+            {
+                basic += "\nNo killer.";
+            }
+            if (KillingBlowDamageDef != null)
+            {
+                basic += "\n" + KillingBlowDamageDef.deathMessage;
+            }
+            else
+            {
+                basic += "\nUnknown killing blow damage type.";
+            }
+            return basic;
         }
     }
 }

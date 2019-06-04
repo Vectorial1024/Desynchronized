@@ -9,6 +9,8 @@ namespace Desynchronized.TNDBS
 {
     public class TaleNewsPawnSold : TaleNewsNegativeIndividual
     {
+        public Faction tradeDeal_OtherParty;
+
         public TaleNewsPawnSold()
         {
 
@@ -30,9 +32,38 @@ namespace Desynchronized.TNDBS
             return 3;
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            basic += "\nSold to: ";
+            if (tradeDeal_OtherParty != null)
+            {
+                basic += tradeDeal_OtherParty.Name;
+            }
+            else
+            {
+                basic += "unknown group";
+            }
+            return basic;
+        }
+
+        public override string GetNewsTypeName()
         {
             return "Pawn Sold";
+        }
+
+        protected override void ConductSaveFileIO()
+        {
+            base.ConductSaveFileIO();
+
+            Scribe_References.Look(ref tradeDeal_OtherParty, "tradeDeal_OtherParty");
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                if (tradeDeal_OtherParty == null)
+                {
+                    tradeDeal_OtherParty = PrimaryVictim?.Faction ?? PrimaryVictim?.HostFaction ?? null;
+                }
+            }
         }
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)

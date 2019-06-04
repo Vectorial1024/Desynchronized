@@ -1,5 +1,5 @@
-# Desynchronized
-Desynchronized is a mod that changes how your Colonists react to the outside world.
+# Desynchronized: Tales and News
+Desynchronized: Tales and News is a mod that forces information to be transmitted from one to another.
 >"I merely visited the Mod Scrapyard, found something interesting, and brought it back home. I mean, what could possibly go wrong?" ~ Vectorial1024, prior to releasing this mod.
 # Non-Steam Downloads, Previous Versions, and Detailed Changelogs
 All of these can be found under the Releases section at the top. Just look for your desired version, and its direct download link and changelog will be there.
@@ -37,8 +37,9 @@ I don't have much detail about these features in my mind but I think these featu
 - Other things
 # Compatibility Announcements
 ## On Save-Game Compatibility
-I can forsee a lot of features being added to this mod.
-No problem on trying to add this to your existing playthrough, but there might be potential problems trying to remove this from your existing playthrough. I may consider adding a "ghost mode" for this mod to safely abort the functionality of this mod from inside the game.
+Adding this mod to an existing savegame should not cause any problems, but removing this from an existing one may cause problems.
+
+We are considering adding some sort of safe-stop feature to allow users to remove this mod safely without breaking their saves.
 ## On Cross-Mod Compatibility
 Well, there seems to have a lot of mods that could play well with this mod. Here is a list of mods that I think will require work:
 - Psychology
@@ -47,3 +48,15 @@ Well, there seems to have a lot of mods that could play well with this mod. Here
 - Blood Pack
 - Brain in a Jar
 - (probably even more)
+
+**Full Compatibility**
+This mod works fine without problems with the following mods:
+- Allow Tool (version 6 Nov, 2018)
+
+**Partial Compatibility**
+This mod may have some issues with the following mods, but should still function most of the time:
+- RuntimeGC (version 31 May, 2019): the "deconstruct animal family" will invalidate some Tale-News
+
+**No Compatibility**
+This mod simply does not function as intended with the following mods:
+- Real Fog of War (version 10 Nov, 2018): See #22.

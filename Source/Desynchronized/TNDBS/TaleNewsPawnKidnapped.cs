@@ -62,7 +62,7 @@ namespace Desynchronized.TNDBS
         }
         */
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Pawn Kidnapped";
         }
@@ -117,6 +117,31 @@ namespace Desynchronized.TNDBS
         {
             // Placeholder
             return 3;
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            basic += "\nKidnapped by faction: ";
+            if (kidnapperFaction != null)
+            {
+                basic += kidnapperFaction.Name;
+            }
+            else
+            {
+                basic += "unknown";
+            }
+            basic += "\nActual kidnapper: ";
+            if (Kidnapper != null)
+            {
+                basic += Kidnapper.Name;
+            }
+            else
+            {
+                basic += "unknown";
+            }
+
+            return basic;
         }
     }
 }

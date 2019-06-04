@@ -35,7 +35,7 @@ namespace Desynchronized.TNDBS
             isDeadly = isBanishedToDie;
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Pawn Banished";
         }
@@ -114,6 +114,13 @@ namespace Desynchronized.TNDBS
         {
             // Placeholder
             return 3;
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            basic += "\nDeadly? " + isDeadly;
+            return basic;
         }
     }
 }

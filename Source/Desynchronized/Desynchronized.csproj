@@ -68,10 +68,15 @@
     <Compile Include="Compatibility\RuntimeGC\Transpiler_WorldPawnCleaner_GC.cs" />
     <Compile Include="DesynchronizedMain.cs" />
     <Compile Include="DesynchronizedVersionTracker.cs" />
+    <Compile Include="Desynchronized_PawnTableDefOf.cs" />
     <Compile Include="Desynchronized_StatDefOf.cs" />
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
     <Compile Include="Desynchronized_VersionTracker.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
+    <Compile Include="Interfaces\Dialog_NewsTrackerViewer.cs" />
+    <Compile Include="Interfaces\MainTabWindow_Desynchronized.cs" />
+    <Compile Include="Interfaces\PawnColumnWorker_KnownNewsCount.cs" />
+    <Compile Include="Interfaces\PawnColumnWorker_NewsKnowledgeButton.cs" />
     <Compile Include="Handlers\Handler_PawnBanished.cs" />
     <Compile Include="Handlers\Handler_PawnDied.cs" />
     <Compile Include="Handlers\Handler_PawnExecuted.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
     <Compile Include="Patches\PostFix_MentalBreakWanderConfused_Start.cs" />
+    <Compile Include="Patches\PostFix_Pawn_LongTick.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
@@ -132,6 +138,7 @@
     <Compile Include="Utilities\TNDBS_Verifier.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Interfaces\TempCode.txt" />
     <Content Include="TNDBS\Utilities\TempStoreTNDBS_Extension.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,7 +19,8 @@ namespace Desynchronized.Patches
         [HarmonyPostfix]
         public static void PostFix(InteractionWorker __instance, Pawn initiator, Pawn recipient)
         {
-            if (DesynchronizedMain.NewsSpreadIsActive)
+            if (true)
+            //if (DesynchronizedMain.NewsSpreadIsActive)
             {
                 if (__instance is InteractionWorker_Chitchat chitchatWorker)
                 {

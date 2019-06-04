@@ -2,6 +2,7 @@
 
 [h1]Quick Info and Compatibility[/h1]
 [list]
+[*]Also known as [i]Desynchronised: Tales and News[/i]
 [*]Requires HugsLib (warning should be given if you don't have HugsLib); place this mod below HugsLib
 [*]Safe to add to existing saves
 [*]Please [b]do not remove[/b] from existing saves
@@ -24,19 +25,9 @@ Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url]
 [*]Colonists may find some news more "important" to themselves; they will be more likely to spread them.
 [/list]
 [h1]Compatibility with Other Mods[/h1]
-Currently, this mod is confirmed to work nicely with the following mods:
-[list]
-[*]Allow Tool (dated 6 Nov, 2018)
-[*]RuntimeGC (dated 31 May, 2019) (see notes below)
-[/list]
-[h1]Incompatible Combinations[/h1]
-Currently, this mod does not work as intended if used with the following mods:
-[list]
-[*]Real Fog of War (dated 10 Nov, 2018): Your Colonists will never be kidnapped by raiders due to an error
-[*]RuntimeGC: "Deconstruct animal family" will still remove potentially-referenced pawns
-[/list]
+Please refer to README.md on the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized/blob/master/README.md]here[/url] for more info.
 [h1]About Non-Steam Downloads[/h1]
-Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
+All non-Steam downloads are centralized in the Release section of the GitHub repo, which can be found [url=https://github.com/Vectorial1024/Desynchronized/releases]here[/url]. 
 
 [b]Special note:[/b] if you are only looking for a v1.0 ClosedDoors update, then look for "v0.0.0" in the list of releases. Should be at the bottom.
 
@@ -53,10 +44,10 @@ To streamline things, I am centralizing many things onto the GitHub repo found a
 In the GitHub page, you will find:
 [list]
 [*]The source code and the xml files for this mod
-[*]The issues page for bug-tracking (shortcut: https://github.com/Vectorial1024/Desynchronized/issues)
+[*]The [url=https://github.com/Vectorial1024/Desynchronized/issues]issues page[/url] for bug-tracking
 [*]A detailed feature list
 [*]Several decentralized planning lists
-[*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
+[*][url=https://github.com/Vectorial1024/Desynchronized/releases]Non-Steam downloads[/url]
 [*]Detailed changelogs
 [/list]
 [h1]Credits and Special Thanks[/h1]
@@ -68,7 +59,7 @@ This mod would not have been here without the following people:
 [*]Mihokyo: for providing the French translations
 [*]The many subscribers (especially the early ones): for supporting this [i]ex-[/i]WIP product by subscribing to it
 [*][strike]Jaxe: for making the amazing [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url][/strike]
-[*]Mehni: for forking and updating the amazing PublisherPlus (https://github.com/Mehni/PublisherPlus); PublisherPlus allowed me to exclude unneccesary files during upload, reducing mod size to less than 2 MB.
+[*]Mehni: for forking and updating the amazing [url=https://github.com/Mehni/PublisherPlus]PublisherPlus[/url]; PublisherPlus allowed me to exclude unneccesary files during upload, reducing mod size to less than 2 MB.
 [*]SrGrafo: for (possibly) (indirectly?) inspiring the creation of this mod
 [/list]
 That's all. Wish y'all a successful run on the Rim!
