@@ -24,6 +24,7 @@ namespace Desynchronized.TNDBS
         private Pawn cachedSubject;
         private WitnessShockGrade shockGrade;
         private int tickReceived;
+        private float cachedImportance = -1;
 
         /// <summary>
         /// True if the Receipient has reacted to the Underlying TaleNews before.
@@ -113,6 +114,19 @@ namespace Desynchronized.TNDBS
             get
             {
                 return shockGrade;
+            }
+        }
+
+        public float CachedNewsImportance
+        {
+            get
+            {
+                if (cachedImportance == -1)
+                {
+                    RecalculateNewsImportance();
+                }
+
+                return cachedImportance;
             }
         }
 
@@ -213,6 +227,7 @@ namespace Desynchronized.TNDBS
             Scribe_Values.Look(ref shockGrade, "shockGrade", WitnessShockGrade.BY_NEWS);
             // test
             Scribe_Values.Look(ref tickReceived, "tickReceived", Find.TickManager.TicksGame);
+            Scribe_Values.Look(ref cachedImportance, "cachedNewsImportance", -1);
             // Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
             // Scribe_References.Look(ref recipient, "recipient");
         }
@@ -232,6 +247,7 @@ namespace Desynchronized.TNDBS
         public void ActivateNews(WitnessShockGrade shockGrade)
         {
             this.shockGrade = shockGrade;
+            RecalculateNewsImportance();
 
             if (!HasEverActivated)
             {
@@ -249,6 +265,12 @@ namespace Desynchronized.TNDBS
         public void Forget()
         {
             hasBeenActivated = false;
+        }
+
+        public void RecalculateNewsImportance()
+        {
+            cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+            // DesynchronizedMain.LogError("Recalculated #" + ReferencedTaleNews.UniqueID + " to have " + cachedImportance + " importance.");
         }
     }
 }

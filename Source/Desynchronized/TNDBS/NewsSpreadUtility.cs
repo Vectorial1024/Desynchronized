@@ -82,7 +82,7 @@ namespace Desynchronized.TNDBS
                     }
 
                     weightSum += temp;
-                    if (temp >= randomChoice)
+                    if (weightSum >= randomChoice)
                     {
                         selectedIndex = i;
                         break;

@@ -29,6 +29,19 @@ namespace Desynchronized.TNDBS
 
         }
 
+        public TaleNewsPawnKidnapped(Pawn victim, Faction kidnappingFaction): base(victim, InstigatorInfo.NoInstigator)
+        {
+            if (kidnappingFaction == null)
+            {
+                DesynchronizedMain.LogError("Kidnapping faction cannot be null! Fake news!\n" + Environment.StackTrace);
+            }
+            else
+            {
+                InstigatorInfo = (InstigatorInfo) kidnappingFaction;
+                kidnapperFaction = kidnappingFaction;
+            }
+        }
+
         public TaleNewsPawnKidnapped(Pawn victim, Pawn kidnapper): base(victim, InstigatorInfo.NoInstigator)
         {
             if (kidnapper == null)
@@ -49,7 +62,7 @@ namespace Desynchronized.TNDBS
         }
         */
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Pawn Kidnapped";
         }
@@ -93,7 +106,7 @@ namespace Desynchronized.TNDBS
                 ThoughtDef genderSpecificKidnappedThought = mostImportantRelation.GetGenderSpecificKidnappedThought(KidnapVictim);
                 if (genderSpecificKidnappedThought != null)
                 {
-                    new IndividualThoughtToAdd(genderSpecificKidnappedThought, recipient, KidnapVictim, 1f, 1f).Add();
+                    new IndividualThoughtToAdd(genderSpecificKidnappedThought, recipient, KidnapVictim).Add();
                     // outIndividualThoughts.Add(new IndividualThoughtToAdd(genderSpecificDiedThought, potentiallyRelatedPawn, victim, 1f, 1f));
                 }
             }
@@ -104,6 +117,31 @@ namespace Desynchronized.TNDBS
         {
             // Placeholder
             return 3;
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            basic += "\nKidnapped by faction: ";
+            if (kidnapperFaction != null)
+            {
+                basic += kidnapperFaction.Name;
+            }
+            else
+            {
+                basic += "unknown";
+            }
+            basic += "\nActual kidnapper: ";
+            if (Kidnapper != null)
+            {
+                basic += Kidnapper.Name;
+            }
+            else
+            {
+                basic += "unknown";
+            }
+
+            return basic;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Desynchronized.TNDBS
             throw new NotImplementedException();
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Default TaleNews";
         }
@@ -46,7 +46,12 @@ namespace Desynchronized.TNDBS
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
-            DesynchronizedMain.LogError("Somebody tried to trigger a thought-giving process using a default TaleNews. Nothing was done." + Environment.StackTrace);
+            DesynchronizedMain.LogError("Somebody tried to trigger a thought-giving process using a default TaleNews. Nothing was done.\n" + Environment.StackTrace);
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            return "No details";
         }
     }
 }

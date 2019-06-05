@@ -36,7 +36,7 @@
       <HintPath>D:\External Storage\source\reference\HugsLibChecker\$HugsLibChecker.dll</HintPath>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>D:\External Storage\source\Harmony\Release\net35\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -44,7 +44,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="HugsLib">
-      <HintPath>D:\External Storage\source\reference\HugsLib\Assemblies\HugsLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\Assemblies\HugsLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RuntimeGC">
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\962732083\Assemblies\RuntimeGC.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,12 +63,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compatibility\PostFix_RuntimeGC_CleanserUtils_TaleNewsPawns.cs" />
+    <Compile Include="Compatibility\RuntimeGC\TalePawnListManipulator.cs" />
+    <Compile Include="Compatibility\RuntimeGC\Transpiler_WorldPawnCleaner_GC.cs" />
     <Compile Include="DesynchronizedMain.cs" />
     <Compile Include="DesynchronizedVersionTracker.cs" />
+    <Compile Include="Desynchronized_PawnTableDefOf.cs" />
     <Compile Include="Desynchronized_StatDefOf.cs" />
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
     <Compile Include="Desynchronized_VersionTracker.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
+    <Compile Include="Interfaces\Dialog_NewsTrackerViewer.cs" />
+    <Compile Include="Interfaces\MainTabWindow_Desynchronized.cs" />
+    <Compile Include="Interfaces\PawnColumnWorker_KnownNewsCount.cs" />
+    <Compile Include="Interfaces\PawnColumnWorker_NewsKnowledgeButton.cs" />
     <Compile Include="Handlers\Handler_PawnBanished.cs" />
     <Compile Include="Handlers\Handler_PawnDied.cs" />
     <Compile Include="Handlers\Handler_PawnExecuted.cs" />
@@ -74,7 +86,10 @@
     <Compile Include="Handlers\Linker_ArrivalActionAndSender.cs" />
     <Compile Include="Jurisdiction\InnocenceDatabase.cs" />
     <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
+    <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
+    <Compile Include="Patches\PostFix_MentalBreakWanderConfused_Start.cs" />
+    <Compile Include="Patches\PostFix_Pawn_LongTick.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
@@ -113,14 +128,17 @@
     <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
     <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
     <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />
+    <Compile Include="TNDBS\Utilities\TaleNewsUtilExtender.cs" />
     <Compile Include="TNDBS\Utilities\WitnessShockGrade.cs" />
     <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
     <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
     <Compile Include="Transpilers\Transpiler_TPAAGG_Arrived.cs" />
+    <Compile Include="Utilities\FactionUtilities.cs" />
     <Compile Include="Utilities\HallOfFigures.cs" />
     <Compile Include="Utilities\TNDBS_Verifier.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Interfaces\TempCode.txt" />
     <Content Include="TNDBS\Utilities\TempStoreTNDBS_Extension.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

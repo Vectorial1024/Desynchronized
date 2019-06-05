@@ -11,24 +11,12 @@ namespace Desynchronized
 {
     public class DesynchronizedMain : ModBase
     {
-        public static string MODID
-        {
-            get
-            {
-                return "com.vectorial1024.rimworld.desynchronized";
-            }
-        }
+        public static string MODID => "com.vectorial1024.rimworld.desynchronized";
 
         /// <summary>
         /// Already includes a space character.
         /// </summary>
-        public static string MODPREFIX
-        {
-            get
-            {
-                return "[V1024-DESYNC] ";
-            }
-        }
+        public static string MODPREFIX => "[V1024-DESYNC] ";
 
         /// <summary>
         /// A very convenient property for myself to limit features to DevMode only.
@@ -53,6 +41,8 @@ namespace Desynchronized
         // public static SettingHandle<EnumTest> SettingHandle_EnumTest { get; private set; }
         public static bool LocalizedNews => SettingHandle_LocalizedNews;
         public static HallOfFigures TheHallOfFigures { get; private set; }
+        public static SettingHandle<bool> SettingHandle_AutoPauseNewsInterface { get; private set; }
+        public static bool NewsUI_ShouldAutoPause => SettingHandle_AutoPauseNewsInterface.Value;
 
         public override void WorldLoaded()
         {
@@ -78,11 +68,14 @@ namespace Desynchronized
 
         private void PrepareModSettingHandles()
         {
+            /*
             toggle = Settings.GetHandle("settingName", "toggleSetting_title", "This is just a test.", false);
             // If enabled, news of various events will only be known inside the local map.\n\nEnabled by default.
             SettingHandle_LocalizedNews = Settings.GetHandle("toggleLocalizedNews", "toggleLocalizedNews_title", "This is also a test. Do not touch. Default value is true.", true);
             // Is auto-disabled when \"Localized News\" is disabled.
             SettingHandle_NewsSpread = Settings.GetHandle("toggleNewsSpreading", "News Spreading", "If enabled, news of various events will follow Colonists around and spread to other places.\n\nEnabled by default.\n\n", true);
+            */
+            SettingHandle_AutoPauseNewsInterface = Settings.GetHandle("toggleAutoPauseNewsInterface", "NewsUIAutoPause_title".Translate(), "NewsUIAutoPause_descr".Translate(), true);
 
             // SettingHandle_EnumTest = Settings.GetHandle("enumTest", "Enum Test Title", "Enum Test Desc", EnumTest.EnumDefault, null, "enumTest_");
         }
@@ -101,6 +94,11 @@ namespace Desynchronized
         public static void LogError(string message, bool ignoreLogLimit = false)
         {
             Log.Error(MODPREFIX + " " + message, ignoreLogLimit);
+        }
+
+        public static void LogWarning(string message, bool ignoreLogLimit = false)
+        {
+            Log.Warning(MODPREFIX + " " + message, ignoreLogLimit);
         }
     }
 }

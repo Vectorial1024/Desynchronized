@@ -216,6 +216,11 @@ namespace Desynchronized
 
         public static bool AlliedTo(this Faction self, Faction other)
         {
+            if (self == null || other == null || other == self)
+            {
+                // Same faction is more than "allied", hence not "allied"
+                return false;
+            }
             return self.RelationKindWith(other) == FactionRelationKind.Ally;
         }
     }

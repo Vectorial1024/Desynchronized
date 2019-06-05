@@ -1,0 +1,18 @@
+﻿int num = Mathf.FloorToInt((rect.width - 4f) * 5f/7);
+int num2 = Mathf.FloorToInt((rect.width - 4f) * 2f/7);
+float x = rect.x;
+//Rect rect2 = new Rect(x, rect.y + 2f, num, rect.height - 4f);
+//Rect rect3 = rect2;
+//Func<Pawn, FoodRestriction> getPayload = (Pawn p) => p.foodRestriction.CurrentFoodRestriction;
+//Func<Pawn, IEnumerable<Widgets.DropdownMenuElement<FoodRestriction>>> menuGenerator = Button_GenerateMenu;
+//string buttonLabel = pawn.foodRestriction.CurrentFoodRestriction.label.Truncate(rect2.width);
+//string label = pawn.foodRestriction.CurrentFoodRestriction.label;
+//Widgets.Dropdown(rect3, pawn, getPayload, menuGenerator, buttonLabel, null, label, null, null, paintable: true);
+x += (float)num;
+x += 4f;
+Rect rect4 = new Rect(x, rect.y + 2f, num2, rect.height - 4f);
+if (Widgets.ButtonText(rect4, "AssignTabEdit".Translate()))
+{
+	Find.WindowStack.Add(new Dialog_ManageFoodRestrictions(pawn.foodRestriction.CurrentFoodRestriction));
+}
+x += (float)num2;

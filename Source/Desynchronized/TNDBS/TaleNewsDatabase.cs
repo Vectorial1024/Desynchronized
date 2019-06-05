@@ -39,6 +39,14 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public IEnumerable<TaleNews> TalesOfImportance_ReadOnly
+        {
+            get
+            {
+                return talesOfImportance;
+            }
+        }
+
         [Obsolete("")]
         public Dictionary<Pawn, List<TaleNewsReference>> NewsKnowledgeMapping
         {
@@ -405,6 +413,30 @@ namespace Desynchronized.TNDBS
             }
         }
         */
+
+        public override void Tick()
+        {
+            base.Tick();
+            // 8 calculations per day, should be enough -> 3 in-game hours
+            // 60000 / 8 = 7500
+            if (Find.TickManager.TicksGame % 7500 == 0)
+            {
+                // DesynchronizedMain.LogError("Recalculate!");
+                RecalculateTaleNewsImportance();
+            }
+        }
+
+        private void RecalculateTaleNewsImportance()
+        {
+            foreach (Pawn pawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
+            {
+                foreach (TaleNewsReference reference in pawn.GetNewsKnowledgeTracker().ListOfAllKnownNews)
+                {
+                    // DesynchronizedMain.LogError("Parsing " + pawn.Name + " " + reference.ToString());
+                    reference.RecalculateNewsImportance();
+                }
+            }
+        }
 
         [Obsolete]
         private void TaleNewsDebugSystem()

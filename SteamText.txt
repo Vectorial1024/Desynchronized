@@ -1,7 +1,8 @@
-[i]Change your Colonists' minds.[/i]
+[i]Information spreads from one to another.[/i]
 
 [h1]Quick Info and Compatibility[/h1]
 [list]
+[*]Also known as [i]Desynchronised: Tales and News[/i]
 [*]Requires HugsLib (warning should be given if you don't have HugsLib); place this mod below HugsLib
 [*]Safe to add to existing saves
 [*]Please [b]do not remove[/b] from existing saves
@@ -10,31 +11,23 @@
 [*]GitHub repo link is here: https://github.com/Vectorial1024/Desynchronized
 [/list]
 [h1]Mod Description[/h1]
-A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how your colonists react to the outside world.
+A continuation of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1315706945]ClosedDoors[/url] made by MoobyNooby, this mod changes how information spreads among your colonists.
 
-As your colonists are scattered across the globe, so are their knowledge. The inability for them to know everything at the get go creates an inevitable [i]desynchronization of understanding[/i].
+I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. ([url=https://rimworldme.tumblr.com/post/165485304313/innocent-prisoners-of-rimworld]Descriptive comic by SrGrafo[/url]) That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable [i]desynchronization of understanding[/i].
 
-How should your colonists comprehend the unforgiving and absurd world around them?
+With the news-spreading mechanism well-defined and working smoothly across several thousands of colonies galaxy-wide, I present you this question: how much should your pure, innocent colonists know? Should they know everything that has happened in the game, whether big or small, whether bright or dark?
 
 [h1]Features List[/h1]
 Visit the [url=https://github.com/Vectorial1024/Desynchronized]GitHub repo[/url] for more details, but here are some highlights:
 [list]
-[*]Colonists will generally not react to events that does not happen inside their own maps.
-[*]Colonists will now have a small chance to spread news about events that has happened, spreading from those who know to those who do not. (Configurable in Mod Settings)
-[*]Colonists will now spread news depending on how important the news are to themselves.
+[*]Colonists generally does not react to events that happens "off-map" (i.e. not in the map they are in).
+[*]Colonists have a moderate chance to spread news about past events during chats and talks with each other.
+[*]Colonists may find some news more "important" to themselves; they will be more likely to spread them.
 [/list]
 [h1]Compatibility with Other Mods[/h1]
-Currently, this mod is confirmed to work nicely with the following mods:
-[list]
-[*]Allow Tool (version 6 Nov, 2018)
-[/list]
-[h1]Incompatible Combinations[/h1]
-Currently, this mod does not work as intended if used with the following mods:
-[list]
-[*]Real Fog of War (version 10 Nov, 2018): Your Colonists will never be kidnapped by raiders due to an error
-[/list]
+Please refer to README.md on the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized/blob/master/README.md]here[/url] for more info.
 [h1]About Non-Steam Downloads[/h1]
-Non-Steam downloads are all centralized onto the GitHub page. You may find them here: https://github.com/Vectorial1024/Desynchronized/releases
+All non-Steam downloads are centralized in the Release section of the GitHub repo, which can be found [url=https://github.com/Vectorial1024/Desynchronized/releases]here[/url]. 
 
 [b]Special note:[/b] if you are only looking for a v1.0 ClosedDoors update, then look for "v0.0.0" in the list of releases. Should be at the bottom.
 
@@ -44,27 +37,29 @@ Help us out in our common pursuit of success on the Rim by:
 [*][b]Reporting Bugs:[/b] no one wants an infestation here. Visit "Reporting Bugs" down there.
 [*][b]Suggesting Features:[/b] we need new ideas to keep things interesting. Visit "Feature Suggestions" down there.
 [*][b]Inspecting the Code:[/b] sometimes, underlying problems are not obvious to spot. Visit the GitHub page to read the code.
-[*][b]Translating the Texts[/b]: if you are a native speaker of your language, you are most welcome to contribute by translating the texts to your own language. (I still need to find a way to efficiently manage this, though.)
+[*][b]Translating the Texts[/b]: if you are a native speaker of your language, you are most welcome to contribute by translating the texts to your own language. [u]You may now submit GitHub pull requests to provide your latest translations of this mod.[/u]
 [/list]
 [h1]The GitHub Repo of This Mod[/h1]
 To streamline things, I am centralizing many things onto the GitHub repo found at https://github.com/Vectorial1024/Desynchronized
 In the GitHub page, you will find:
 [list]
 [*]The source code and the xml files for this mod
+[*]The [url=https://github.com/Vectorial1024/Desynchronized/issues]issues page[/url] for bug-tracking
 [*]A detailed feature list
-[*]A feature planning list (including plans to make this work with other mods)
-[*]Non-Steam downloads (shortcut: https://github.com/Vectorial1024/Desynchronized/releases)
+[*]Several decentralized planning lists
+[*][url=https://github.com/Vectorial1024/Desynchronized/releases]Non-Steam downloads[/url]
 [*]Detailed changelogs
 [/list]
-[h1]Credits[/h1]
+[h1]Credits and Special Thanks[/h1]
 This mod would not have been here without the following people:
 [list]
-[*]MoobyNooby for keeping the code live so they can be passed on
-[*]The many subscribers (especially the earlier ones) for investing your time in this [i]ex-[/i]WIP product
-[*][strike]Jaxe and his [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url][/strike]
-[*]Mehni's fork of Jaxe's PublisherPlus (https://github.com/Mehni/PublisherPlus); PublisherPlus allowed me to exclude unrelated files from being uploaded together with the essential files, minimizing mod size to less than 2 MB.
-[*]pardeike's Harmony library and UnlimitedHugs' HugsLib for providing much-needed convenience to make mods
-[*]Tynan for this game; and most importantly,
-[*]That one guy who first got an idea and eventually catalyzed the creation of this mod
+[*]Tynan and Ludeon: for making this game 
+[*]pardeike's Harmony library and UnlimitedHugs' HugsLib: for providing much-needed convenience to make mods
+[*]MoobyNooby: for open-sourcing ClosedDoors so his code can be passed on
+[*]Mihokyo: for providing the French translations
+[*]The many subscribers (especially the early ones): for supporting this [i]ex-[/i]WIP product by subscribing to it
+[*][strike]Jaxe: for making the amazing [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1510554297]PublisherPlus[/url][/strike]
+[*]Mehni: for forking and updating the amazing [url=https://github.com/Mehni/PublisherPlus]PublisherPlus[/url]; PublisherPlus allowed me to exclude unneccesary files during upload, reducing mod size to less than 2 MB.
+[*]SrGrafo: for (possibly) (indirectly?) inspiring the creation of this mod
 [/list]
 That's all. Wish y'all a successful run on the Rim!

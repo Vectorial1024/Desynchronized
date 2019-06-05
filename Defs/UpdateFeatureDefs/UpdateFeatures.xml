@@ -157,6 +157,40 @@ The Scheme filteres information about the following events that originate from o
 - Note: Other news types currently have place-holder, constant importance scores
 - Fixed bug: Selling pawns to other factions should no longer give "Loved one sold" thoughts to pawns off-map|With the newly-implemented, standardized self-verification feature, this update does not require you to start a new game. However, the self-verification will remove most of the existing TaleNews about pawn death because most of them are invalid; the victims they are describing are already discarded by the game, so the TaleNews become invalid. A handful of TaleNews are not affected, especially those about recent deaths (deaths in the last 24 in-game hours).|Colonies that rely on hunting and butchering will be most affected by this update since their games and poultries are forcibly retained even after their death. Hence, the next update will introduce "forgetfulness" to pawns. News with low importance will be "forgotten", allowing the dead to finally rest and pass on.|If you would like to include your error logs when reporting bugs, you are recommended to use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_5_1</defName>
+		<assemblyVersion>1.5.1</assemblyVersion>
+		<content>Version 1.5.1 is here to kill some bugs.|- Added translation (French/Francais); credits to Mihokyo for helping out with the translation!
+- Fixed bug: no more NullReferenceException when losing pawns during player-initiated attacks on faction bases
+- Fixed bug: no more complaints from RimWorld about null-null "dummy" faction relations and "non-existent" self-self faction relations
+- Fixed bug: no more ArgumentOutOfRangeException when attempting to randomly select a piece of news to transmit
+- Cleaned up left-over developer log spam|I have come up with a good way to manage translations. From now on, the localization XML file names will also mention the version of the mod, so it will be easier for translators to spot new texts that require translation.|As a result, we are now accepting translations.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_5_2</defName>
+		<assemblyVersion>1.5.2</assemblyVersion>
+		<content>Version 1.5.2 is here to improve compatibility.|- Compatibility: cleaning world pawns using RuntimeGC will not remove pawns referenced by the TaleNews system|Please note that, due to code protection, I am unable to prevent RuntimeGC from removing pawns when doing "deconstruct animal family", so please avoid using that feature.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_5_3</defName>
+		<assemblyVersion>1.5.3</assemblyVersion>
+		<content>Bug fixes! Another round of bug fixes for version 1.5.3!|- Fixed bug: users without RuntimeGC should no longer receive errors of "unable to patch", etc.
+- Fixed bug: more refinements in calculating faction-faction goodwill|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_6_0</defName>
+		<assemblyVersion>1.6.0</assemblyVersion>
+		<content>The North remembers.|- New feature: new main tab for this mod
+- New feature: new tale-news UI to let us view tale-news in-game
+- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
+- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
+- Added mod setting: configure whether the new tale-news UI should auto-pause the game
+- More texts available for translation|There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

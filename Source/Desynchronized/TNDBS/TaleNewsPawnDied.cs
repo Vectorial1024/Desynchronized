@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TNDBS.Utilities;
+using Desynchronized.Utilities;
 using RimWorld;
 using RimWorld.Planet;
 using System;
@@ -127,7 +128,7 @@ namespace Desynchronized.TNDBS
             return new TaleNewsPawnDied(victim, dinfo);
         }
 
-        public override string GetNewsIdentifier()
+        public override string GetNewsTypeName()
         {
             return "Pawn Died";
         }
@@ -145,7 +146,7 @@ namespace Desynchronized.TNDBS
         /// </summary>
         /// <param name="recipient"></param>
         /// <returns></returns>
-        private bool TryProcessAsExecutionEvent(ref Pawn recipient)
+        private bool TryProcessAsExecutionEvent(Pawn recipient)
         {
             bool result = false;
 
@@ -166,7 +167,7 @@ namespace Desynchronized.TNDBS
         /// Attempts to give the killer their appropriate excitement (or disappointment). Aborts if there is no killer.
         /// </summary>
         /// <param name="recipient"></param>
-        private void TryProcessKillerHigh(ref Pawn recipient)
+        private void TryProcessKillerHigh(Pawn recipient)
         {
             // Killer != null => DamageInfo != null
             if (Killer != null)
@@ -212,7 +213,7 @@ namespace Desynchronized.TNDBS
         /// Attempts to give the recipient eye-witness thoughts; general thoughts otherwise.
         /// </summary>
         /// <param name="recipient"></param>
-        private void TryProcessEyeWitness(ref Pawn recipient)
+        private void TryProcessEyeWitness(Pawn recipient)
         {
             // There is potential to expand upon this condition.
             if (Victim.RaceProps.Humanlike)
@@ -232,7 +233,7 @@ namespace Desynchronized.TNDBS
         /// Attempts to give the recipient thoughts that are derived from their relationship statuses, if there are any.
         /// </summary>
         /// <param name="recipient"></param>
-        private void TryProcessRelationshipThoughts(ref Pawn recipient)
+        private void TryProcessRelationshipThoughts(Pawn recipient)
         {
             // Check if there is any relationship at all
             if (Victim.relations.PotentiallyRelatedPawns.Contains(recipient))
@@ -412,15 +413,15 @@ namespace Desynchronized.TNDBS
                 return;
             }
 
-            if (!TryProcessAsExecutionEvent(ref recipient))
+            if (!TryProcessAsExecutionEvent(recipient))
             {
                 // Someone killed another one.
-                TryProcessKillerHigh(ref recipient);
-                TryProcessEyeWitness(ref recipient);
+                TryProcessKillerHigh(recipient);
+                TryProcessEyeWitness(recipient);
             }
 
             // These are general thoughts.
-            TryProcessRelationshipThoughts(ref recipient);
+            TryProcessRelationshipThoughts(recipient);
             GiveOutFriendOrRivalDiedThoughts(recipient);
         }
 
@@ -535,14 +536,36 @@ namespace Desynchronized.TNDBS
 
             float mainImpact = (victimKindScore + relationalDeathImpact);
             mainImpact *= 1 + Mathf.Abs(((float)pawn.relations.OpinionOf(Victim)) / 50);
-            if (pawn.Faction != null)
-            {
-                mainImpact *= 1 + Mathf.Abs(((float)pawn.Faction.RelationWith(Victim.Faction).goodwill) / 50);
-            }
+            int interFactionGoodwill = pawn.Faction.GetGoodwillWith(Victim.Faction);
+            mainImpact *= 1 + Mathf.Abs((float)interFactionGoodwill / 50);
 
+            // Decays at a rate of half strength per year passed
             result += mainImpact * Mathf.Pow(0.5f, (1.0f / (60000 * 15 * 4)) * (Find.TickManager.TicksGame - reference.TickReceived));
 
+            // DesynchronizedMain.LogError("Calculation gives result of " + result);
             return result;
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string basic = base.GetDetailsPrintout();
+            if (Killer != null)
+            {
+                basic += "\nKilled by: " + Killer.Name;
+            }
+            else
+            {
+                basic += "\nNo killer.";
+            }
+            if (KillingBlowDamageDef != null)
+            {
+                basic += "\n" + KillingBlowDamageDef.deathMessage;
+            }
+            else
+            {
+                basic += "\nUnknown killing blow damage type.";
+            }
+            return basic;
         }
     }
 }

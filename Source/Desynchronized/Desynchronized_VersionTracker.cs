@@ -30,8 +30,8 @@ namespace Desynchronized
             base.ExposeData();
             Scribe_Values.Look(ref versionOfMod, "versionOfMod");
             Version versionWithinSaveFile = new Version(versionOfMod);
-            DesynchronizedMain.LogError("It is now " + Scribe.mode);
-            DesynchronizedMain.LogError("Saved with version (string) " + versionOfMod);
+            // DesynchronizedMain.LogError("It is now " + Scribe.mode);
+            // DesynchronizedMain.LogError("Saved with version (string) " + versionOfMod);
 
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
@@ -40,7 +40,7 @@ namespace Desynchronized
                     versionOfMod = typeof(DesynchronizedMain).Assembly.GetName().Version.ToString();
                 }
             }
-            DesynchronizedMain.LogError("Check again, saved with version (string) " + versionOfMod);
+            // DesynchronizedMain.LogError("Check again, saved with version (string) " + versionOfMod);
             // Sanity check; only do this after the vars are loaded.
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {

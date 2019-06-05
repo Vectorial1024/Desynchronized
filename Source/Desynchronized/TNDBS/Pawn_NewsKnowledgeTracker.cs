@@ -98,14 +98,33 @@ namespace Desynchronized.TNDBS
             return;
         }
 
+        /// <summary>
+        /// Randomly selects a news, and forgets it.
+        /// Does not check for whether the news has already been forgotten before.
+        /// </summary>
         public void ForgetRandom()
         {
-            throw new NotImplementedException();
+            int count = newsKnowledgeList.Count;
+            int selectedIndex = Rand.Int % count;
+            newsKnowledgeList[selectedIndex].Forget();
         }
 
         public void RemoveMemory()
         {
             throw new NotImplementedException();
+        }
+
+        public TaleNewsReference AttemptToObtainExistingReference(TaleNews news)
+        {
+            foreach (TaleNewsReference reference in newsKnowledgeList)
+            {
+                if (reference.ReferencedTaleNews.UniqueID == news.UniqueID)
+                {
+                    return reference;
+                }
+            }
+
+            return null;
         }
     }
 }

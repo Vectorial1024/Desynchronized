@@ -1,48 +1,56 @@
-So many things have happened since the last proper update, and so much uncertainty await in the future, and here we are, packing version 1.5.0 for all to use.
+The North remembers.
 
-- New feature: Pawns referenced by TaleNews will be kept by the game as world pawns
-- Hence, fixed bug: No more NullReferenceException when passing news (finally)
-- New feature: This mod will verify and fix most of its data when a savefile is loaded to make sure only valid data is loaded by the game
-- New feature: Pawns now assign a "news importance" score to every news they have received
-- New feature: News that have a higher importance score will be more likely to be transmitted
-- New feature: The news importance of pawn's death depends on several factors, but it mainly depends on the relationship between the news receiver and the victim
-- Note: News importance will naturally decay over time
-- Note: Other news types currently have place-holder, constant importance scores
-- Fixed bug: Selling pawns to other factions should no longer give "Loved one sold" thoughts to pawns off-map
+- New feature: new main tab for this mod
+- New feature: new tale-news UI to let us view tale-news in-game
+- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
+- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
+- Added mod setting: configure whether the new tale-news UI should auto-pause the game
+- More texts available for translation
 
-With the newly-implemented, standardized self-verification feature, this update does not require you to start a new game. However, the self-verification will remove most of the existing TaleNews about pawn death because most of them are invalid; the victims they are describing are already discarded by the game, so the TaleNews become invalid. A handful of TaleNews are not affected, especially those about recent deaths (deaths in the last 24 in-game hours).
+There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
 
-Colonies that rely on hunting and butchering will be most affected by this update since their games and poultries are forcibly retained even after their death. Hence, the next update will introduce "forgetfulness" to pawns. News with low importance will be "forgotten", allowing the dead to finally rest and pass on.
+If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
-If you would like to include your error logs when reporting bugs, you are recommended to use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
-
-Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.
+Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.
 
 //////
 
-So many things have happened since the last proper update, and so much uncertainty await in the future, and here we are, packing version 1.5.0 for all to use.
-
-[h1]Version 1.5.0: Changelog[/h1]
+The North remembers.
+[h1]Version 1.6.0: Changelog[/h1]
 [list]
-[*]New feature: Pawns referenced by TaleNews will be kept by the game as world pawns
-[*]Hence, fixed bug: No more NullReferenceException when passing news (finally)
-[*]New feature: This mod will verify and fix most of its data when a savefile is loaded to make sure only valid data is loaded by the game
-[*]New feature: Pawns now assign a "news importance" score to every news they have received
-[*]New feature: News that have a higher importance score will be more likely to be transmitted
-[*]New feature: The news importance of pawn's death depends on several factors, but it mainly depends on the relationship between the news receiver and the victim
-[*]Note: News importance will naturally decay over time
-[*]Note: Other news types currently have place-holder, constant importance scores
-[*]Fixed bug: Selling pawns to other factions should no longer give "Loved one sold" thoughts to pawns off-map
+[*]New feature: new main tab for this mod
+[*]New feature: new tale-news UI to let us view tale-news in-game
+[*]The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
+[*]Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
+[*]Added mod setting: configure whether the new tale-news UI should auto-pause the game
+[*]More texts available for translation
+[/list]
 [h1]Known Issues[/h1]
-There are no new or outstanding known issues.
+There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
+
+You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
 [h1]Concluding Notes[/h1]
-With the newly-implemented, standardized self-verification feature, this update does not require you to start a new game. However, the self-verification will remove most of the existing TaleNews about pawn death because most of them are invalid; the victims they are describing are already discarded by the game, so the TaleNews become invalid. A handful of TaleNews are not affected, especially those about recent deaths (deaths in the last 24 in-game hours).
-
-Colonies that rely on hunting and butchering will be most affected by this update since their games and poultries are forcibly retained even after their death. Hence, the next update will introduce "forgetfulness" to pawns. News with low importance will be "forgotten", allowing the dead to finally rest and pass on.
-
-If you would like to include your error logs when reporting bugs, you are recommended to use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
-
-Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, detailed changelogs and elaboration of features.
+If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
 Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find source codes, feature elaborations, detailed changelogs and previous releases.
+
+//////
+
+The North remembers.
+
+This is the v1.6.0 version of Desynchronized: Tales and News. It introduces a new UI that exposes the underlying mechanisms of the tale-news system.
+
+# Changelog
+- New feature: new main tab for this mod
+- New feature: new tale-news UI to let us view tale-news in-game
+- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
+- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
+- Added mod setting: configure whether the new tale-news UI should auto-pause the game
+- More texts available for translation
+
+There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
+
+As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
+
+Link to Workshop page for convenience: https://steamcommunity.com/sharedfiles/filedetails/?id=1573233249

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <PawnColumnDef>
+    <defName>KnownNewsCount</defName>
+    <label>known news count</label>
+    <workerClass>Desynchronized.Interfaces.PawnColumnWorker_KnownNewsCount</workerClass>
+    <width>0</width>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>NewsKnowledgeButton</defName>
+    <label>view individual news knowledge</label>
+    <workerClass>Desynchronized.Interfaces.PawnColumnWorker_NewsKnowledgeButton</workerClass>
+    <width>0</width>
+  </PawnColumnDef>
+
+</Defs>

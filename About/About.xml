@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Desynchronized: Tales and News (v1.5.0)</name>
+	<name>Desynchronized: Tales and News (v1.6.0)</name>
 	<author>Vectorial1024</author>
 	<supportedVersions>
 		<li>1.0</li>
 	</supportedVersions>
-	<description>Change your Colonists' minds.
+	<description>Information spreads from one to another.
 
-A continuation of MoobyNooby's ClosedDoors, this mod changes how your colonists react to the outside world.
+A continuation of ClosedDoors made by MoobyNooby, this mod changes how information spreads among your colonists.
 
-As your colonists are scattered across the globe, so are their knowledge. The inability for them to know everything at the get go creates an inevitable desynchronization of understanding.
+I always find it strange that colonists are able to know things happening basically out of their sight, knowing to an extreme that they can react instantly. That's why I decide to take the baton, and finish what has been started: to make information spreading more realistic, and to create the inevitable desynchronization of understanding.
 
-How should your colonists comprehend the unforgiving and absurd world around them?
+With the news-spreading mechanism well-defined and working smoothly across several thousands of colonies galaxy-wide, I present you this question: how much should your pure, innocent colonists know? Should they know everything that has happened in the game, whether big or small, whether bright or dark?
 
 - Requires HugsLib. Place this below HugsLib.
 - Safe to add to existing saves

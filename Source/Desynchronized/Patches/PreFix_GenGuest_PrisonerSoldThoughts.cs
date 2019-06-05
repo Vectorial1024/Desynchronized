@@ -14,7 +14,7 @@ namespace Desynchronized.Patches
         [HarmonyPrefix]
         public static bool PreFix()
         {
-            DesynchronizedMain.LogError("Mod incompatibility detected. Remove other mods until this error no longer appears, and report this to Desynchronized:\n" + Environment.StackTrace);
+            //DesynchronizedMain.LogError("Mod incompatibility detected. Remove other mods until this error no longer appears, and report this to Desynchronized:\n" + Environment.StackTrace);
             return false;
         }
     }

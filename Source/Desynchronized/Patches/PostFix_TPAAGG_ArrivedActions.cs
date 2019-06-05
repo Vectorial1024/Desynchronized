@@ -11,7 +11,7 @@ using Verse;
 namespace Desynchronized.Patches
 {
     /// <summary>
-    /// Retrieves sender information of pods from center storage.
+    /// Retrieves sender information of pods from center storage. Handles the case of player selling whatever pawns via drop-pods.
     /// </summary>
     [HarmonyPatch(typeof(TransportPodsArrivalAction_GiveGift))]
     [HarmonyPatch("Arrived", MethodType.Normal)]

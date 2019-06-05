@@ -39,7 +39,7 @@ namespace Desynchronized.TNDBS
         {
             get
             {
-                return InstigatorInfo.Instigator;
+                return InstigatorInfo.InstigatingPawn;
             }
         }
 
@@ -93,6 +93,21 @@ namespace Desynchronized.TNDBS
             {
                 LocationOfOccurence = LocationInfo.EmptyLocationInfo;
             }
+        }
+
+        public override string GetDetailsPrintout()
+        {
+            string result = "Victim: ";
+            if (primaryVictim.Name != null)
+            {
+                result += primaryVictim.Name;
+            }
+            else
+            {
+                result += primaryVictim.ToString();
+            }
+
+            return result;
         }
     }
 }
