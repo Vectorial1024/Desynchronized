@@ -28,7 +28,7 @@ namespace Desynchronized.Compatibility.RuntimeGC
 
             original.AddRange(excludedByTaleNews);
 
-            DesynchronizedMain.LogError("Method called! Processing complete! Original has " + original.Count + " pawns.");
+            // DesynchronizedMain.LogError("Method called! Processing complete! Original has " + original.Count + " pawns.");
         }
 
         private static void ReflectiveTestMethod(out List<Pawn> reflection)

@@ -73,6 +73,8 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        private int tickerInternal;
+
         /// <summary>
         /// Stores the next UID that will be given to newer TaleNews.
         /// </summary>
@@ -156,6 +158,7 @@ namespace Desynchronized.TNDBS
             Scribe_Values.Look(ref nextUID, "nextUID", 0);
             // Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
             Scribe_Collections.Look(ref knowledgeTrackerMasterList, "knowledgeTrackerMasterList", LookMode.Deep);
+            Scribe_Values.Look(ref tickerInternal, "tickerInternal", 0);
 
             // DesynchronizedMain.LogError("It is now " + Scribe.mode.ToString());
             if (Scribe.mode == LoadSaveMode.LoadingVars)
@@ -417,23 +420,75 @@ namespace Desynchronized.TNDBS
         public override void Tick()
         {
             base.Tick();
+            tickerInternal++;
             // 8 calculations per day, should be enough -> 3 in-game hours
             // 60000 / 8 = 7500
-            if (Find.TickManager.TicksGame % 7500 == 0)
+            while (tickerInternal > 7500)
             {
-                // DesynchronizedMain.LogError("Recalculate!");
+                UpdateForgetStatus();
+                PurgeForgottenNews();
+                tickerInternal -= 7500;
                 RecalculateTaleNewsImportance();
             }
         }
 
         private void RecalculateTaleNewsImportance()
         {
-            foreach (Pawn pawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
+            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
             {
-                foreach (TaleNewsReference reference in pawn.GetNewsKnowledgeTracker().ListOfAllKnownNews)
+                foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
                 {
                     // DesynchronizedMain.LogError("Parsing " + pawn.Name + " " + reference.ToString());
                     reference.RecalculateNewsImportance();
+                }
+            }
+        }
+
+        private void UpdateForgetStatus()
+        {
+            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
+            {
+                foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
+                {
+                    if (reference.CachedNewsImportance < 1)
+                    {
+                        reference.Forget();
+                    }
+                }
+            }
+        }
+
+        private void PurgeForgottenNews()
+        {
+            // Count the forgetfulness occurence
+            // First initialize the dictionary
+            Dictionary<TaleNews, int> remembranceCount = new Dictionary<TaleNews, int>();
+            foreach (TaleNews news in DesynchronizedMain.TaleNewsDatabaseSystem.TalesOfImportance_ReadOnly)
+            {
+                remembranceCount.Add(news, 0);
+            }
+
+            // Then add in the slots one by one
+            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
+            {
+                foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
+                {
+                    if (!reference.NewsIsForgottenLocally)
+                    {
+                        remembranceCount[reference.ReferencedTaleNews]++;
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<TaleNews, int> kvPair in remembranceCount)
+            {
+                if (kvPair.Key.UniqueID == TaleNews.DefaultTaleNews.UniqueID)
+                {
+                    continue;
+                }
+                if (kvPair.Value == 0)
+                {
+                    kvPair.Key.Signal_NewsIsPermanentlyForgotten();
                 }
             }
         }

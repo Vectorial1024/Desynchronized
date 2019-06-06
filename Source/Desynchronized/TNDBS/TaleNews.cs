@@ -9,13 +9,15 @@ using Verse;
 namespace Desynchronized.TNDBS
 {
     /// <summary>
-    /// A TaleNews object links a Tale and a receipient Pawn together.
+    /// A TaleNews object simply represents a Tale, but in a more permanent form.
     /// </summary>
     public abstract class TaleNews: IExposable
     {
         private int uniqueID = -1;
 
         private LocationInfo locationInfo;
+
+        private bool isPermanentlyForgotten;
 
         public int UniqueID
         {
@@ -42,6 +44,14 @@ namespace Desynchronized.TNDBS
             protected set
             {
                 locationInfo = value;
+            }
+        }
+
+        public bool PermanentlyForgotten
+        {
+            get
+            {
+                return isPermanentlyForgotten;
             }
         }
 
@@ -88,6 +98,7 @@ namespace Desynchronized.TNDBS
             {
                 locationInfo = LocationInfo.EmptyLocationInfo;
             }
+            Scribe_Values.Look(ref isPermanentlyForgotten, "permaForgotten", false);
 
             ConductSaveFileIO();
         }
@@ -107,6 +118,41 @@ namespace Desynchronized.TNDBS
 
         internal abstract void SelfVerify();
 
+        /// <summary>
+        /// Also handles the cleanup of its related TaleNews
+        /// </summary>
+        internal void Signal_NewsIsPermanentlyForgotten()
+        {
+            isPermanentlyForgotten = true;
+
+            // Find all pawns
+            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
+            {
+                // Search all references
+                foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
+                {
+                    if (reference.ReferencedTaleNews.UniqueID == UniqueID)
+                    {
+                        reference.Notify_PermanentlyForgotten();
+                        break;
+                    }
+                }
+            }
+
+            PurgeDetails();
+        }
+
+        private void PurgeDetails()
+        {
+            locationInfo = null;
+            DiscardNewsDetails();
+        }
+
+        /// <summary>
+        /// For when forgetting news.
+        /// </summary>
+        protected abstract void DiscardNewsDetails();
+
         [Obsolete("Security has tightened.", true)]
         public void BecomeRegistered(int ID)
         {
@@ -122,6 +168,10 @@ namespace Desynchronized.TNDBS
         /// <param name="recipient"></param>
         public void ActivateForReceipient(Pawn recipient)
         {
+            if (isPermanentlyForgotten)
+            {
+                DesynchronizedMain.LogError("Illegal state. This tale-news should be permanently forgotten. Tale-news: " + ToString());
+            }
             try
             {
                 GiveThoughtsToReceipient(recipient);

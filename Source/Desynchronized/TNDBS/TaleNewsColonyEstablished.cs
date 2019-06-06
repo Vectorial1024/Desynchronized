@@ -33,6 +33,11 @@ namespace Desynchronized.TNDBS
             return false;
         }
 
+        protected override void DiscardNewsDetails()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
             throw new NotImplementedException();

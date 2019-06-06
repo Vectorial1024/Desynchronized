@@ -6,7 +6,8 @@
     <commonality>1</commonality>
     <degreeDatas>
       <li>
-        <label>secret-keeper</label>
+        <!-- Special note: the actual label should be "secret keeper", but to maintain consistency with other translations, this label node is "secretkeeper" -->
+        <label>secretkeeper</label>
         <description>[PAWN_nameDef] is careful with [PAWN_possessive] words, and will often choose to keep all kinds of news close to [PAWN_possessive] heart.</description>
         <degree>-1</degree>
         <statOffsets>

@@ -94,6 +94,7 @@
     <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
     <Compile Include="Patches\PostFix_TransportPods_PostAdd.cs" />
+    <Compile Include="Patches\PostFix_Window_PostOpen.cs" />
     <Compile Include="Patches\PostFix_WorldPawnGC_PawnImportanceReason.cs" />
     <Compile Include="Patches\PostFix_WorldPawns_RemovePawn.cs" />
     <Compile Include="Patches\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="TNDBS\TaleNewsReference.cs" />
     <Compile Include="TNDBS\TaleNewsTypeEnum.cs" />
     <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
+    <Compile Include="TNDBS\Utilities\ForgetfulnessStage.cs" />
     <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
     <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
     <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />

@@ -53,5 +53,11 @@ namespace Desynchronized.TNDBS
         {
             return "No details";
         }
+
+        protected override void DiscardNewsDetails()
+        {
+            // We have nothing to discard.
+            return;
+        }
     }
 }

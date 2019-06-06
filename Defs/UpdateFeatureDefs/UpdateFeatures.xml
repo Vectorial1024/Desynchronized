@@ -191,6 +191,16 @@ The Scheme filteres information about the following events that originate from o
 - Added mod setting: configure whether the new tale-news UI should auto-pause the game
 - More texts available for translation|There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
+
+		<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_6_1</defName>
+		<assemblyVersion>1.6.1</assemblyVersion>
+		<content>The North remembers.|- New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
+- Adjusted calculation of news importance for "pawn died" news
+- Added more French translation (credits to Mihokyo)
+- Fixed null-reference bug introduced in v1.6.0
+- The news tracker UI now auto-close when the menu main tab is clicked|Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.|The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

@@ -34,12 +34,14 @@ namespace Desynchronized.TNDBS
 
         /// <summary>
         /// The (primary) instigator of this negative tale-news, if there exists one.
+        /// <para/>
+        /// Null-safe.
         /// </summary>
         public Pawn Instigator
         {
             get
             {
-                return InstigatorInfo.InstigatingPawn;
+                return InstigatorInfo?.InstigatingPawn ?? null;
             }
         }
 
@@ -70,11 +72,11 @@ namespace Desynchronized.TNDBS
 
         public override bool PawnIsInvolved(Pawn pawn)
         {
-            if (PrimaryVictim != null && pawn == PrimaryVictim)
+            if (pawn == null)
             {
-                return true;
+                return false;
             }
-            if (Instigator != null && pawn == Instigator)
+            if (pawn == PrimaryVictim || pawn == Instigator)
             {
                 return true;
             }
@@ -108,6 +110,13 @@ namespace Desynchronized.TNDBS
             }
 
             return result;
+        }
+
+        protected override void DiscardNewsDetails()
+        {
+            // Discard the victims, etc.
+            instigatorInfo = null;
+            primaryVictim = null;
         }
     }
 }

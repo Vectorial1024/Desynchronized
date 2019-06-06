@@ -40,6 +40,7 @@ namespace Desynchronized.Interfaces
             forcePause = DesynchronizedMain.NewsUI_ShouldAutoPause;
             doCloseX = true;
             doCloseButton = true;
+            preventCameraMotion = false;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -225,19 +226,41 @@ namespace Desynchronized.Interfaces
             textRect.xMin += 10;
             textRect.xMax -= 10;
             // Only the first row is displayed; others are viewed in the tip region.
-            string originalString;
-            try
+            string labelString = "";
+            string readoutString = "";
+            // Check if the stuff is forgotten
+            if (subjectPawn == null && news.PermanentlyForgotten)
             {
-                originalString = news.GetDetailsPrintout();
+                // All pawns list, all pawns forgot the news.
+                labelString = "Permanently forgotten";
+                readoutString = "No one can remember the details of this tale-news anymore.";
             }
-            catch (Exception ex)
+            else if (subjectPawn != null && subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsIsForgottenLocally)
             {
-                originalString = DesynchronizedMain.MODPREFIX + "Error: " + ex.Message + "\n" + ex.StackTrace;
+                // Individual pawns list, individual pawn forgot the news.
+                labelString = "Forgotten";
+                readoutString = "This pawn cannot remember the details of this tale-news, but perhaps it will when others talk about it.";
             }
-            // Guaranteed to have non-zero string.
-            string[] splitStrings = originalString.Split('\n');
-            Widgets.Label(textRect, splitStrings[0]);
-            TooltipHandler.TipRegion(boundingRect, originalString);
+            else
+            {
+                // In any case, someone remembers; print the details now.
+                string originalString;
+                try
+                {
+                    originalString = news.GetDetailsPrintout();
+                }
+                catch (Exception ex)
+                {
+                    originalString = DesynchronizedMain.MODPREFIX + "Error: " + ex.Message + "\n" + ex.StackTrace;
+                }
+                // At this stage, originalString guaranteed to be non-zero.
+                string[] splitStrings = originalString.Split('\n');
+                labelString = splitStrings[0];
+                readoutString = originalString;
+            }
+
+            Widgets.Label(textRect, labelString);
+            TooltipHandler.TipRegion(boundingRect, readoutString);
         }
     }
 }

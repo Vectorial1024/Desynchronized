@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Desynchronized.TNDBS.Utilities
 {
+    [Obsolete("Feature dismantled.")]
     public enum WitnessShockGrade
     {
         UNDEFINED = -1,

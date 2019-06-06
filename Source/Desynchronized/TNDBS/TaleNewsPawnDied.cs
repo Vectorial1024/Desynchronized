@@ -296,6 +296,9 @@ namespace Desynchronized.TNDBS
         /// </summary>
         private void GiveOutEyewitnessThoughts(Pawn recipient)
         {
+            // News is shocking because witnessed by naked eye
+            recipient.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(this).FlagAsShockingNews();
+
             if (recipient.Faction == Victim.Faction)
             {
                 new IndividualThoughtToAdd(ThoughtDefOf.WitnessedDeathAlly, recipient).Add();
@@ -339,6 +342,9 @@ namespace Desynchronized.TNDBS
             PawnRelationDef mostImportantRelation = recipient.GetMostImportantRelation(Victim);
             if (mostImportantRelation != null)
             {
+                // Step 2.0: News is shocking because relative died.
+                recipient.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(this).FlagAsShockingNews();
+
                 // Step 2.1: My relative died
                 ThoughtDef genderSpecificDiedThought = mostImportantRelation.GetGenderSpecificDiedThought(Victim);
                 if (genderSpecificDiedThought != null)
@@ -511,8 +517,9 @@ namespace Desynchronized.TNDBS
 
             float result = pawn.GetSocialProximityScoreForOther(Victim);
             // We have 2500 tick for 1 RW hour; hence, 60000 tick for 1 RW day
-            result += (int)reference.ShockGrade * Mathf.Pow(0.5f, (1.0f / (60000 * 15)) * (Find.TickManager.TicksGame - reference.TickReceived));
-            float victimKindScore = Victim.RaceProps.Animal ? 1 : 10;
+            // Shock grade scrapped in favour of simple boolean "shocking news" flag
+            // result += (int)reference.ShockGrade * Mathf.Pow(0.5f, (1.0f / (60000 * 15)) * (Find.TickManager.TicksGame - reference.TickReceived));
+            //float victimKindScore = Victim.RaceProps.Animal ? 1 : 10;
             // First determine thought by relations
             ThoughtDef potentialGivenThought = pawn.GetMostImportantRelation(Victim)?.GetGenderSpecificDiedThought(Victim) ?? null;
             // If there exists none, then determine by factions
@@ -534,16 +541,51 @@ namespace Desynchronized.TNDBS
                 relationalDeathImpact = 0;
             }
 
-            float mainImpact = (victimKindScore + relationalDeathImpact);
-            mainImpact *= 1 + Mathf.Abs(((float)pawn.relations.OpinionOf(Victim)) / 50);
+            // Calculate main impact score
+            // Base score is 2
+            float mainScore = 2;
+            // Accumulate relational impact
+            mainScore += relationalDeathImpact;
+            // Humanlike bonus: killing a man should be more significant than killing an animal
+            if (PrimaryVictim.RaceProps.Humanlike)
+            {
+                mainScore += 5;
+            }
+            // float mainImpact = (victimKindScore + relationalDeathImpact);
+            // Body size scaling: killing XL animals should be more significant than killing S animals
+            mainScore *= PrimaryVictim.BodySize;
+            // Pawn relations scaling: pawns with deeper bonds or deeper toothmarks should be more significant. Scales up to factor of 3.
+            mainScore *= 1 + Mathf.Abs(((float)pawn.relations.OpinionOf(Victim)) / 50);
+            // Faction relations scaling: factions with stronger relations should be more significant. Scales up to factor of 3.
             int interFactionGoodwill = pawn.Faction.GetGoodwillWith(Victim.Faction);
-            mainImpact *= 1 + Mathf.Abs((float)interFactionGoodwill / 50);
+            mainScore *= 1 + Mathf.Abs((float)interFactionGoodwill / 50);
 
-            // Decays at a rate of half strength per year passed
-            result += mainImpact * Mathf.Pow(0.5f, (1.0f / (60000 * 15 * 4)) * (Find.TickManager.TicksGame - reference.TickReceived));
+            // News importance decays over time. Normal rate is halving per year.
+            // Decay factor increased if news is shocking
+            float decayFactor = 0.5f;
+            if (reference.IsShockingNews)
+            {
+                decayFactor = 0.75f;
+            }
+
+            // There are 60000 ticks per day, 15 days per Quadrum, and 4 Quadrums per year.
+            result += mainScore * Mathf.Pow(decayFactor, (1.0f / (60000 * 15 * 4)) * (Find.TickManager.TicksGame - reference.TickReceived));
+
+            // Memories are faulty.
+            // They can be stronger or weaker, depending on how the brain is functioning at that moment.
+            // Goes from -2 to +2.
+            result += Rand.Value * 4 - 2;
 
             // DesynchronizedMain.LogError("Calculation gives result of " + result);
-            return result;
+            // Check that the result is valid; value should not drop below 0.
+            if (result < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return result;
+            }
         }
 
         public override string GetDetailsPrintout()
@@ -566,6 +608,13 @@ namespace Desynchronized.TNDBS
                 basic += "\nUnknown killing blow damage type.";
             }
             return basic;
+        }
+
+        protected override void DiscardNewsDetails()
+        {
+            base.DiscardNewsDetails();
+            methodOfDeath = DeathMethod.INDETERMINATE;
+            killingBlowDamageType = null;
         }
     }
 }

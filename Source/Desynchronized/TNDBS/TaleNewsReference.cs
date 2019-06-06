@@ -25,6 +25,10 @@ namespace Desynchronized.TNDBS
         private WitnessShockGrade shockGrade;
         private int tickReceived;
         private float cachedImportance = -1;
+        [Obsolete("", true)]
+        private bool forgotten;
+        private bool newsIsShocking;
+        private ForgetfulnessStage forgetfulness;
 
         /// <summary>
         /// True if the Receipient has reacted to the Underlying TaleNews before.
@@ -121,12 +125,49 @@ namespace Desynchronized.TNDBS
         {
             get
             {
+                if (NewsIsForgottenLocally)
+                {
+                    return 0;
+                }
                 if (cachedImportance == -1)
                 {
                     RecalculateNewsImportance();
                 }
 
                 return cachedImportance;
+            }
+        }
+
+        [Obsolete("", true)]
+        public bool HasForgotten
+        {
+            get
+            {
+                return forgotten;
+            }
+        }
+
+        public bool IsShockingNews
+        {
+            get
+            {
+                return newsIsShocking;
+            }
+        }
+
+        public ForgetfulnessStage ForgetfulnessStage
+        {
+            get
+            {
+                return forgetfulness;
+            }
+        }
+
+        public bool NewsIsForgottenLocally
+        {
+            get
+            {
+                return forgetfulness == ForgetfulnessStage.FORGOTTEN || forgetfulness == ForgetfulnessStage.PERM_LOST;
             }
         }
 
@@ -228,8 +269,20 @@ namespace Desynchronized.TNDBS
             // test
             Scribe_Values.Look(ref tickReceived, "tickReceived", Find.TickManager.TicksGame);
             Scribe_Values.Look(ref cachedImportance, "cachedNewsImportance", -1);
+            //Scribe_Values.Look(ref forgotten, "hasBeenForgotten", false);
+            Scribe_Values.Look(ref newsIsShocking, "newsIsShocking", false);
+            Scribe_Values.Look(ref forgetfulness, "forgetfulness", ForgetfulnessStage.UNKNOWN);
             // Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
             // Scribe_References.Look(ref recipient, "recipient");
+
+            // Compatibility check for previous users.
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                if (tickReceived > 0 && forgetfulness == ForgetfulnessStage.UNKNOWN)
+                {
+                    forgetfulness = ForgetfulnessStage.KNOWN;
+                }
+            }
         }
 
         public bool IsDefaultReference()
@@ -247,30 +300,66 @@ namespace Desynchronized.TNDBS
         public void ActivateNews(WitnessShockGrade shockGrade)
         {
             this.shockGrade = shockGrade;
-            RecalculateNewsImportance();
 
-            if (!HasEverActivated)
+            switch (forgetfulness)
             {
-                ReferencedTaleNews.ActivateForReceipient(CachedSubject);
-                hasBeenActivated = true;
-                tickReceived = Find.TickManager.TicksGame;
+                case ForgetfulnessStage.UNKNOWN:
+                    // First time knowing this news.
+                    RecalculateNewsImportance();
+                    ReferencedTaleNews.ActivateForReceipient(CachedSubject);
+                    hasBeenActivated = true;
+                    forgetfulness = ForgetfulnessStage.KNOWN;
+                    tickReceived = Find.TickManager.TicksGame;
+                    break;
+                case ForgetfulnessStage.KNOWN:
+                    // Something else I guess?
+                    break;
+                case ForgetfulnessStage.FORGOTTEN:
+                    // Something else?
+                    break;
+                case ForgetfulnessStage.PERM_LOST:
+                    return;
+                default:
+                    DesynchronizedMain.LogError("Impossible state. TNRef forgetfulness: " + forgetfulness);
+                    break;
             }
         }
 
         /// <summary>
-        /// The recipient inside this TaleNewsReference is able to react to the underlying TaleNews again.
+        /// The subject forgets about the news. May be able to regain memory by being reminded, but that's another story.
         /// <para/>
-        /// Mainly designed for Colonists with Alzheimers. Do NOT abuse.
+        /// May also be used by Alzheimers.
         /// </summary>
         public void Forget()
         {
-            hasBeenActivated = false;
+            forgetfulness = ForgetfulnessStage.FORGOTTEN;
+            //forgotten = true;
         }
 
         public void RecalculateNewsImportance()
         {
-            cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+            // Safety checks; should not attempt to calculate importance score when the news is forgotten
+            // The importance should technically be null, but let's make it simpler by using a 0 here.
+            if (ReferencedTaleNews.PermanentlyForgotten)
+            {
+                cachedImportance = 0;
+            }
+            else
+            {
+                cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+            }
+            
             // DesynchronizedMain.LogError("Recalculated #" + ReferencedTaleNews.UniqueID + " to have " + cachedImportance + " importance.");
+        }
+
+        public void FlagAsShockingNews()
+        {
+            newsIsShocking = true;
+        }
+
+        internal void Notify_PermanentlyForgotten()
+        {
+            forgetfulness = ForgetfulnessStage.PERM_LOST;
         }
     }
 }

@@ -58,9 +58,9 @@ namespace Desynchronized.TNDBS
                 float weightSum = 0;
                 foreach (TaleNewsReference reference in listInitiator)
                 {
-                    float importance = reference.ReferencedTaleNews.CalculateNewsImportanceForPawn(initiator, reference);
-                    weights.Add(importance);
-                    weightSum += importance;
+                    float importanceScore = reference.CachedNewsImportance;
+                    weights.Add(importanceScore);
+                    weightSum += importanceScore;
                 }
 
                 // Normalize weights

@@ -1,13 +1,14 @@
 The North remembers.
 
-- New feature: new main tab for this mod
-- New feature: new tale-news UI to let us view tale-news in-game
-- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
-- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
-- Added mod setting: configure whether the new tale-news UI should auto-pause the game
-- More texts available for translation
+- New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
+- Adjusted calculation of news importance for "pawn died" news
+- Added more French translation (credits to Mihokyo)
+- Fixed null-reference bug introduced in v1.6.0
+- The news tracker UI now auto-close when the menu main tab is clicked
 
-There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
+Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
+
+The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
 
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
@@ -16,17 +17,28 @@ Click on the link above to visit the GitHub online repo, where you can find the 
 //////
 
 The North remembers.
-[h1]Version 1.6.0: Changelog[/h1]
+[h1]Version 1.6.1: Changelog[/h1]
 [list]
-[*]New feature: new main tab for this mod
-[*]New feature: new tale-news UI to let us view tale-news in-game
-[*]The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
-[*]Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
-[*]Added mod setting: configure whether the new tale-news UI should auto-pause the game
-[*]More texts available for translation
+[*]New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
+[list]
+[*]News importance scores are updated once every 3 in-game hours
+[*]News with score < 1 will be forgotten before the next score update
+[*]News which no pawn can remember will be marked as "permanently forgotten"
+[*]Details of perm-forgot news are discarded, dead pawns are released, etc.
+[/list]
+[*]Adjusted calculation of news importance for "pawn died" news
+[list]
+[*]Importance now scales to body size of the dead pawn; deaths of larger pawns (e.g. megasloth) is more significant than death of smaller pawns (e.g. chicken)
+[*]Importance now decays slower if news recipient finds the news shocking (e.g. by eye-witness); changes not retroactive
+[/list]
+[*]Added more French translation (credits to Mihokyo)
+[*]Fixed null-reference bug introduced in v1.6.0
+[*]The news tracker UI now auto-close when the menu main tab is clicked
 [/list]
 [h1]Known Issues[/h1]
-There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
+Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
+
+The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
 
 You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
@@ -39,17 +51,24 @@ Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]h
 
 The North remembers.
 
-This is the v1.6.0 version of Desynchronized: Tales and News. It introduces a new UI that exposes the underlying mechanisms of the tale-news system.
+This is the v1.6.1 version of Desynchronized: Tales and News. It introduces the paramount concept of forgetfulness to maintain stable performance of this mod.
 
 # Changelog
-- New feature: new main tab for this mod
-- New feature: new tale-news UI to let us view tale-news in-game
-- The tale-news UI can either display the list of all tale-news or simply display how much tale-news an individual pawn knows
-- Removed all previous settings in the Mod Settings section; the mod has grown large enough such that fine details are tedious to manage
-- Added mod setting: configure whether the new tale-news UI should auto-pause the game
-- More texts available for translation
+- New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
+  - News importance scores are updated once every 3 in-game hours
+  - News with score < 1 will be forgotten before the next score update
+  - News which no pawn can remember will be marked as "permanently forgotten"
+  - Details of perm-forgot news are discarded, dead pawns are released, etc.
+- Adjusted calculation of news importance for "pawn died" news
+  - Importance now scales to body size of the dead pawn; deaths of larger pawns (e.g. megasloth) is more significant than death of smaller pawns (e.g. chicken)
+  - Importance now decays slower if news recipient finds the news shocking (e.g. by eye-witness); changes not retroactive
+- Added more French translation (credits to Mihokyo)
+- Fixed #23
+- The news tracker UI now auto-close when the menu main tab is clicked
 
-There are complaints of late-game lag related to the use of this mod. This is simply a flaw in the currently-incomplete system. Please hold out for a few more days (no more than 7 days), because the fix is coming.
+Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
+
+The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
 
