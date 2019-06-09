@@ -1,14 +1,12 @@
-The North remembers.
+*Insert Spongebob Squarepants brain meltdown scene*
 
-- New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
-- Adjusted calculation of news importance for "pawn died" news
-- Added more French translation (credits to Mihokyo)
-- Fixed null-reference bug introduced in v1.6.0
-- The news tracker UI now auto-close when the menu main tab is clicked
+- Various improvements to the existing tale-news interface
+- Optimized some codes
+- Fixed some bugs
+  - Fixed out-of-bounds error when a pawn who does not remember any news attempts to transmit a news
+- Made offerings to the One True God of RimWorld, Randy Random, to quell the spirits
 
-Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
-
-The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
+I hope there are no bugs this time around. Afterall, Randy is hard to please.
 
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
@@ -16,29 +14,19 @@ Click on the link above to visit the GitHub online repo, where you can find the 
 
 //////
 
-The North remembers.
-[h1]Version 1.6.1: Changelog[/h1]
+*Insert Spongebob Squarepants brain meltdown scene*
+[h1]Version 1.6.2: Changelog[/h1]
 [list]
-[*]New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
+[*]Various improvements to the existing tale-news interface
+[*]Optimized some codes
+[*]Fixed some bugs
 [list]
-[*]News importance scores are updated once every 3 in-game hours
-[*]News with score < 1 will be forgotten before the next score update
-[*]News which no pawn can remember will be marked as "permanently forgotten"
-[*]Details of perm-forgot news are discarded, dead pawns are released, etc.
+[*]Fixed out-of-bounds error when a pawn who does not remember any news attempts to transmit a news
 [/list]
-[*]Adjusted calculation of news importance for "pawn died" news
-[list]
-[*]Importance now scales to body size of the dead pawn; deaths of larger pawns (e.g. megasloth) is more significant than death of smaller pawns (e.g. chicken)
-[*]Importance now decays slower if news recipient finds the news shocking (e.g. by eye-witness); changes not retroactive
-[/list]
-[*]Added more French translation (credits to Mihokyo)
-[*]Fixed null-reference bug introduced in v1.6.0
-[*]The news tracker UI now auto-close when the menu main tab is clicked
+[*]Made offerings to the One True God of RimWorld, Randy Random, to quell the spirits
 [/list]
 [h1]Known Issues[/h1]
-Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
-
-The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
+I hope there are no bugs this time around. Afterall, Randy is hard to please.
 
 You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
@@ -49,26 +37,27 @@ Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]h
 
 //////
 
-The North remembers.
-
-This is the v1.6.1 version of Desynchronized: Tales and News. It introduces the paramount concept of forgetfulness to maintain stable performance of this mod.
+This is the v1.6.2 version of Desynchronized: Tales and News. Numerous attempts were made to contact Randy Random in response to the recent meltdown of the entire mod.
 
 # Changelog
-- New concept: forgetfulness - tale-news with sufficiently low importance score will be forgotten by pawns
-  - News importance scores are updated once every 3 in-game hours
-  - News with score < 1 will be forgotten before the next score update
-  - News which no pawn can remember will be marked as "permanently forgotten"
-  - Details of perm-forgot news are discarded, dead pawns are released, etc.
-- Adjusted calculation of news importance for "pawn died" news
-  - Importance now scales to body size of the dead pawn; deaths of larger pawns (e.g. megasloth) is more significant than death of smaller pawns (e.g. chicken)
-  - Importance now decays slower if news recipient finds the news shocking (e.g. by eye-witness); changes not retroactive
-- Added more French translation (credits to Mihokyo)
-- Fixed #23
-- The news tracker UI now auto-close when the menu main tab is clicked
+- Various improvements to the existing tale-news interface
+  - Individual pawns: forgotten news are always hidden
+  - Global overview: option to hide permanently-forgotten news
+  - Added "forgotten news count" column
+  - Added icons to replace long header texts
+  - News tracker now closes when clicked outside
+  - News tracker no longer shows unneccessary scroller when there aren't many tale-news
+  - You may now move the camera around even when news tracker is open
+  - Slight adjustment to the text alignment
+- Optimized some codes
+  - Standardized and greatly simplified code related to calculating news importance score
+  - Reduced number of loops used when determining which tale-news to forget
+  - Tale-news references now gets its subject pawn during the post-load init phase
+- Fixed some bugs
+  - Fixed out-of-bounds error when a pawn who does not remember any news attempts to transmit a news
+- Made offerings to the One True God of RimWorld, Randy Random, to quell the spirits
 
-Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.
-
-The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.
+#23, #25, and #26 now requires intense observation. I hope there are no bugs this time around. Afterall, Randy is hard to please.
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
 

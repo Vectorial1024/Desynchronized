@@ -5,7 +5,10 @@
     <workerClass>PawnTable_PlayerPawns</workerClass>
     <columns>
       <li>Label</li>
+      <li>GapTiny</li>
       <li>KnownNewsCount</li>
+      <li>GapTiny</li>
+      <li>ForgottenNewsCount</li>
       <li>GapTiny</li>
       <li>NewsKnowledgeButton</li>
       <!-->

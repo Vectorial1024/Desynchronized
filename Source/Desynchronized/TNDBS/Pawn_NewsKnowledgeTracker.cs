@@ -28,6 +28,8 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public List<TaleNewsReference> AllNewsReferences => newsKnowledgeList;
+
         /// <summary>
         /// This constructor does nothing; better use the static generator method instead.
         /// </summary>
@@ -59,11 +61,26 @@ namespace Desynchronized.TNDBS
             Scribe_References.Look(ref pawn, "pawn");
             Scribe_Collections.Look(ref newsKnowledgeList, "newsKnowledgeList", LookMode.Deep);
 
+            /*
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
+                DesynchronizedMain.LogError("San-check: pawn = " + pawn.Name);
                 foreach (TaleNewsReference reference in newsKnowledgeList)
                 {
                     reference.CachedSubject = pawn;
+                    DesynchronizedMain.LogError("Setting news reference to point to subject pawn: (next line)");
+                    DesynchronizedMain.LogError(reference.CachedSubject.Name.ToStringFull);
+                }
+            }
+            */
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                //DesynchronizedMain.LogError("San-check: pawn = " + pawn.Name);
+                foreach (TaleNewsReference reference in newsKnowledgeList)
+                {
+                    reference.CachedSubject = pawn;
+                    //DesynchronizedMain.LogError("Setting news reference to point to subject pawn: (next line)");
+                    //DesynchronizedMain.LogError(reference.CachedSubject.Name.ToStringFull);
                 }
             }
         }

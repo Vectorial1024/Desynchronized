@@ -35,5 +35,7 @@ I don't have much detail about these features in my mind but I think these featu
 - Colonists should react to cannibal meals differently (idea by Steam user megaboto)
 - Colonists should have persistent thoughts that are based on their social relationships
 - Other things
+# Previous Versions
+Please visit the [Releases Page](https://github.com/Vectorial1024/Desynchronized/releases) to download previous versions of this mod.
 # Regarding Compatibility
 Please refer to [Docs/Compatibility.md](https://github.com/Vectorial1024/Desynchronized/tree/master/Docs/Compatibility.md) for more details.

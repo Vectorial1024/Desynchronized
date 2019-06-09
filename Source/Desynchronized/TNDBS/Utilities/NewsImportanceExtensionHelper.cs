@@ -17,6 +17,12 @@ namespace Desynchronized.TNDBS.Utilities
         /// <returns></returns>
         public static int GetSocialProximityScoreForOther(this Pawn subject, Pawn other)
         {
+            if (subject == null)
+            {
+                DesynchronizedMain.LogError("This shit be null bruh!");
+                return 0;
+            }
+
             PawnRelationDef relation = subject.GetMostImportantRelation(other);
 
             // Score is given by the "differential pattern" of subject.

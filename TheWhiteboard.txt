@@ -1,0 +1,17 @@
+v1.6.1 dump
+https://gist.github.com/4d8165a4ad9e2061f4afe92e75d3eda5
+
+v1.6.2 dump
+https://gist.github.com/c1302873cdffb908dc43b1f09a97da63
+
+v1.6.3 (scheduled)
+Wander-confused and forget
+Health conditions now embedded into talenewspawndied
+
+v1.7.0 (scheduled)
+Merge DesynchronizedPsychology back into Main Mod as an Integrated Compat
+Clean-up internal code
+Steam pic for french translate
+
+v1.7.1 (scheduled)
+Open text from v1.6 for translation

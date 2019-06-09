@@ -44,7 +44,7 @@ namespace Desynchronized.TNDBS
         private static void SelectNewsRandomly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
             // Is now weighted random.
-            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().GetAllNonForgottenNewsReferences().ToList();
             // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(initiator);
 
             if (listInitiator.Count == 0)
@@ -58,7 +58,7 @@ namespace Desynchronized.TNDBS
                 float weightSum = 0;
                 foreach (TaleNewsReference reference in listInitiator)
                 {
-                    float importanceScore = reference.CachedNewsImportance;
+                    float importanceScore = reference.NewsImportance;
                     weights.Add(importanceScore);
                     weightSum += importanceScore;
                 }

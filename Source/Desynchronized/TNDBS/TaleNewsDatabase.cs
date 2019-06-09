@@ -1,4 +1,5 @@
-﻿using Desynchronized.Utilities;
+﻿using Desynchronized.TNDBS.Utilities;
+using Desynchronized.Utilities;
 using Harmony;
 using HugsLib.Utils;
 using RimWorld;
@@ -30,8 +31,14 @@ namespace Desynchronized.TNDBS
         [Obsolete]
         private List<PawnKnowledgeCard> knowledgeMappings;
 
-        [Obsolete("This is unsafe code.")]
-        public List<TaleNews> TalesOfImportance
+        private bool safetyValve_ShouldConductImportanceUpdate = true;
+
+        /// <summary>
+        /// Classified as internal to maximize security.
+        /// </summary>
+        /// 
+        [Obsolete("Use ListOfAllTaleNews instead.")]
+        internal List<TaleNews> TalesOfImportance
         {
             get
             {
@@ -46,6 +53,8 @@ namespace Desynchronized.TNDBS
                 return talesOfImportance;
             }
         }
+
+        internal List<TaleNews> ListOfAllTaleNews => talesOfImportance;
 
         [Obsolete("")]
         public Dictionary<Pawn, List<TaleNewsReference>> NewsKnowledgeMapping
@@ -139,6 +148,8 @@ namespace Desynchronized.TNDBS
             ResetOrInitialize();
         }
 
+        private int? testPointer;
+
         /// <summary>
         /// Used by RimWorld's Scribe system to I/O data.
         /// </summary>
@@ -159,6 +170,10 @@ namespace Desynchronized.TNDBS
             // Scribe_Collections.Look(ref knowledgeMappings, "knowledgeMappings", LookMode.Deep);
             Scribe_Collections.Look(ref knowledgeTrackerMasterList, "knowledgeTrackerMasterList", LookMode.Deep);
             Scribe_Values.Look(ref tickerInternal, "tickerInternal", 0);
+
+            // BEGIN test
+            // Scribe_Values.Look(ref testPointer, "testPointer", 1);
+            // END test
 
             // DesynchronizedMain.LogError("It is now " + Scribe.mode.ToString());
             if (Scribe.mode == LoadSaveMode.LoadingVars)
@@ -332,10 +347,24 @@ namespace Desynchronized.TNDBS
 
             // Validate all variables/structs
             RemoveAllInvalidTaleNews();
+
+            // Verify all tale-news references
+            VerifyAllTaleNewsReferences();
         }
 
         private void RemoveAllInvalidTaleNews()
         {
+            /*
+            // Step 1: Assign a temp id for each tale-news
+            Dictionary<TaleNews, int> tempIDPairing = new Dictionary<TaleNews, int>();
+            int i = 0;
+            foreach (TaleNews news in ListOfAllTaleNews)
+            {
+                tempIDPairing.Add(news, i);
+                i++;
+            }
+            */
+
             // Step 1: Identify all invalid TaleNews, and label them.
             Dictionary<int, int> newsIDPairing = new Dictionary<int, int>();
             int currentNewsID = 0;
@@ -401,6 +430,17 @@ namespace Desynchronized.TNDBS
             return;
         }
 
+        private void VerifyAllTaleNewsReferences()
+        {
+            foreach (Pawn_NewsKnowledgeTracker tracker in KnowledgeTrackerMasterList)
+            {
+                foreach (TaleNewsReference reference in tracker.AllNewsReferences)
+                {
+                    reference.SelfVerify();
+                }
+            }
+        }
+
         // test
         /*
         public override void Tick()
@@ -421,17 +461,68 @@ namespace Desynchronized.TNDBS
         {
             base.Tick();
             tickerInternal++;
-            // 8 calculations per day, should be enough -> 3 in-game hours
-            // 60000 / 8 = 7500
-            while (tickerInternal > 7500)
+
+            if (safetyValve_ShouldConductImportanceUpdate)
             {
-                UpdateForgetStatus();
-                PurgeForgottenNews();
-                tickerInternal -= 7500;
-                RecalculateTaleNewsImportance();
+                try
+                {
+                    // 8 calculations per day, should be enough -> 3 in-game hours
+                    // 60000 / 8 = 7500
+                    while (tickerInternal > 7500)
+                    {
+                        ImportanceUpdateCycle_DoOnce();
+                        tickerInternal -= 7500;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DesynchronizedMain.LogError("A critical error has occured while attempting to update news importance scores. This periodical process has been terminated. Please also include the full log (using HugsLib's log-sharing) when reporting this error.");
+                    DesynchronizedMain.LogError(ex.ToString());
+                    safetyValve_ShouldConductImportanceUpdate = false;
+                }
             }
         }
 
+        private void ImportanceUpdateCycle_DoOnce()
+        {
+            TaleNewsDatabase database = DesynchronizedMain.TaleNewsDatabaseSystem;
+
+            // Establish a counter of all *non-perm-forgot* tale-news
+            Dictionary<TaleNews, int> remembranceCounter = new Dictionary<TaleNews, int>();
+            foreach (TaleNews news in database.GetAllNonPermForgottenNews())
+            {
+                remembranceCounter.Add(news, 0);
+            }
+
+            // Update the importance scores of all *non-forgotten* news,
+            // see if any of them are to be forgotten.
+            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
+            {
+                foreach (TaleNewsReference reference in tracker.GetAllNonForgottenNewsReferences())
+                {
+                    reference.UpdateNewsImportance();
+                    if (!reference.NewsIsLocallyForgotten)
+                    {
+                        remembranceCounter[reference.ReferencedTaleNews]++;
+                    }
+                }
+            }
+
+            // Purge all forgotten news
+            foreach (KeyValuePair<TaleNews, int> kvPair in remembranceCounter)
+            {
+                if (kvPair.Key.UniqueID == TaleNews.DefaultTaleNews.UniqueID)
+                {
+                    continue;
+                }
+                if (kvPair.Value == 0)
+                {
+                    kvPair.Key.Signal_NewsIsPermanentlyForgotten();
+                }
+            }
+        }
+
+        [Obsolete("Unused", true)]
         private void RecalculateTaleNewsImportance()
         {
             foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
@@ -444,6 +535,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        [Obsolete("Unused", true)]
         private void UpdateForgetStatus()
         {
             foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
@@ -458,6 +550,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        [Obsolete("Unused", true)]
         private void PurgeForgottenNews()
         {
             // Count the forgetfulness occurence
@@ -473,7 +566,7 @@ namespace Desynchronized.TNDBS
             {
                 foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
                 {
-                    if (!reference.NewsIsForgottenLocally)
+                    if (!reference.IsLocallyForgotten)
                     {
                         remembranceCount[reference.ReferencedTaleNews]++;
                     }

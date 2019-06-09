@@ -199,7 +199,17 @@ The Scheme filteres information about the following events that originate from o
 - Adjusted calculation of news importance for "pawn died" news
 - Added more French translation (credits to Mihokyo)
 - Fixed null-reference bug introduced in v1.6.0
-- The news tracker UI now auto-close when the menu main tab is clicked|Re-calculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.|The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+- The news tracker UI now auto-close when the menu main tab is clicked|Recalculation of news forgetfulness may take some time if you already have a lot of tale-news accumulated in your playthrough. You may lag out a bit during the process. I may optimize this process in a later version.|The introduction of forgetfulness means that RuntimeGC users may now clear a significant number of accumulated dead pawns using RuntimeGC. This should return performance levels to what it should have been. Just wait for about 3-6 in-game hours, and run that world-pawn cleaning function.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
+	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_6_2</defName>
+		<assemblyVersion>1.6.2</assemblyVersion>
+		<content>*Insert Spongebob Squarepants brain meltdown scene*|- Various improvements to the existing tale-news interface
+- Optimized some codes
+- Fixed some bugs
+  - Fixed out-of-bounds error when a pawn who does not remember any news attempts to transmit a news
+- Made offerings to the One True God of RimWorld, Randy Random, to quell the spirits|I hope there are no bugs this time around. Afterall, Randy is hard to please.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.</content>
 	</HugsLib.UpdateFeatureDef>
 	
     <!--

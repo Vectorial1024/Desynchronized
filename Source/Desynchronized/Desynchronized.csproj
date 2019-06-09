@@ -75,6 +75,7 @@
     <Compile Include="GeneralExtensionHelper.cs" />
     <Compile Include="Interfaces\Dialog_NewsTrackerViewer.cs" />
     <Compile Include="Interfaces\MainTabWindow_Desynchronized.cs" />
+    <Compile Include="Interfaces\PawnColumnWorker_ForgottenNewsCount.cs" />
     <Compile Include="Interfaces\PawnColumnWorker_KnownNewsCount.cs" />
     <Compile Include="Interfaces\PawnColumnWorker_NewsKnowledgeButton.cs" />
     <Compile Include="Handlers\Handler_PawnBanished.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Handlers\Linker_ArrivalActionAndSender.cs" />
     <Compile Include="Jurisdiction\InnocenceDatabase.cs" />
     <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
+    <Compile Include="NullableType.cs" />
     <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
     <Compile Include="Patches\PostFix_InteractionWorker.cs" />
     <Compile Include="Patches\PostFix_MentalBreakWanderConfused_Start.cs" />
@@ -127,8 +129,11 @@
     <Compile Include="TNDBS\TaleNewsTypeEnum.cs" />
     <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
     <Compile Include="TNDBS\Utilities\ForgetfulnessStage.cs" />
+    <Compile Include="TNDBS\Utilities\ForgetfulnessState.cs" />
     <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
     <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
+    <Compile Include="TNDBS\Utilities\NewsImportanceInfo.cs" />
+    <Compile Include="TNDBS\Utilities\NewsSelector.cs" />
     <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />
     <Compile Include="TNDBS\Utilities\TaleNewsUtilExtender.cs" />
     <Compile Include="TNDBS\Utilities\WitnessShockGrade.cs" />

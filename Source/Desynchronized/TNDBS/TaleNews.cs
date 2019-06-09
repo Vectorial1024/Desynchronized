@@ -124,26 +124,8 @@ namespace Desynchronized.TNDBS
         internal void Signal_NewsIsPermanentlyForgotten()
         {
             isPermanentlyForgotten = true;
-
-            // Find all pawns
-            foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
-            {
-                // Search all references
-                foreach (TaleNewsReference reference in tracker.ListOfAllKnownNews)
-                {
-                    if (reference.ReferencedTaleNews.UniqueID == UniqueID)
-                    {
-                        reference.Notify_PermanentlyForgotten();
-                        break;
-                    }
-                }
-            }
-
-            PurgeDetails();
-        }
-
-        private void PurgeDetails()
-        {
+            // DesynchronizedMain.LogError("I, " + ToString() + " shall be forgotten.");
+            // private void PurgeDetails()
             locationInfo = null;
             DiscardNewsDetails();
         }

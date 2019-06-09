@@ -1,8 +1,5 @@
 ﻿using Desynchronized.TNDBS.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -24,11 +21,24 @@ namespace Desynchronized.TNDBS
         private Pawn cachedSubject;
         private WitnessShockGrade shockGrade;
         private int tickReceived;
-        private float cachedImportance = -1;
-        [Obsolete("", true)]
-        private bool forgotten;
+        /// <summary>
+        /// Returns the previously-calculated news importance score.
+        /// </summary>
+        /// 
+        [Obsolete("Adhere to the new standard.", true)]
+        private float cachedImportance;
+        /// <summary>
+        /// Returns true if the news is locally forgotten. Does not necessarily mean news is forgotten globally.
+        /// </summary>
+        /// 
+        [Obsolete("Adhere to the new standard.", true)]
+        private bool locallyForgotten;
         private bool newsIsShocking;
+        [Obsolete("", true)]
         private ForgetfulnessStage forgetfulness;
+        [Obsolete("", true)]
+        private ForgetfulnessState forgetfulnessState;
+        private NullableType<float> newsImportance;
 
         /// <summary>
         /// True if the Receipient has reacted to the Underlying TaleNews before.
@@ -121,31 +131,55 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public float NewsImportance => newsImportance.GetValueOrDefault();
+
+        /// <summary>
+        /// Returns the (previously) calculated news importance score of this news.
+        /// <para/>
+        /// Will calculate the correct value if necessary.
+        /// </summary>
+        /// 
+        [Obsolete("Adnere to the new standard.", true)]
         public float CachedNewsImportance
         {
             get
             {
-                if (NewsIsForgottenLocally)
+                if (IsLocallyForgotten)
                 {
                     return 0;
                 }
-                if (cachedImportance == -1)
+                if (cachedImportance < 0)
                 {
+                    // Probably needs some init
                     RecalculateNewsImportance();
                 }
 
                 return cachedImportance;
             }
         }
-
-        [Obsolete("", true)]
-        public bool HasForgotten
+        
+        [Obsolete("Adhere to the new standard.", true)]
+        public bool IsLocallyForgotten
         {
             get
             {
-                return forgotten;
+                return locallyForgotten;
+            }
+            internal set
+            {
+                locallyForgotten = value;
             }
         }
+
+        /// <summary>
+        /// Returns true if the pawn has forgotten about the news.
+        /// </summary>
+        public bool NewsIsLocallyForgotten => !newsImportance.HasValue;
+
+        /// <summary>
+        /// Returns true if no pawn ever remembers about the news.
+        /// </summary>
+        public bool NewsIsGloballyForgotten => ReferencedTaleNews.PermanentlyForgotten;
 
         public bool IsShockingNews
         {
@@ -155,6 +189,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        [Obsolete("", true)]
         public ForgetfulnessStage ForgetfulnessStage
         {
             get
@@ -163,11 +198,56 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        /// <summary>
+        /// Returns true if the news is forgotten, either locally or globally.
+        /// </summary>
+        /// 
+        [Obsolete("", true)]
         public bool NewsIsForgottenLocally
         {
             get
             {
                 return forgetfulness == ForgetfulnessStage.FORGOTTEN || forgetfulness == ForgetfulnessStage.PERM_LOST;
+            }
+        }
+
+        [Obsolete("Use the other one instead.", true)]
+        public bool IsForgottenLocally => CachedNewsImportance < 1;
+
+        [Obsolete("Adhere to the new standard.", true)]
+        public ForgetfulnessState ForgetState
+        {
+            get
+            {
+                if (ReferencedTaleNews.PermanentlyForgotten)
+                {
+                    return ForgetfulnessState.PERM_FORGOT;
+                }
+                if (locallyForgotten)
+                {
+                    return ForgetfulnessState.LOCALLY_FORGOT;
+                }
+                else
+                {
+                    return ForgetfulnessState.KNOWN;
+                }
+            }
+        }
+
+        [Obsolete("", true)]
+        private void UpdateForgetState()
+        {
+            if (ReferencedTaleNews.PermanentlyForgotten)
+            {
+                forgetfulnessState = ForgetfulnessState.PERM_FORGOT;
+            }
+            else if (locallyForgotten)
+            {
+                forgetfulnessState = ForgetfulnessState.LOCALLY_FORGOT;
+            }
+            else
+            {
+                forgetfulnessState = ForgetfulnessState.KNOWN;
             }
         }
 
@@ -229,7 +309,7 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                return "Reference to TaleNews about " + ReferencedTaleNews.ToString();
+                return "Reference to tale-news with id = " + uidOfReferencedTaleNews;
             }
         }
 
@@ -268,21 +348,14 @@ namespace Desynchronized.TNDBS
             Scribe_Values.Look(ref shockGrade, "shockGrade", WitnessShockGrade.BY_NEWS);
             // test
             Scribe_Values.Look(ref tickReceived, "tickReceived", Find.TickManager.TicksGame);
-            Scribe_Values.Look(ref cachedImportance, "cachedNewsImportance", -1);
-            //Scribe_Values.Look(ref forgotten, "hasBeenForgotten", false);
+            // Scribe_Values.Look(ref cachedImportance, "cachedNewsImportance", -1);
+            // Scribe_Values.Look(ref locallyForgotten, "locallyForgotten", false);
             Scribe_Values.Look(ref newsIsShocking, "newsIsShocking", false);
-            Scribe_Values.Look(ref forgetfulness, "forgetfulness", ForgetfulnessStage.UNKNOWN);
+            Scribe_Deep.Look(ref newsImportance, "newsImportance");
+            //Scribe_Values.Look(ref forgetfulness, "forgetfulness", ForgetfulnessStage.UNKNOWN);
+            //Scribe_Values.Look(ref forgetfulnessState, "forgetfulnessState", ForgetfulnessState.UNKNOWN);
             // Scribe_Deep.Look(ref underlyingTaleNews, "underlyingTaleNews");
             // Scribe_References.Look(ref recipient, "recipient");
-
-            // Compatibility check for previous users.
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                if (tickReceived > 0 && forgetfulness == ForgetfulnessStage.UNKNOWN)
-                {
-                    forgetfulness = ForgetfulnessStage.KNOWN;
-                }
-            }
         }
 
         public bool IsDefaultReference()
@@ -301,27 +374,13 @@ namespace Desynchronized.TNDBS
         {
             this.shockGrade = shockGrade;
 
-            switch (forgetfulness)
+            if (!hasBeenActivated)
             {
-                case ForgetfulnessStage.UNKNOWN:
-                    // First time knowing this news.
-                    RecalculateNewsImportance();
-                    ReferencedTaleNews.ActivateForReceipient(CachedSubject);
-                    hasBeenActivated = true;
-                    forgetfulness = ForgetfulnessStage.KNOWN;
-                    tickReceived = Find.TickManager.TicksGame;
-                    break;
-                case ForgetfulnessStage.KNOWN:
-                    // Something else I guess?
-                    break;
-                case ForgetfulnessStage.FORGOTTEN:
-                    // Something else?
-                    break;
-                case ForgetfulnessStage.PERM_LOST:
-                    return;
-                default:
-                    DesynchronizedMain.LogError("Impossible state. TNRef forgetfulness: " + forgetfulness);
-                    break;
+                // First time activating.
+                ReferencedTaleNews.ActivateForReceipient(CachedSubject);
+                UpdateNewsImportance(true);
+                tickReceived = Find.TickManager.TicksGame;
+                hasBeenActivated = true;
             }
         }
 
@@ -332,15 +391,38 @@ namespace Desynchronized.TNDBS
         /// </summary>
         public void Forget()
         {
-            forgetfulness = ForgetfulnessStage.FORGOTTEN;
-            //forgotten = true;
+            newsImportance = null;
         }
 
+        /// <summary>
+        /// Also determines whether the news is forgotten due to low importance score.
+        /// </summary>
+        /// 
+        [Obsolete("Use UpdateNewsImportance() instead", true)]
+        public void Notify_UpdateNewsImportance()
+        {
+            if (IsLocallyForgotten || ReferencedTaleNews.PermanentlyForgotten)
+            {
+                // Just to be safe. Do nothing and return.
+                DesynchronizedMain.LogWarning("Someone attempted to update importance score of a forgotten tale-news reference. This is unsafe behavior, and has been prevented.\n" + Environment.StackTrace);
+                return;
+            }
+
+            cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+
+            if (cachedImportance < 1)
+            {
+                Forget();
+            }
+            // CachedNewsImportance can already return 0 when IsLocallyForgotten
+        }
+
+        [Obsolete("Use UpdateNewsImportance()", true)]
         public void RecalculateNewsImportance()
         {
             // Safety checks; should not attempt to calculate importance score when the news is forgotten
             // The importance should technically be null, but let's make it simpler by using a 0 here.
-            if (ReferencedTaleNews.PermanentlyForgotten)
+            if (IsLocallyForgotten)
             {
                 cachedImportance = 0;
             }
@@ -357,9 +439,120 @@ namespace Desynchronized.TNDBS
             newsIsShocking = true;
         }
 
+        /// <summary>
+        /// Ensures that the news reference correctly knows that the news is permanently forgotten.
+        /// </summary>
+        /// 
+        [Obsolete("This is now automated.", true)]
         internal void Notify_PermanentlyForgotten()
         {
-            forgetfulness = ForgetfulnessStage.PERM_LOST;
+            locallyForgotten = true;
+        }
+
+        // Unused?
+        [Obsolete("Is this even used anymore?", true)]
+        internal void Notify_LocallyForgotten()
+        {
+            locallyForgotten = true;
+        }
+
+        /// <summary>
+        /// Called by the TNDBS regularly to see if can transit KNOWN -> LOCALLY_FORGOT
+        /// </summary>
+        /// 
+        [Obsolete("Use UpdateNewsImportance()", true)]
+        internal void Notify_UpdateForgetfulnessState()
+        {
+            if (!locallyForgotten && cachedImportance < 1)
+            {
+                locallyForgotten = true;
+            }
+        }
+
+        /// <summary>
+        /// Called by the TNDBS regularly to recalculate news importance score.
+        /// </summary>
+        /// 
+        [Obsolete("Use UpdateNewsImportance()", true)]
+        internal void Notify_ConductImportanceUpdateCycle()
+        {
+            switch (ForgetState)
+            {
+                case ForgetfulnessState.KNOWN:
+                    cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+                    if (cachedImportance < 1)
+                    {
+                        locallyForgotten = true;
+                        cachedImportance = 0;
+                    }
+                    break;
+                case ForgetfulnessState.LOCALLY_FORGOT:
+                case ForgetfulnessState.PERM_FORGOT:
+                    cachedImportance = 0;
+                    break;
+                default:
+                    break;
+            }
+            if (!locallyForgotten)
+            {
+
+            }
+
+
+            // Safety checks; should not attempt to calculate importance score when the news is forgotten
+            // The importance should technically be null, but let's make it simpler by using a 0 here.
+            if (ReferencedTaleNews.PermanentlyForgotten)
+            {
+                IsLocallyForgotten = true;
+            }
+            if (locallyForgotten)
+            {
+                cachedImportance = 0;
+            }
+            else
+            {
+                cachedImportance = ReferencedTaleNews.CalculateNewsImportanceForPawn(CachedSubject, this);
+            }
+        }
+        
+        internal void SelfVerify()
+        {
+            // No need to initialize newsImportance; as a struct, when it exists, it is already initialized.
+            if (!newsImportance.HasValue)
+            {
+                UpdateNewsImportance(true);
+            }
+        }
+
+        /// <summary>
+        /// Calculates and updates the news importance. If the importance score is low enough, the news is forgotten.
+        /// </summary>
+        /// <param name="forceRecheck"></param>
+        public void UpdateNewsImportance(bool forceRecheck = false)
+        {
+            if (!forceRecheck && NewsIsLocallyForgotten)
+            {
+                return;
+            }
+            if (ReferencedTaleNews.PermanentlyForgotten)
+            {
+                // It's pointless to calculate an importance of something that does not exist.
+                newsImportance = null;
+            }
+            else
+            {
+                float result = ReferencedTaleNews.CalculateNewsImportanceForPawn(cachedSubject, this);
+
+                if (result < 1)
+                {
+                    // Forgets
+                    newsImportance = null;
+                }
+                else
+                {
+                    newsImportance = result;
+                }
+            }
         }
     }
 }

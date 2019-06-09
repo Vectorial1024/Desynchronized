@@ -1,6 +1,8 @@
 ﻿using Desynchronized.TNDBS;
+using Desynchronized.TNDBS.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -27,6 +29,8 @@ namespace Desynchronized.Interfaces
 
         public List<TaleNewsReference> knownNews;
 
+        private bool shouldDisplayForgottenNews = true;
+
         /// <summary>
         /// Instantiates a new Tale-News Knowledge Tracker dialog.
         /// </summary>
@@ -41,22 +45,61 @@ namespace Desynchronized.Interfaces
             doCloseX = true;
             doCloseButton = true;
             preventCameraMotion = false;
+            closeOnClickedOutside = true;
+            //absorbInputAroundWindow = true;
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            int mainAreaBegin = 0;
+            DrawToggleDisplayForgottenNews(ref mainAreaBegin);
+
             // Draw first row
-            Rect headerRect = new Rect(0, 0, EntryWidth, EntryHeight);
+            Rect headerRect = new Rect(0, mainAreaBegin, EntryWidth, EntryHeight);
             DrawHeaderRow(headerRect);
 
-            Rect mainRect = new Rect(0, EntryHeight, inRect.width, inRect.height - TopAreaHeight - EntryHeight);
+            Rect mainRect = new Rect(0, mainAreaBegin + EntryHeight, inRect.width, inRect.height - TopAreaHeight - EntryHeight);
             DrawRemainingRows(mainRect);
+
+            GenUI.ResetLabelAlign();
             /*
             DesynchronizedMain.LogError("Rectangle is: " + inRect.ToString());
             throw new NotImplementedException();
             */
         }
 
+        private void DrawToggleDisplayForgottenNews(ref int mainAreaBeginPos)
+        {
+            if (subjectPawn == null)
+            {
+                // Button for overall view: filter forgotten news?
+                Rect buttonRect = new Rect(0, 0 + 2, 400, EntryHeight - 4);
+                // Rect rect4 = new Rect(x, rect.y + 2f, num2, rect.height - 4f);
+                if (Widgets.ButtonText(buttonRect, "Toggle display permanently forgotten news"))
+                {
+                    shouldDisplayForgottenNews = !shouldDisplayForgottenNews;
+                }
+                mainAreaBeginPos += 30;
+
+                Rect boundingRect = new Rect(400, 0, 400, EntryHeight);
+                Rect textRect = boundingRect;
+                textRect.xMin += 10;
+                textRect.xMax -= 10;
+                string readout;
+                if (shouldDisplayForgottenNews)
+                {
+                    readout = "Permanently-forgotten news are not hidden.";
+                }
+                else
+                {
+                    readout = "Hiding permanently-forgotten news.";
+                }
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(textRect, readout);
+            }
+        }
+
+        [Obsolete("Consider patronizing NewsSelector.")]
         private IEnumerable<TaleNews> ObtainTaleNewsForPawn(Pawn subject = null)
         {
             if (subject != null)
@@ -80,16 +123,38 @@ namespace Desynchronized.Interfaces
         private void DrawRemainingRows(Rect givenArea)
         {
             // Draw remaining rows
-            // 6 is for the white line
-            float scrollableHeight = HeaderLineHeight + 30 * EntryHeight;
+
+            // Step 1: Determine What to draw
+            List<TaleNews> taleNewsList;
+            if (subjectPawn == null)
+            {
+                // Viewing all pawns
+                if (shouldDisplayForgottenNews)
+                {
+                    taleNewsList = DesynchronizedMain.TaleNewsDatabaseSystem.ListOfAllTaleNews;
+                }
+                else
+                {
+                    taleNewsList = DesynchronizedMain.TaleNewsDatabaseSystem.GetAllNonPermForgottenNews().ToList();
+                }
+            }
+            else
+            {
+                // Viewing individual pawns
+                taleNewsList = new List<TaleNews>(subjectPawn.GetNewsKnowledgeTracker().GetAllNonForgottenNews());
+            }
+            int newsCount = taleNewsList.Count;
+
+            // Step 2: Setup the area
+            float scrollableHeight = HeaderLineHeight + newsCount * EntryHeight;
             Rect viewingRect = new Rect(0, 0, givenArea.width - ScrollerMargin, scrollableHeight);
             Widgets.BeginScrollView(givenArea, ref scrollPosition, viewingRect);
             int currentHeight = HeaderLineHeight;
             float upperPosition = scrollPosition.y - EntryHeight;
             float lowerPosition = scrollPosition.y + givenArea.height;
             // Iterate through
-            List<TaleNews> taleNewsList = new List<TaleNews>(ObtainTaleNewsForPawn(subjectPawn));
-            for (int i = 0; i < taleNewsList.Count; i++)
+            
+            for (int i = 0; i < newsCount; i++)
             {
                 // > or >= ?
                 if (currentHeight > upperPosition && currentHeight < lowerPosition)
@@ -102,9 +167,14 @@ namespace Desynchronized.Interfaces
             Widgets.EndScrollView();
         }
 
+        /// <summary>
+        /// Draws the header row, along with its white separation line.
+        /// </summary>
+        /// <param name="givenArea"></param>
         private void DrawHeaderRow(Rect givenArea)
         {
             Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.DrawLightHighlight(givenArea);
             GUI.BeginGroup(givenArea);
             DrawNewsID_Header();
@@ -115,7 +185,7 @@ namespace Desynchronized.Interfaces
             GUI.EndGroup();
 
             GUI.color = Color.gray;
-            Widgets.DrawLineHorizontal(0, EntryHeight, EntryWidth);
+            Widgets.DrawLineHorizontal(0, EntryHeight + givenArea.yMin, EntryWidth);
             GUI.color = Color.white;
         }
 
@@ -128,6 +198,7 @@ namespace Desynchronized.Interfaces
             }
 
             Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleLeft;
             GUI.BeginGroup(givenArea);
             DrawNewsID(news);
             DrawNewsType(news);
@@ -193,7 +264,7 @@ namespace Desynchronized.Interfaces
                 Rect textRect = boundingRect;
                 textRect.xMin += 10;
                 textRect.xMax -= 10;
-                float importance = subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).CachedNewsImportance;
+                float importance = subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsImportance;
                 Widgets.Label(textRect, Math.Round(importance, 2).ToString());
                 StringBuilder builder = new StringBuilder("Importance score of this news: ");
                 builder.Append(importance);
@@ -235,7 +306,7 @@ namespace Desynchronized.Interfaces
                 labelString = "Permanently forgotten";
                 readoutString = "No one can remember the details of this tale-news anymore.";
             }
-            else if (subjectPawn != null && subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsIsForgottenLocally)
+            else if (subjectPawn != null && subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsIsLocallyForgotten)
             {
                 // Individual pawns list, individual pawn forgot the news.
                 labelString = "Forgotten";

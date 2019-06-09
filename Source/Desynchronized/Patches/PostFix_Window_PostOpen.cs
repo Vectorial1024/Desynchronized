@@ -9,6 +9,7 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
     [HarmonyPatch(typeof(Window))]
     [HarmonyPatch("PostOpen", MethodType.Normal)]
     public class PostFix_Window_PostOpen
@@ -28,4 +29,5 @@ namespace Desynchronized.Patches
             }
         }
     }
+    */
 }

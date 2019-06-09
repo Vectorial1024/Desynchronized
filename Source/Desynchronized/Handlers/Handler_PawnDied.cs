@@ -13,6 +13,14 @@ namespace Desynchronized.Handlers
         }
 
         /// <summary>
+        /// Handles a pawn death situation.
+        /// </summary>
+        public static void HandlePawnDied(Pawn victim, DamageInfo? info, Hediff culpritHediff)
+        {
+
+        }
+
+        /// <summary>
         /// The main difficulty lies in determining the correct thought to be given;
         /// there are so many methods out there that ultimately calls this method.
         /// </summary>
@@ -43,6 +51,11 @@ namespace Desynchronized.Handlers
                     other.GetNewsKnowledgeTracker().KnowNews(deathNews, WitnessShockGrade.NEARBY_WITNESS);
                 }
             }
+        }
+
+        private static void GenerateAndProcessNews(Pawn victim, DamageInfo? dinfo, Hediff culpritHediff)
+        {
+
         }
     }
 }
