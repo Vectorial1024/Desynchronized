@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compatibility\PostFix_RuntimeGC_CleanserUtils_TaleNewsPawns.cs" />
     <Compile Include="Compatibility\RuntimeGC\TalePawnListManipulator.cs" />
     <Compile Include="Compatibility\RuntimeGC\Transpiler_WorldPawnCleaner_GC.cs" />
     <Compile Include="DesynchronizedMain.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Desynchronized_ThoughtDefOf.cs" />
     <Compile Include="Desynchronized_VersionTracker.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
+    <Compile Include="Handlers\HandlerUtility.cs" />
     <Compile Include="Interfaces\Dialog_NewsTrackerViewer.cs" />
     <Compile Include="Interfaces\MainTabWindow_Desynchronized.cs" />
     <Compile Include="Interfaces\PawnColumnWorker_ForgottenNewsCount.cs" />
@@ -88,31 +88,25 @@
     <Compile Include="Jurisdiction\InnocenceDatabase.cs" />
     <Compile Include="Jurisdiction\PawnInnocenceCard.cs" />
     <Compile Include="NullableType.cs" />
-    <Compile Include="Patches\MultiFix_MapDeiniter.cs" />
-    <Compile Include="Patches\PostFix_InteractionWorker.cs" />
-    <Compile Include="Patches\PostFix_MentalBreakWanderConfused_Start.cs" />
-    <Compile Include="Patches\PostFix_Pawn_LongTick.cs" />
-    <Compile Include="Patches\PostFix_Pawn_PreKidnapped.cs" />
-    <Compile Include="Patches\PostFix_Pawn_PreTraded.cs" />
-    <Compile Include="Patches\PostFix_TPAAGG_ArrivedActions.cs" />
-    <Compile Include="Patches\PostFix_TransportPods_PostAdd.cs" />
-    <Compile Include="Patches\PostFix_Window_PostOpen.cs" />
-    <Compile Include="Patches\PostFix_WorldPawnGC_PawnImportanceReason.cs" />
-    <Compile Include="Patches\PostFix_WorldPawns_RemovePawn.cs" />
-    <Compile Include="Patches\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
-    <Compile Include="Patches\PreFix_PawnRelations_PreSold.cs" />
-    <Compile Include="Patches\PreFix_ThoughtsUtil_Executions.cs" />
+    <Compile Include="Patches\News_Kidnap\MultiFix_MapDeiniter.cs" />
+    <Compile Include="Patches\News_Death\PostFix_Pawn_Kill.cs" />
+    <Compile Include="Patches\NewsTransmit\PostFix_InteractionWorker.cs" />
+    <Compile Include="Patches\Hediffs_MentalBreaks\PostFix_MentalBreakWanderConfused_Start.cs" />
+    <Compile Include="Patches\News_Kidnap\PostFix_Pawn_PreKidnapped.cs" />
+    <Compile Include="Patches\News_Sold\PostFix_Pawn_PreTraded.cs" />
+    <Compile Include="Patches\News_Sold\PostFix_TPAAGG_ArrivedActions.cs" />
+    <Compile Include="Patches\News_Sold\PostFix_TransportPods_PostAdd.cs" />
+    <Compile Include="Patches\WorldPawns\PostFix_WorldPawnGC_PawnImportanceReason.cs" />
+    <Compile Include="Patches\News_Sold\PreFix_GenGuest_PrisonerSoldThoughts.cs" />
+    <Compile Include="Patches\News_Sold\PreFix_PawnRelations_PreSold.cs" />
+    <Compile Include="Patches\News_Execution\PreFix_ThoughtsUtil_Executions.cs" />
     <Compile Include="Patches\PreFix_ThoughtsUtil_GeneralThoughts.cs" />
-    <Compile Include="Patches\PreFix_ThoughtsUtil_OrganHarvested.cs" />
-    <Compile Include="Patches\PreFix_WorldPawns_DiscardPawn.cs" />
-    <Compile Include="Patches\TPAA_ExtensionHelper.cs" />
+    <Compile Include="Patches\News_OrganHarvested\PreFix_ThoughtsUtil_OrganHarvested.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Redirection\KidnappingTaleRedirector.cs" />
-    <Compile Include="Redirection\ThoughtRedirector.cs" />
-    <Compile Include="TNDBS\DeathBrutality.cs" />
+    <Compile Include="TNDBS\Datatypes\DeathBrutality.cs" />
     <Compile Include="TNDBS\DefaultTaleNews.cs" />
-    <Compile Include="TNDBS\InstigatorInfo.cs" />
-    <Compile Include="TNDBS\NewsSpreadUtility.cs" />
+    <Compile Include="TNDBS\Datatypes\InstigatorInfo.cs" />
+    <Compile Include="TNDBS\Utilities\NewsSpreadUtility.cs" />
     <Compile Include="TNDBS\PawnKnowledgeCard.cs" />
     <Compile Include="TNDBS\Pawn_NewsKnowledgeTracker.cs" />
     <Compile Include="TNDBS\TaleNewsColonyEstablished.cs" />
@@ -127,26 +121,16 @@
     <Compile Include="TNDBS\TaleNewsPawnSold.cs" />
     <Compile Include="TNDBS\TaleNewsReference.cs" />
     <Compile Include="TNDBS\TaleNewsTypeEnum.cs" />
-    <Compile Include="TNDBS\TNDBS_ExtensionMethods.cs" />
-    <Compile Include="TNDBS\Utilities\ForgetfulnessStage.cs" />
-    <Compile Include="TNDBS\Utilities\ForgetfulnessState.cs" />
-    <Compile Include="TNDBS\Utilities\LocationInfo.cs" />
-    <Compile Include="TNDBS\Utilities\NewsImportanceExtensionHelper.cs" />
-    <Compile Include="TNDBS\Utilities\NewsImportanceInfo.cs" />
-    <Compile Include="TNDBS\Utilities\NewsSelector.cs" />
-    <Compile Include="TNDBS\Utilities\TaleNewsPawnDied_Extensions.cs" />
-    <Compile Include="TNDBS\Utilities\TaleNewsUtilExtender.cs" />
-    <Compile Include="TNDBS\Utilities\WitnessShockGrade.cs" />
-    <Compile Include="Transpilers\Transpiler_Pawn_PreTraded.cs" />
-    <Compile Include="Transpilers\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
-    <Compile Include="Transpilers\Transpiler_TPAAGG_Arrived.cs" />
+    <Compile Include="TNDBS\Datatypes\LocationInfo.cs" />
+    <Compile Include="TNDBS\Extenders\ImportanceScoreCalculator.cs" />
+    <Compile Include="TNDBS\Extenders\NewsSelector.cs" />
+    <Compile Include="Patches\News_Sold\Transpiler_Pawn_PreTraded.cs" />
+    <Compile Include="Patches\Transpiler_ThoughtWorker_UnburiedColonists.cs" />
+    <Compile Include="Patches\News_Sold\Transpiler_TPAAGG_Arrived.cs" />
     <Compile Include="Utilities\FactionUtilities.cs" />
     <Compile Include="Utilities\HallOfFigures.cs" />
-    <Compile Include="Utilities\TNDBS_Verifier.cs" />
+    <Compile Include="Vanilla_HediffDefOf.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Interfaces\TempCode.txt" />
-    <Content Include="TNDBS\Utilities\TempStoreTNDBS_Extension.txt" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

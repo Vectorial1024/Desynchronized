@@ -1,8 +1,5 @@
-﻿using Desynchronized.TNDBS.Utilities;
+﻿using Desynchronized.TNDBS.Datatypes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -10,7 +7,7 @@ namespace Desynchronized.TNDBS
     public abstract class TaleNewsNegativeIndividual : TaleNews
     {
         private Pawn primaryVictim;
-        protected InstigatorInfo instigatorInfo;
+        protected InstigationInfo instigatorInfo;
 
         public Pawn PrimaryVictim
         {
@@ -20,7 +17,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        public InstigatorInfo InstigatorInfo
+        public InstigationInfo InstigationDetails
         {
             get
             {
@@ -37,26 +34,21 @@ namespace Desynchronized.TNDBS
         /// <para/>
         /// Null-safe.
         /// </summary>
-        public Pawn Instigator
-        {
-            get
-            {
-                return InstigatorInfo?.InstigatingPawn ?? null;
-            }
-        }
+        public Pawn Instigator => InstigationDetails?.InstigatingPawn ?? null;
 
         public TaleNewsNegativeIndividual()
         {
 
         }
 
-        public TaleNewsNegativeIndividual(Pawn victim, InstigatorInfo instigInfo): base(new LocationInfo(victim.MapHeld, victim.PositionHeld))
+        public TaleNewsNegativeIndividual(Pawn victim, InstigationInfo instigInfo): base(new LocationInfo(victim.MapHeld, victim.PositionHeld))
         {
             primaryVictim = victim;
-            InstigatorInfo = instigInfo;
+            InstigationDetails = instigInfo;
         }
 
-        public static TaleNewsNegativeIndividual GenerateTaleNewsNegativeIndividual(TaleNewsTypeEnum typeEnum, Pawn primaryVictim, InstigatorInfo instigatorInfo)
+        [Obsolete("Experimental tech.", true)]
+        public static TaleNewsNegativeIndividual GenerateTaleNewsNegativeIndividual(TaleNewsTypeEnum typeEnum, Pawn primaryVictim, InstigationInfo instigatorInfo)
         {
             TaleNewsNegativeIndividual taleNews = GenerateTaleNewsGenerally(typeEnum) as TaleNewsNegativeIndividual;
             taleNews.primaryVictim = primaryVictim;

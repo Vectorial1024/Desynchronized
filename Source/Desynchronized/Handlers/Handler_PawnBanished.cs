@@ -1,5 +1,4 @@
 ﻿using Desynchronized.TNDBS;
-using Desynchronized.TNDBS.Utilities;
 using RimWorld;
 using Verse;
 
@@ -7,6 +6,11 @@ namespace Desynchronized.Handlers
 {
     public class Handler_PawnBanished
     {
+        /// <summary>
+        /// Handles a pawn banishment event.
+        /// </summary>
+        /// <param name="victim"></param>
+        /// <param name="banishmentIsDeadly"></param>
         public static void HandlePawnBanished(Pawn victim, bool banishmentIsDeadly)
         {
             SendOutNotificationLetter(victim);
@@ -15,28 +19,18 @@ namespace Desynchronized.Handlers
 
         private static void SendOutNotificationLetter(Pawn victim)
         {
-            // string letterLabel = "Kidnapped".Translate() + ": " + victim.LabelShortCap;
-            // string letterContent = string.Empty;
-            // letterContent += "PawnKidnapped".Translate(victim.LabelShort.CapitalizeFirst(), kidnapper.Faction.def.pawnsPlural, kidnapper.Faction.Name, victim.Named("PAWN"));
-
             Find.LetterStack.ReceiveLetter("Colonist banished", "Colonist banished. Name of Colonist: " + victim.Name, LetterDefOf.NegativeEvent, victim, null, null);
         }
 
         private static void GenerateAndProcessNews(Pawn victim, bool banishmentIsDeadly)
         {
-            Map mapOfOccurence = victim.Map;
-            if (mapOfOccurence == null)
-            {
-                return;
-            }
-
             TaleNewsPawnBanished banishmentNews = new TaleNewsPawnBanished(victim, banishmentIsDeadly);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
             {
-                if (other.Map == mapOfOccurence)
+                if (other.IsInSameMapOrCaravan(victim))
                 {
-                    other.GetNewsKnowledgeTracker().KnowNews(banishmentNews, WitnessShockGrade.UNDEFINED);
+                    other.GetNewsKnowledgeTracker().KnowNews(banishmentNews);
                 }
             }
         }

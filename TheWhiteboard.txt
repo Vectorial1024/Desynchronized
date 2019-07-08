@@ -4,14 +4,26 @@ https://gist.github.com/4d8165a4ad9e2061f4afe92e75d3eda5
 v1.6.2 dump
 https://gist.github.com/c1302873cdffb908dc43b1f09a97da63
 
-v1.6.3 (scheduled)
-Wander-confused and forget
-Health conditions now embedded into talenewspawndied
+v1.6.3
+Wander-confused and forget [done]
+Health conditions now embedded into talenewspawndied [done]
+code cleaning
+
+slight improvement to news ui: overall view last row no longer conflicts with close button
+fixed bug: added safety check with relationtracker
+fixed bug: tale news can be generated in caravans
 
 v1.7.0 (scheduled)
 Merge DesynchronizedPsychology back into Main Mod as an Integrated Compat
 Clean-up internal code
 Steam pic for french translate
+in-caravan news transmission
 
 v1.7.1 (scheduled)
 Open text from v1.6 for translation
+
+v?.?.?
+localized aggro; hostile pawns don't affect faction relations unless they leave the map
+faction goodwill affected by news transmission
+generalize pawn banished into pawn released
+generalize pawn kidnapped into pawn captured

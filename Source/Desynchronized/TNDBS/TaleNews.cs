@@ -1,9 +1,5 @@
-﻿using Desynchronized.TNDBS.Utilities;
-using RimWorld;
+﻿using Desynchronized.TNDBS.Datatypes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -66,18 +62,13 @@ namespace Desynchronized.TNDBS
             
         }
 
-        [Obsolete("Unsafe code; use constructor with Map parameter instead.")]
-        public TaleNews(int dummy)
-        {
-            DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
-        }
-
         public TaleNews(LocationInfo info)
         {
             locationInfo = info;
             DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
         }
 
+        [Obsolete("Experimental tech.", true)]
         public static TaleNews GenerateTaleNewsGenerally(TaleNewsTypeEnum typeEnum)
         {
             TaleNews newsInstance = Activator.CreateInstance(typeEnum.GetTypeForEnum()) as TaleNews;
@@ -124,7 +115,6 @@ namespace Desynchronized.TNDBS
         internal void Signal_NewsIsPermanentlyForgotten()
         {
             isPermanentlyForgotten = true;
-            // DesynchronizedMain.LogError("I, " + ToString() + " shall be forgotten.");
             // private void PurgeDetails()
             locationInfo = null;
             DiscardNewsDetails();
@@ -134,15 +124,6 @@ namespace Desynchronized.TNDBS
         /// For when forgetting news.
         /// </summary>
         protected abstract void DiscardNewsDetails();
-
-        [Obsolete("Security has tightened.", true)]
-        public void BecomeRegistered(int ID)
-        {
-            if (!IsRegistered)
-            {
-                uniqueID = ID;
-            }
-        }
 
         /// <summary>
         /// Wrapper method to let the recipient react to the news.

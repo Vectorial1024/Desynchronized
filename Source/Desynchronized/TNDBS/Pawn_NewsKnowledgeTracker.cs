@@ -1,8 +1,7 @@
-﻿using Desynchronized.TNDBS.Utilities;
+﻿using Desynchronized.TNDBS.Extenders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -61,36 +60,12 @@ namespace Desynchronized.TNDBS
             Scribe_References.Look(ref pawn, "pawn");
             Scribe_Collections.Look(ref newsKnowledgeList, "newsKnowledgeList", LookMode.Deep);
 
-            /*
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                DesynchronizedMain.LogError("San-check: pawn = " + pawn.Name);
-                foreach (TaleNewsReference reference in newsKnowledgeList)
-                {
-                    reference.CachedSubject = pawn;
-                    DesynchronizedMain.LogError("Setting news reference to point to subject pawn: (next line)");
-                    DesynchronizedMain.LogError(reference.CachedSubject.Name.ToStringFull);
-                }
-            }
-            */
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                //DesynchronizedMain.LogError("San-check: pawn = " + pawn.Name);
                 foreach (TaleNewsReference reference in newsKnowledgeList)
                 {
                     reference.CachedSubject = pawn;
-                    //DesynchronizedMain.LogError("Setting news reference to point to subject pawn: (next line)");
-                    //DesynchronizedMain.LogError(reference.CachedSubject.Name.ToStringFull);
                 }
-            }
-        }
-
-        [Obsolete("Unsafe code. Use KnowNews instead.")]
-        public void ReceiveReference(TaleNewsReference reference)
-        {
-            if (reference != null && !reference.IsDefaultReference())
-            {
-                newsKnowledgeList.Add(reference);
             }
         }
 
@@ -98,21 +73,20 @@ namespace Desynchronized.TNDBS
         /// Finds the TaleNewsReference of the given TaleNews in the known list (or generates a new one if it does not exist), and activates it.
         /// </summary>
         /// <param name="news"></param>
-        public void KnowNews(TaleNews news, WitnessShockGrade shockGrade)
+        public void KnowNews(TaleNews news)
         {
-            foreach (TaleNewsReference reference in newsKnowledgeList)
+            if (AttemptToObtainExistingReference(news) == null)
             {
-                if (reference.IsReferencingTaleNews(news))
-                {
-                    reference.ActivateNews(shockGrade);
-                    return;
-                }
+                // Pawn is receiving this for the first time.
+                TaleNewsReference newReference = news.CreateReferenceForReceipient(Pawn);
+                newsKnowledgeList.Add(newReference);
+                newReference.ActivateNews();
             }
-
-            TaleNewsReference newReference = news.CreateReferenceForReceipient(Pawn);
-            newsKnowledgeList.Add(newReference);
-            newReference.ActivateNews(shockGrade);
-            return;
+            else
+            {
+                // Pawn might have forgotten about the news, so let's see.
+                // Not implemented for now.
+            }
         }
 
         /// <summary>
@@ -126,9 +100,45 @@ namespace Desynchronized.TNDBS
             newsKnowledgeList[selectedIndex].Forget();
         }
 
-        public void RemoveMemory()
+        /// <summary>
+        /// Forgets one known tale-news. Returns true if successfully forgetting one.
+        /// </summary>
+        /// <returns></returns>
+        public bool ForgetOneRandom()
         {
-            throw new NotImplementedException();
+            List<TaleNewsReference> listOfKnownNews = this.GetAllNonForgottenNewsReferences().ToList();
+            if (listOfKnownNews.Count == 0)
+            {
+                return false;
+            }
+
+            int selectedIndex = (int)(((uint)Rand.Int) % listOfKnownNews.Count);
+            listOfKnownNews[selectedIndex].Forget();
+            return true;
+        }
+
+        /// <summary>
+        /// Forgets a number of tale-news that this pawn knows.
+        /// </summary>
+        /// <param name="count"></param>
+        public void ForgetRandomly(int count = 1)
+        {
+            if (count <= 0)
+            {
+                throw new ArgumentException("You cannot forget " + count + " tale-news.");
+            }
+
+            while (count > 0)
+            {
+                if (ForgetOneRandom())
+                {
+                    count--;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
         public TaleNewsReference AttemptToObtainExistingReference(TaleNews news)

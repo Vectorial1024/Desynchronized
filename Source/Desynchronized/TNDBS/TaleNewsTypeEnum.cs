@@ -2,6 +2,7 @@
 
 namespace Desynchronized.TNDBS
 {
+    [Obsolete("Ancient.", true)]
     public enum TaleNewsTypeEnum
     {
         Default = 0,
@@ -12,6 +13,7 @@ namespace Desynchronized.TNDBS
         PawnSold
     }
 
+    [Obsolete("Ancient.", true)]
     public static class TaleNewsTypeMapperUtility
     {
         public static Type GetTypeForEnum(this TaleNewsTypeEnum typeEnum)

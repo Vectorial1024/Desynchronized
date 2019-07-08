@@ -6,6 +6,9 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /// <summary>
+    /// Note: sooner or later, the features of this patch will be broken down by the respective handlers.
+    /// </summary>
     [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility))]
     [HarmonyPatch("TryGiveThoughts", MethodType.Normal)]
     [HarmonyPatch(new Type[] { typeof(Pawn), typeof(DamageInfo), typeof(PawnDiedOrDownedThoughtsKind) })]
@@ -27,7 +30,8 @@ namespace Desynchronized.Patches
                         case PawnDiedOrDownedThoughtsKind.Died:
                             // Let's see if this works; I hope it does.
                             // It works.
-                            Handler_PawnDied.HandlePawnDied(victim, dinfo);
+                            // Refer to PostFix_Pawn_Kill
+                            // Handler_PawnDied.HandlePawnDied(victim, dinfo);
                             return false;
                         case PawnDiedOrDownedThoughtsKind.BanishedToDie:
                             Handler_PawnBanished.HandlePawnBanished(victim, true);

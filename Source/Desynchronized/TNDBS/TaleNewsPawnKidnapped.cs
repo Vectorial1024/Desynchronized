@@ -1,13 +1,11 @@
-﻿using RimWorld;
-using RimWorld.Planet;
+﻿using Desynchronized.TNDBS.Datatypes;
+using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
 {
+    [Obsolete("Use [] instead.")]
     public class TaleNewsPawnKidnapped : TaleNewsNegativeIndividual
     {
         private Faction kidnapperFaction;
@@ -29,7 +27,7 @@ namespace Desynchronized.TNDBS
 
         }
 
-        public TaleNewsPawnKidnapped(Pawn victim, Faction kidnappingFaction): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnKidnapped(Pawn victim, Faction kidnappingFaction): base(victim, InstigationInfo.NoInstigator)
         {
             if (kidnappingFaction == null)
             {
@@ -37,12 +35,12 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                InstigatorInfo = (InstigatorInfo) kidnappingFaction;
+                InstigationDetails = (InstigationInfo) kidnappingFaction;
                 kidnapperFaction = kidnappingFaction;
             }
         }
 
-        public TaleNewsPawnKidnapped(Pawn victim, Pawn kidnapper): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnKidnapped(Pawn victim, Pawn kidnapper): base(victim, InstigationInfo.NoInstigator)
         {
             if (kidnapper == null)
             {
@@ -50,17 +48,10 @@ namespace Desynchronized.TNDBS
             }
             else
             {
-                InstigatorInfo = (InstigatorInfo) kidnapper;
+                InstigationDetails = (InstigationInfo) kidnapper;
                 kidnapperFaction = kidnapper.Faction;
             }
         }
-
-        /*
-        private static bool placeholderFoo(Pawn pawn, Pawn subject)
-        {
-            return pawn.Faction == subject.Faction || (!subject.IsWorldPawn() && !pawn.IsWorldPawn());
-        }
-        */
 
         public override string GetNewsTypeName()
         {

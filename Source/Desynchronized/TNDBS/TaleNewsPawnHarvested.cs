@@ -1,8 +1,5 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Desynchronized.TNDBS.Datatypes;
+using RimWorld;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -14,7 +11,7 @@ namespace Desynchronized.TNDBS
 
         }
 
-        public TaleNewsPawnHarvested(Pawn victim): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnHarvested(Pawn victim): base(victim, InstigationInfo.NoInstigator)
         {
 
         }

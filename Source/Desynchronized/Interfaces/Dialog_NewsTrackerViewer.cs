@@ -1,4 +1,5 @@
 ﻿using Desynchronized.TNDBS;
+using Desynchronized.TNDBS.Extenders;
 using Desynchronized.TNDBS.Utilities;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace Desynchronized.Interfaces
             Rect headerRect = new Rect(0, mainAreaBegin, EntryWidth, EntryHeight);
             DrawHeaderRow(headerRect);
 
-            Rect mainRect = new Rect(0, mainAreaBegin + EntryHeight, inRect.width, inRect.height - TopAreaHeight - EntryHeight);
+            Rect mainRect = new Rect(0, mainAreaBegin + EntryHeight, inRect.width, inRect.height - TopAreaHeight - EntryHeight - mainAreaBegin);
             DrawRemainingRows(mainRect);
 
             GenUI.ResetLabelAlign();

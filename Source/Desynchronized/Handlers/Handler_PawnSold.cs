@@ -1,11 +1,6 @@
 ﻿using Desynchronized.TNDBS;
-using Desynchronized.TNDBS.Utilities;
+using Desynchronized.TNDBS.Datatypes;
 using RimWorld;
-using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.Handlers
@@ -14,16 +9,16 @@ namespace Desynchronized.Handlers
     {
         public static void HandlePawnSold_ByTrade(Pawn victim, Pawn negotiator)
         {
-            TaleNewsPawnSold news = new TaleNewsPawnSold(victim, (InstigatorInfo) negotiator);
+            TaleNewsPawnSold news = new TaleNewsPawnSold(victim, (InstigationInfo) negotiator);
             SendOutNotificationLetter(victim);
-            DistributeNews(news, negotiator.Map);
+            DistributeNews(victim, news, negotiator.Map);
         }
 
         public static void HandlePawnSold_ByGiftingViaPods(Pawn victim, Map mapOfSender)
         {
             TaleNewsPawnSold news = new TaleNewsPawnSold(victim);
             SendOutNotificationLetter(victim);
-            DistributeNews(news, mapOfSender);
+            DistributeNews(victim, news, mapOfSender);
         }
 
         private static void SendOutNotificationLetter(Pawn victim)
@@ -45,18 +40,13 @@ namespace Desynchronized.Handlers
         /// </summary>
         /// <param name="salesNews">The TaleNews object for this sales.</param>
         /// <param name="mapOfOccurence">The Map where the sales occured/was initiated.</param>
-        private static void DistributeNews(TaleNewsPawnSold salesNews, Map mapOfOccurence)
+        private static void DistributeNews(Pawn victim, TaleNewsPawnSold salesNews, Map mapOfOccurence)
         {
-            if (mapOfOccurence == null)
-            {
-                return;
-            }
-
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
-                if (other.Map == mapOfOccurence)
+                if (other.IsInSameMapOrCaravan(victim))
                 {
-                    other.GetNewsKnowledgeTracker().KnowNews(salesNews, WitnessShockGrade.UNDEFINED);
+                    other.GetNewsKnowledgeTracker().KnowNews(salesNews);
                 }
             }
         }

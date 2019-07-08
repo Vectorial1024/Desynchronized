@@ -1,8 +1,5 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Desynchronized.TNDBS.Datatypes;
+using RimWorld;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -16,12 +13,12 @@ namespace Desynchronized.TNDBS
 
         }
 
-        public TaleNewsPawnSold(Pawn victim): this(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnSold(Pawn victim): this(victim, InstigationInfo.NoInstigator)
         {
 
         }
 
-        public TaleNewsPawnSold(Pawn victim, InstigatorInfo info): base (victim, info)
+        public TaleNewsPawnSold(Pawn victim, InstigationInfo info): base (victim, info)
         {
 
         }

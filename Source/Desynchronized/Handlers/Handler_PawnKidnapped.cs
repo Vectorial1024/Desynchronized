@@ -13,22 +13,12 @@ namespace Desynchronized.Handlers
     {
         private static Map mapOfOccurence = null;
         private static Faction kidnappingFaction = null;
-        private static bool? shouldEmitLetter = null;
         private static bool flagIsDuringOffensiveBattle = false;
-
-        [Obsolete("", true)]
-        public static void Signal_DefensiveBattle_PawnKidnapped(Map map)
-        {
-            mapOfOccurence = map;
-            shouldEmitLetter = true;
-        }
 
         public static void Signal_OffensiveBattle_BeginBlock(Map map)
         {
-            //DesynchronizedMain.LogError("Receiving map: " + map);
             // The game has already implemented the "Caravan lost" letter, so we don't have to re-invent the wheel.
             mapOfOccurence = map;
-            //DesynchronizedMain.LogError("Map is now: " + mapOfOccurence);
             flagIsDuringOffensiveBattle = true;
         }
 
@@ -39,22 +29,8 @@ namespace Desynchronized.Handlers
 
         public static void HandlePawnKidnapped(Pawn victim, Pawn kidnapper)
         {
-            /*
-            if (!shouldEmitLetter.HasValue)
-            {
-                DesynchronizedMain.LogError("Fatal error: caller of method did not specify mode of operation. " + Environment.StackTrace);
-                return;
-            }
-            */
-
-            // Debug flushing
-            
-            //DesynchronizedMain.LogError("Kidnapper: " + kidnapper);
-
             // mapOfOccurence should already have been determined before calling this.
             DetermineVariables(kidnapper);
-
-            // DesynchronizedMain.LogError("Map of occurence: " + mapOfOccurence);
 
             if (!flagIsDuringOffensiveBattle)
             {
@@ -90,16 +66,6 @@ namespace Desynchronized.Handlers
             Find.LetterStack.ReceiveLetter(letterLabel, letterContent, LetterDefOf.NegativeEvent, LookTargets.Invalid);
         }
 
-        [Obsolete]
-        private static void SendOutNotificationLetter(Pawn victim, Pawn kidnapper)
-        {
-            string letterLabel = "Kidnapped".Translate() + ": " + victim.LabelShortCap;
-            string letterContent = string.Empty;
-            letterContent += "PawnKidnapped".Translate(victim.LabelShort.CapitalizeFirst(), kidnapper.Faction.def.pawnsPlural, kidnapper.Faction.Name, victim.Named("PAWN"));
-
-            Find.LetterStack.ReceiveLetter(letterLabel, letterContent, LetterDefOf.NegativeEvent, LookTargets.Invalid, null, null);
-        }
-
         /// <summary>
         /// Generate a TaleNews for everybody.
         /// I have no better idea right now, so this would have to suffice.
@@ -133,9 +99,9 @@ namespace Desynchronized.Handlers
                     continue;
                 }
 
-                if (other.Map == mapOfOccurence)
+                if (other.IsInSameMapOrCaravan(victim))
                 {
-                    other.GetNewsKnowledgeTracker().KnowNews(newsPawnKidnapped, WitnessShockGrade.SAME_MAP);
+                    other.GetNewsKnowledgeTracker().KnowNews(newsPawnKidnapped);
                 }
             }
         }

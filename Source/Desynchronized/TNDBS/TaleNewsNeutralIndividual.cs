@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -23,7 +20,7 @@ namespace Desynchronized.TNDBS
 
         }
 
-        public TaleNewsNeutralIndividual(Pawn receiver): base (128)
+        public TaleNewsNeutralIndividual(Pawn receiver): base (null)
         {
             this.receiver = receiver;
         }

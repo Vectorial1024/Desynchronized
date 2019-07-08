@@ -1,9 +1,5 @@
-﻿using Harmony;
+﻿using Desynchronized.TNDBS.Datatypes;
 using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.TNDBS
@@ -22,15 +18,12 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        [Obsolete]
-        public bool BanishmentIsDeadly { get; }
-
         public TaleNewsPawnBanished()
         {
 
         }
 
-        public TaleNewsPawnBanished(Pawn victim, bool isBanishedToDie): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnBanished(Pawn victim, bool isBanishedToDie): base(victim, InstigationInfo.NoInstigator)
         {
             isDeadly = isBanishedToDie;
         }
@@ -48,8 +41,6 @@ namespace Desynchronized.TNDBS
 
         protected override void GiveThoughtsToReceipient(Pawn recipient)
         {
-            // FileLog.Log("BanishmentVictim: " + BanishmentVictim.Name + "; is he a prisoner? " + BanishmentVictim.IsPrisoner + "; is he a prisoner of the Colony? " + BanishmentVictim.IsPrisonerOfColony);
-
             if (!recipient.IsCapableOfThought())
             {
                 return;

@@ -6,9 +6,12 @@ using Verse;
 
 namespace Desynchronized.Jurisdiction
 {
+    [Obsolete("NotImplementedException()", true)]
     public class PawnInnocenceCard
     {
+        /*
         Pawn subject;
         int lastGuiltyTick;
+        */
     }
 }

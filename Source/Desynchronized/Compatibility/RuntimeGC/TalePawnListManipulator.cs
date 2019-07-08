@@ -1,9 +1,6 @@
 ﻿using Desynchronized.TNDBS;
 using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized.Compatibility.RuntimeGC
@@ -27,35 +24,7 @@ namespace Desynchronized.Compatibility.RuntimeGC
             }
 
             original.AddRange(excludedByTaleNews);
-
-            // DesynchronizedMain.LogError("Method called! Processing complete! Original has " + original.Count + " pawns.");
-        }
-
-        private static void ReflectiveTestMethod(out List<Pawn> reflection)
-        {
-            //Patch:TaleType.PermanentHistorical
-            List<Tale> usedTales = Find.TaleManager.AllTalesListForReading.FindAll(t => t.Uses > 0 || t.def.type == TaleType.PermanentHistorical);
-            List<Pawn> pawnlist = new List<Pawn>();
-            int count = usedTales.Count;
-            int i = 0;
-            foreach (Pawn pawn in Find.WorldPawns.AllPawnsAliveOrDead)
-            {
-                try
-                {
-                    for (i = 0; i < count; i++)
-                        if (usedTales[i].Concerns(pawn))
-                        {
-                            pawnlist.Add(pawn);
-                            break;
-                        }
-                }
-                catch (System.Exception e)
-                {
-                    Verse.Log.Error("Exception in InitUsedTalePawns with Tale id=" + usedTales[i].id + " :\n" + e.ToString());
-                    pawnlist.Add(pawn);
-                }
-            }
-            reflection = pawnlist;
+            return;
         }
     }
 }

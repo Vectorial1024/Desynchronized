@@ -1,8 +1,5 @@
 ﻿using HugsLib.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Desynchronized
@@ -49,8 +46,6 @@ namespace Desynchronized
             // Actually IO-ing
             base.ExposeData();
             Scribe_Values.Look(ref versionOfMod, "versionOfMod");
-            // DesynchronizedMain.LogError("It is now " + Scribe.mode);
-            // DesynchronizedMain.LogError("Saved with version (string) " + versionOfMod);
 
             // The actual processing
             if (Scribe.mode == LoadSaveMode.LoadingVars)
@@ -62,7 +57,6 @@ namespace Desynchronized
                     versionOfMod = typeof(DesynchronizedMain).Assembly.GetName().Version.ToString();
                 }
             }
-            // DesynchronizedMain.LogError("Ending phase; string is " + VersionOfMod);
         }
     }
 }

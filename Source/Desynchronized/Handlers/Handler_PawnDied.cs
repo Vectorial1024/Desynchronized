@@ -1,5 +1,4 @@
 ﻿using Desynchronized.TNDBS;
-using Desynchronized.TNDBS.Utilities;
 using RimWorld;
 using Verse;
 
@@ -7,55 +6,33 @@ namespace Desynchronized.Handlers
 {
     public class Handler_PawnDied
     {
-        public static void HandlePawnDied(Pawn victim, DamageInfo? dinfo)
-        {
-            GenerateAndProcessNews(victim, dinfo);
-        }
-
         /// <summary>
         /// Handles a pawn death situation.
         /// </summary>
-        public static void HandlePawnDied(Pawn victim, DamageInfo? info, Hediff culpritHediff)
+        public static void HandlePawnDied(Pawn victim, DamageInfo? killingBlow, Hediff culpritHediff)
         {
-
+            GenerateAndProcessNews(victim, killingBlow, culpritHediff);
         }
 
         /// <summary>
-        /// The main difficulty lies in determining the correct thought to be given;
-        /// there are so many methods out there that ultimately calls this method.
+        /// Protocol updated in v1.6.3. Now also reports the hediff that is causing the death.
         /// </summary>
         /// <param name="victim"></param>
         /// <param name="dinfo"></param>
-        private static void GenerateAndProcessNews(Pawn victim, DamageInfo? dinfo)
-        {
-            /*
-             * Some possibilities:
-             * 1. Victim died on the ground.
-             * 2. Victim died while being carried around.
-             * 
-             * [General Case] ?? [General Case (victim died before code)] ?? [Victim died in Embrace (ewww)]
-             */
-            Map mapOfOccurence = victim.Map ?? victim.Corpse?.Map ?? victim.CarriedBy?.Map;
-            if (mapOfOccurence == null)
-            {
-                return;
-            }
-
-            TaleNewsPawnDied deathNews = TaleNewsPawnDied.GenerateGenerally(victim, dinfo);
-
-            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
-            {
-                if (other.Map == mapOfOccurence)
-                {
-                    // Temp code for testing.
-                    other.GetNewsKnowledgeTracker().KnowNews(deathNews, WitnessShockGrade.NEARBY_WITNESS);
-                }
-            }
-        }
-
+        /// <param name="culpritHediff"></param>
         private static void GenerateAndProcessNews(Pawn victim, DamageInfo? dinfo, Hediff culpritHediff)
         {
+            // Generate one.
+            TaleNewsPawnDied taleNews = TaleNewsPawnDied.GenerateGenerally(victim, dinfo, culpritHediff);
 
+            // Distribute news.
+            foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
+            {
+                if (other.IsInSameMapOrCaravan(victim))
+                {
+                    other.GetNewsKnowledgeTracker().KnowNews(taleNews);
+                }
+            }
         }
     }
 }

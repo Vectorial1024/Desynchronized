@@ -1,14 +1,16 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Desynchronized.Utilities
 {
     public static class FactionUtilities
     {
-        public static int CalculateFactionGoodwillSafely(Faction subject, Faction other)
+        /// <summary>
+        /// Returns the goodwill between one faction and another. Guaranteed error-free.
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static int ObtainFactionGoodwillSafely(Faction subject, Faction other)
         {
             if (subject == other)
             {
@@ -38,9 +40,15 @@ namespace Desynchronized.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns the goodwill between this faction and the given other faction. Guaranteed error-free.
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public static int GetGoodwillWith(this Faction subject, Faction other)
         {
-            return CalculateFactionGoodwillSafely(subject, other);
+            return ObtainFactionGoodwillSafely(subject, other);
         }
     }
 }

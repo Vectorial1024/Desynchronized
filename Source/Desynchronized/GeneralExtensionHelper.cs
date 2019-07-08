@@ -1,10 +1,7 @@
 ﻿using Desynchronized.TNDBS;
 using RimWorld;
 using RimWorld.Planet;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -22,13 +19,6 @@ namespace Desynchronized
             // Simplified from the glamorous usage of a try-catch block.
             return pawn?.needs?.mood?.thoughts != null;
         }
-
-        /*
-        public static bool IsAboutColonistDeath()
-        {
-
-        }
-        */
 
         public static ThoughtDef GetGenderSpecificKidnappedThought(this PawnRelationDef relation, Pawn kidnapVictim)
         {
@@ -222,6 +212,19 @@ namespace Desynchronized
                 return false;
             }
             return self.RelationKindWith(other) == FactionRelationKind.Ally;
+        }
+
+        public static bool IsInSameMapOrCaravan(this Pawn subject, Pawn other)
+        {
+            if (subject.MapHeld != null)
+            {
+                return other.MapHeld == subject.MapHeld;
+            }
+            if (subject.GetCaravan() != null)
+            {
+                return other.GetCaravan() == subject.GetCaravan();
+            }
+            return false;
         }
     }
 }

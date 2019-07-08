@@ -1,11 +1,8 @@
-﻿using Desynchronized.TNDBS.Utilities;
+﻿using Desynchronized.TNDBS.Datatypes;
+using Desynchronized.TNDBS.Extenders;
 using Desynchronized.Utilities;
 using RimWorld;
-using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -23,6 +20,8 @@ namespace Desynchronized.TNDBS
         private DeathBrutality brutalityDegree;
 
         private DamageDef killingBlowDamageType;
+
+        private Hediff culpritHediff;
 
         public Pawn Killer => Instigator;
 
@@ -51,12 +50,6 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        /// <summary>
-        /// This member is of type DamageInfo?. Be careful.
-        /// </summary>
-        [Obsolete]
-        public DamageInfo? DeathCause { get; }
-
         private DeathMethod methodOfDeath = DeathMethod.INDETERMINATE;
 
         public DeathMethod MethodOfDeath
@@ -67,12 +60,14 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        public Hediff CulpritHediff => culpritHediff;
+
         public TaleNewsPawnDied()
         {
 
         }
 
-        public TaleNewsPawnDied(Pawn victim, DamageInfo? dinfo): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnDied(Pawn victim, DamageInfo? dinfo): base(victim, InstigationInfo.NoInstigator)
         {
             // DesynchronizedMain.LogError("Dumping stacktrace: " + Environment.StackTrace);
 
@@ -84,38 +79,19 @@ namespace Desynchronized.TNDBS
                 killingBlowDamageType = dinfoUnpacked.Def;
                 if (dinfoUnpacked.Instigator is Pawn instigator)
                 {
-                    InstigatorInfo = (InstigatorInfo) instigator;
+                    InstigationDetails = (InstigationInfo) instigator;
                 }
             }
         }
 
-        public TaleNewsPawnDied(Pawn victim, DeathBrutality brutality): base(victim, InstigatorInfo.NoInstigator)
+        public TaleNewsPawnDied(Pawn victim, DamageInfo? dinfo, Hediff culprit): this (victim, dinfo)
+        {
+            culpritHediff = culprit;
+        }
+
+        public TaleNewsPawnDied(Pawn victim, DeathBrutality brutality): base(victim, InstigationInfo.NoInstigator)
         {
             methodOfDeath = DeathMethod.EXECUTION;
-        }
-
-        [Obsolete]
-        private TaleNewsPawnDied(Pawn victim, DeathMethod method, object argument): base(victim, InstigatorInfo.NoInstigator)
-        {
-            methodOfDeath = method;
-            if (methodOfDeath == DeathMethod.NON_EXECUTION)
-            {
-                DeathCause = argument as DamageInfo?;
-                InstigatorInfo = (InstigatorInfo) Killer;
-            }
-            else
-            {
-                DeathBrutality? temp = argument as DeathBrutality?;
-                if (temp.HasValue)
-                {
-                    BrutalityDegree = temp.Value;
-                }
-                else
-                {
-                    BrutalityDegree = DeathBrutality.HUMANE;
-                    Log.Error("[V1024-DESYNC] Cannot recognize \"DeathBrutality\" argument for Pawn execution; did something go wrong?\n" + Environment.StackTrace, true);
-                }
-            }
         }
 
         public static TaleNewsPawnDied GenerateAsExecution(Pawn victim, DeathBrutality brutality)
@@ -123,9 +99,9 @@ namespace Desynchronized.TNDBS
             return new TaleNewsPawnDied(victim, brutality);
         }
 
-        public static TaleNewsPawnDied GenerateGenerally(Pawn victim, DamageInfo? dinfo)
+        public static TaleNewsPawnDied GenerateGenerally(Pawn victim, DamageInfo? dinfo, Hediff culprit)
         {
-            return new TaleNewsPawnDied(victim, dinfo);
+            return new TaleNewsPawnDied(victim, dinfo, culprit);
         }
 
         public override string GetNewsTypeName()
@@ -139,6 +115,7 @@ namespace Desynchronized.TNDBS
             Scribe_Values.Look(ref methodOfDeath, "methodOfDeath", DeathMethod.INDETERMINATE);
             Scribe_Values.Look(ref brutalityDegree, "brutalityDegree", DeathBrutality.HUMANE);
             Scribe_Defs.Look(ref killingBlowDamageType, "killingBlowDamageType");
+            Scribe_Deep.Look(ref culpritHediff, "culpritHediff");
         }
 
         /// <summary>
@@ -199,14 +176,6 @@ namespace Desynchronized.TNDBS
                     }
                 }
             }
-
-            /*
-            // Note that "animal bonds" is a type of relationships.
-            if (Killer != Victim && Killer == recipient)
-            {
-                HandleExcitementOfKiller(recipient);
-            }
-            */
         }
 
         /// <summary>
@@ -236,56 +205,10 @@ namespace Desynchronized.TNDBS
         private void TryProcessRelationshipThoughts(Pawn recipient)
         {
             // Check if there is any relationship at all
-            if (Victim.relations.PotentiallyRelatedPawns.Contains(recipient))
+            Pawn_RelationsTracker tracker = Victim.relations;
+            if (tracker != null && tracker.PotentiallyRelatedPawns.Contains(recipient))
             {
                 GiveOutRelationshipBasedThoughts(recipient);
-            }
-        }
-
-        /// <summary>
-        /// Handles the excitement (or disappointment) of the killer right when the kill happens.
-        /// <para/>
-        /// You should check legitimacy before calling this method, e.g., recipient.IsCapableOfThought()
-        /// </summary>
-        /// 
-        [Obsolete("", true)]
-        private void HandleExcitementOfKiller(Pawn recipient)
-        {
-            // Killer != null => DamageInfo != null
-            // The obligatory .Value is extremely triggering.
-            if (Killer != null)
-            {
-                if (Killer == PrimaryVictim)
-                {
-                    // We don't handle suicide cases.
-                    return;
-                }
-
-                if (recipient == Killer && KillingBlowDamageDef.ExternalViolenceFor(Victim))
-                {
-                    // Confirmed NewsReceipient is Killer
-
-                    // IsCapableOfThought has already been called.
-                    // NewsReceipient is definitely capable of thought.
-
-                    // Why this check tho
-                    if (recipient.story != null)
-                    {
-                        // Bloodlust thoughts for Bloodlust guys, currently only for human victims
-                        // We can expand upon this, and add in witnessed death (animals) with bloodlust
-                        if (Victim.RaceProps.Humanlike)
-                        {
-                            // Try to add Bloodlust thoughts; will be auto-rejected if recipient does not have Bloodlust
-                            new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).Add();
-
-                            // Try to add Defeated Hostile Leader thoughts
-                            if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
-                            {
-                                new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).Add();
-                            }
-                        }
-                    }
-                }
             }
         }
 
@@ -431,86 +354,6 @@ namespace Desynchronized.TNDBS
             GiveOutFriendOrRivalDiedThoughts(recipient);
         }
 
-        /*
-        private List<Thought_Memory> DetermineMemoriesToBeAdded(Pawn recipient)
-        {
-            List<Thought_Memory> resultList = new List<Thought_Memory>();
-
-            if (!recipient.IsCapableOfThought())
-            {
-                return;
-            }
-
-            if (!TryAppendAsExecutionEvent(recipient, resultList))
-            {
-                // Someone killed another one.
-                TryProcessKillerHigh(ref recipient);
-                TryProcessEyeWitness(ref recipient);
-            }
-
-            // These are general thoughts.
-            TryProcessRelationshipThoughts(ref recipient);
-            GiveOutFriendOrRivalDiedThoughts(recipient);
-        }
-
-        private bool TryAppendAsExecutionEvent(Pawn recipient, List<Thought_Memory> io)
-        {
-            bool result = false;
-
-            if (methodOfDeath == DeathMethod.EXECUTION)
-            {
-                // Rather simple. Adapted from vanilla code.
-                int forcedStage = (int)BrutalityDegree;
-                ThoughtDef thoughtToGive = Victim.IsColonist ? ThoughtDefOf.KnowColonistExecuted : ThoughtDefOf.KnowGuestExecuted;
-                io.Add(ThoughtMaker.MakeThought(thoughtToGive, forcedStage));
-            }
-
-            return result;
-        }
-
-        private void TryAppendKillerHigh(Pawn recipient, List<Thought_Memory> io)
-        {
-            // Killer != null => DamageInfo != null
-            if (Killer != null)
-            {
-                // Currently you can't really kill yourself.
-                // That would be something interesting, but we don't do that here.
-                if (recipient == Killer)
-                {
-                    // IDK, is this something we can consider checking?
-                    if (KillingBlowDamageDef.ExternalViolenceFor(Victim))
-                    {
-                        // Why this check tho
-                        if (recipient.story != null)
-                        {
-                            // Bloodlust thoughts for Bloodlust guys, currently only for human victims
-                            // We can expand upon this, and add in witnessed death (animals) with bloodlust
-                            if (Victim.RaceProps.Humanlike)
-                            {
-                                // Try to add Bloodlust thoughts; will be auto-rejected if recipient does not have Bloodlust
-                                io.Add(new IndividualThoughtToAdd(ThoughtDefOf.KilledHumanlikeBloodlust, recipient).thought);
-
-                                // Try to add Defeated Hostile Leader thoughts
-                                if (Victim.HostileTo(Killer) && Victim.Faction != null && PawnUtility.IsFactionLeader(Victim) && Victim.Faction.HostileTo(Killer.Faction))
-                                {
-                                    io.Add(new IndividualThoughtToAdd(ThoughtDefOf.DefeatedHostileFactionLeader, Killer, Victim).thought);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            /*
-            // Note that "animal bonds" is a type of relationships.
-            if (Killer != Victim && Killer == recipient)
-            {
-                HandleExcitementOfKiller(recipient);
-            }
-            
-        }
-        */
-
         public override float CalculateNewsImportanceForPawn(Pawn pawn, TaleNewsReference reference)
         {
             // Again, this code is also a placeholder.
@@ -551,7 +394,7 @@ namespace Desynchronized.TNDBS
             {
                 mainScore += 5;
             }
-            // float mainImpact = (victimKindScore + relationalDeathImpact);
+            
             // Body size scaling: killing XL animals should be more significant than killing S animals
             mainScore *= PrimaryVictim.BodySize;
             // Pawn relations scaling: pawns with deeper bonds or deeper toothmarks should be more significant. Scales up to factor of 3.
@@ -575,8 +418,7 @@ namespace Desynchronized.TNDBS
             // They can be stronger or weaker, depending on how the brain is functioning at that moment.
             // Goes from -2 to +2.
             result += Rand.Value * 4 - 2;
-
-            // DesynchronizedMain.LogError("Calculation gives result of " + result);
+            
             // Check that the result is valid; value should not drop below 0.
             if (result < 0)
             {
@@ -590,23 +432,42 @@ namespace Desynchronized.TNDBS
 
         public override string GetDetailsPrintout()
         {
+            // Victim = [bleh]
             string basic = base.GetDetailsPrintout();
-            if (Killer != null)
-            {
-                basic += "\nKilled by: " + Killer.Name;
-            }
-            else
-            {
-                basic += "\nNo killer.";
-            }
+
+            // Determine death message.
+            string deathMessage = "";
             if (KillingBlowDamageDef != null)
             {
-                basic += "\n" + KillingBlowDamageDef.deathMessage;
+                // Died due to damage.
+                deathMessage = KillingBlowDamageDef.deathMessage.Formatted(Victim.LabelShort.CapitalizeFirst(), Victim.Named("PAWN"));
+            }
+            else if (culpritHediff != null)
+            {
+                // Died due to health conditions.
+                deathMessage = "PawnDiedBecauseOf".Translate(Victim.LabelShort.CapitalizeFirst(), culpritHediff.def.LabelCap, Victim.Named("PAWN"));
             }
             else
             {
-                basic += "\nUnknown killing blow damage type.";
+                // Generally died.
+                "PawnDied".Translate(Victim.LabelShort.CapitalizeFirst(), Victim.Named("PAWN"));
             }
+            basic += "\n" + deathMessage;
+
+            // Determine killer id
+            if (Killer != null)
+            {
+                basic += "\nKilled by: ";
+                if (Killer.Name != null)
+                {
+                    basic += Killer.Name;
+                }
+                else
+                {
+                    basic += Killer.ToString();
+                }
+            }
+            
             return basic;
         }
 

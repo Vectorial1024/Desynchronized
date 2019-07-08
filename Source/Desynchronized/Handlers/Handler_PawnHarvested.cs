@@ -22,22 +22,13 @@ namespace Desynchronized.Handlers
                 return;
             }
 
-            // There is no certainty to say that the victim is dead;
-            // Removing one of the two lungs will still trigger this.
-            // Had better also check for its corpse.
-            Map mapOfOccurence = victim.Map ?? victim.Corpse.Map;
-            if (mapOfOccurence == null)
-            {
-                return;
-            }
-
             TaleNewsPawnHarvested harvestNews = new TaleNewsPawnHarvested(victim);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
-                if (other.Map == mapOfOccurence)
+                if (other.IsInSameMapOrCaravan(victim))
                 {
-                    other.GetNewsKnowledgeTracker().KnowNews(harvestNews, WitnessShockGrade.UNDEFINED);
+                    other.GetNewsKnowledgeTracker().KnowNews(harvestNews);
                 }
             }
         }

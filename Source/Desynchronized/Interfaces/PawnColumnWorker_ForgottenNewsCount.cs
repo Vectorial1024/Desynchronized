@@ -1,20 +1,15 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
+﻿using Desynchronized.TNDBS.Extenders;
+using Desynchronized.TNDBS.Utilities;
+using RimWorld;
 using System.Linq;
 using System.Text;
 using Verse;
-using Desynchronized.TNDBS.Utilities;
-using Desynchronized.TNDBS;
 
 namespace Desynchronized.Interfaces
 {
     public class PawnColumnWorker_ForgottenNewsCount : PawnColumnWorker_Text
     {
-        private int GetForgottenNewsCount(Pawn pawn)
-        {
-            return pawn.GetNewsKnowledgeTracker().GetAllForgottenNewsReferences().Count();
-        }
+        private int GetForgottenNewsCount(Pawn pawn) => pawn.GetNewsKnowledgeTracker().GetAllForgottenNewsReferences().Count();
 
         protected override string GetTextFor(Pawn pawn)
         {
