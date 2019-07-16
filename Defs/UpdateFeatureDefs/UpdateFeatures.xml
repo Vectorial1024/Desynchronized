@@ -225,6 +225,12 @@ The Scheme filteres information about the following events that originate from o
 - Code cleaning here and there|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.
 </content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_6_3_1</defName>
+		<assemblyVersion>1.6.3.1</assemblyVersion>
+		<content>Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions. Also fixed missing textures in v1.6.3... whoops.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

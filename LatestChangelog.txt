@@ -13,6 +13,10 @@ If you would like to include your error logs when reporting bugs, you may use Pa
 
 Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.
 
+///
+
+Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
+
 //////
 
 Well, it's not like it will do anyone good if I keep withholding updates, so here ya go.
@@ -29,6 +33,10 @@ Well, it's not like it will do anyone good if I keep withholding updates, so her
 [/list]
 [*]Code cleaning here and there
 [/list]
+[h1]Version 1.6.3.1: Changelog[/h1]
+[list]
+[*]Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
+[/list]
 [h1]Known Issues[/h1]
 There are no outstanding known issues.
 
@@ -41,7 +49,7 @@ Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]h
 
 //////
 
-This is the v1.6.3 version of Desynchronized: Tales and News. The underlying code has been cleaned to simplify the code and speed up development.
+This is the v1.6.3.1 version of Desynchronized: Tales and News. The underlying code has been cleaned to simplify the code and speed up development. Version 1.6.3 has been integrated with version 1.6.3.1.
 
 # Changelog
 - New feature: pawns with Alzheimer's now forget news when they begin to "wander confused"
@@ -54,6 +62,7 @@ This is the v1.6.3 version of Desynchronized: Tales and News. The underlying cod
   - Added more safety checks with the relation tracker
   - Tale-news can now be generated in caravans too
   - Duplicate translation string for "kidnapped" removed
+  - Pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
 - Code cleaning here and there
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.

@@ -65,6 +65,11 @@ namespace Desynchronized.TNDBS
         public TaleNews(LocationInfo info)
         {
             locationInfo = info;
+            if (DesynchronizedMain.TaleNewsDatabaseSystem == null)
+            {
+                DesynchronizedMain.LogError("The TNDBS is unexpectedly null, cancelling creation of TaleNews. This may happen because Prepare Carefully is being used, but otherwise, this is a bug.");
+                return;
+            }
             DesynchronizedMain.TaleNewsDatabaseSystem.RegisterNewTaleNews(this);
         }
 

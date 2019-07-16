@@ -23,7 +23,8 @@ namespace Desynchronized.Handlers
         private static void GenerateAndProcessNews(Pawn victim, DamageInfo? dinfo, Hediff culpritHediff)
         {
             // Generate one.
-            TaleNewsPawnDied taleNews = TaleNewsPawnDied.GenerateGenerally(victim, dinfo, culpritHediff);
+            //TaleNewsPawnDied taleNews = TaleNewsPawnDied.GenerateGenerally(victim, dinfo, culpritHediff);
+            TaleNewsPawnDied taleNews = new TaleNewsPawnDied(victim, dinfo, culpritHediff);
 
             // Distribute news.
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)

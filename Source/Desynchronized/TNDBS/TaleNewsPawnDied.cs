@@ -2,6 +2,7 @@
 using Desynchronized.TNDBS.Extenders;
 using Desynchronized.Utilities;
 using RimWorld;
+using System;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -94,11 +95,13 @@ namespace Desynchronized.TNDBS
             methodOfDeath = DeathMethod.EXECUTION;
         }
 
+        [Obsolete("Use constructors instead.")]
         public static TaleNewsPawnDied GenerateAsExecution(Pawn victim, DeathBrutality brutality)
         {
             return new TaleNewsPawnDied(victim, brutality);
         }
 
+        [Obsolete("Use constructors instead.")]
         public static TaleNewsPawnDied GenerateGenerally(Pawn victim, DamageInfo? dinfo, Hediff culprit)
         {
             return new TaleNewsPawnDied(victim, dinfo, culprit);

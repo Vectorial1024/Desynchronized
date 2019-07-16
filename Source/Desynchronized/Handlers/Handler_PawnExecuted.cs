@@ -30,7 +30,8 @@ namespace Desynchronized.Handlers
 
         private static void GenerateAndProcessNews(Pawn victim, DeathBrutality brutality)
         {
-            TaleNewsPawnDied executionNews = TaleNewsPawnDied.GenerateAsExecution(victim, brutality);
+            //TaleNewsPawnDied executionNews = TaleNewsPawnDied.GenerateAsExecution(victim, brutality);
+            TaleNewsPawnDied executionNews = new TaleNewsPawnDied(victim, brutality);
 
             foreach (Pawn other in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonistsAndPrisoners)
             {
