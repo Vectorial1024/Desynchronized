@@ -44,9 +44,9 @@ In the GitHub page, you will find:
 [*][url=https://github.com/Vectorial1024/Desynchronized/releases]Non-Steam downloads[/url]
 [*]Detailed changelogs
 [/list]
-[url=https://github.com/Vectorial1024/Desynchronized/releases]Non-Steam Downloads[/url]
+[url=https://github.com/Vectorial1024/Desynchronized/releases][h1]Non-Steam Downloads[/h1][/url]
 
-[url=https://github.com/Vectorial1024/Desynchronized/tree/master/Docs/Compatibility.md]Cross-Mod Compatibility[/url]
+[url=https://github.com/Vectorial1024/Desynchronized/tree/master/Docs/Compatibility.md][h1]Cross-Mod Compatibility[/h1][/url]
 
 [url=https://github.com/Vectorial1024/Desynchronized/tree/master/Docs/Credits.md][h1]Credits and Special Thanks[/h1][/url]
 
