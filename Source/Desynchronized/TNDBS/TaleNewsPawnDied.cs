@@ -371,7 +371,7 @@ namespace Desynchronized.TNDBS
             // If there exists none, then determine by factions
             if (potentialGivenThought == null)
             {
-                if ((bool) pawn.Faction?.Equals(Victim.Faction))
+                if (pawn.Faction != null && pawn.Faction == Victim.Faction)
                 {
                     potentialGivenThought = ThoughtDefOf.KnowColonistDied;
                 }

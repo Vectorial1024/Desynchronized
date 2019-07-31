@@ -231,6 +231,18 @@ The Scheme filteres information about the following events that originate from o
 		<assemblyVersion>1.6.3.1</assemblyVersion>
 		<content>Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions. Also fixed missing textures in v1.6.3... whoops.</content>
 	</HugsLib.UpdateFeatureDef>
+
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>Desync_1_7_0</defName>
+		<assemblyVersion>1.7.0</assemblyVersion>
+		<content>Life is full of stories; it's just whether you wanna pay attention to them. The v1.7 branch will focus on adding more types of news for your Colonists to share.|- New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
+- More Trad-Chinese translations 填補了繁中翻譯的各空洞
+- Some texts from v1.6 now open for translation
+- Fixed some bugs
+  - No more NullReferenceException while transmitting news by ignoring invalid news entries
+  - No more double My Organ Was Harvested debuff (Oooh yeah)
+- Cleaned up some more code|There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed.|If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.|Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and current list of issues, among other things about this mod.</content>
+	</HugsLib.UpdateFeatureDef>
 	
     <!--
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">

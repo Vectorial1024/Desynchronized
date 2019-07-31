@@ -1,26 +1,32 @@
-v1.6.1 dump
-https://gist.github.com/4d8165a4ad9e2061f4afe92e75d3eda5
-
-v1.6.2 dump
-https://gist.github.com/c1302873cdffb908dc43b1f09a97da63
-
-v1.6.3
-Wander-confused and forget [done]
-Health conditions now embedded into talenewspawndied [done]
-code cleaning
-
-slight improvement to news ui: overall view last row no longer conflicts with close button
-fixed bug: added safety check with relationtracker
-fixed bug: tale news can be generated in caravans
-
-v1.7.0 (scheduled)
-Merge DesynchronizedPsychology back into Main Mod as an Integrated Compat
-Clean-up internal code
-Steam pic for french translate
-in-caravan news transmission
+v1.7.0 (done)
+Merge DesynchronizedPsychology back into Main Mod as an Integrated Compat [done]
+Clean-up internal code [kind of done]
+more trad chinese localizations [done]
+fixed nullreferenceexception once more by excluding forgotten (hence invalid) news from being transmitted
 
 v1.7.1 (scheduled)
-Open text from v1.6 for translation
+Questionable Ethics integrated support
+Open text from v1.6 for translation [done]
+{
+Tale-News strings: where to put them?
+Need to translate to other languages
+}
+
+v1.7.?
+Steam pic for french translate
+Steam pic for Psychology compatibility
+in-caravan news transmission (workaround)
+
+v1.8.0 (?)
+Open more text from v1.6 for translation [done]
+{
+Tale-News strings: where to put them?
+Need to translate to other languages
+}
+More text from v1.6 for translation
+{
+Mainly for Tale-News related text; consider adopting the Def Paradigm for better compatibility (this will push feature to v2.0)
+}
 
 v?.?.?
 localized aggro; hostile pawns don't affect faction relations unless they leave the map

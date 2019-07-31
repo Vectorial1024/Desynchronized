@@ -6,29 +6,13 @@ namespace Desynchronized.TNDBS.Extenders
     public static class NewsSelector
     {
         /// <summary>
-        /// Selects all news that this pawn remembers. Returns a List[TaleNews].
-        /// <para/>
-        /// Performance advisory: This should be slightly slower than the TaleNewsReference variant.
-        /// </summary>
-        /// <param name="tracker"></param>
-        /// <returns></returns>
-        public static IEnumerable<TaleNews> GetAllNonForgottenNews(this Pawn_NewsKnowledgeTracker tracker)
-        {
-            if (tracker == null)
-            {
-                return Enumerable.Empty<TaleNews>();
-            }
-
-            // EMBRACE THE POWER OF LINQ; LINQ PROTECTS
-            return tracker.ListOfAllKnownNews.FindAll((TaleNewsReference reference) => !reference.NewsIsLocallyForgotten).Select((TaleNewsReference reference) => reference.ReferencedTaleNews);
-        }
-
-        /// <summary>
         /// Selects all news of this pawn that this pawn remembers. Returns a List[TaleNewsReference].
+        /// <para/>
+        /// Performance advisory: This should be slightly faster than the TaleNews variant.
         /// </summary>
         /// <param name="tracker"></param>
         /// <returns></returns>
-        public static IEnumerable<TaleNewsReference> GetAllNonForgottenNewsReferences(this Pawn_NewsKnowledgeTracker tracker)
+        public static IEnumerable<TaleNewsReference> GetAllValidNonForgottenNewsReferences(this Pawn_NewsKnowledgeTracker tracker)
         {
             if (tracker == null)
             {
@@ -36,7 +20,25 @@ namespace Desynchronized.TNDBS.Extenders
             }
 
             // EMBRACE THE POWER OF LINQ; LINQ PROTECTS
-            return tracker.ListOfAllKnownNews.FindAll((TaleNewsReference reference) => !reference.NewsIsLocallyForgotten);
+            return new List<TaleNewsReference>(tracker.AllValidNewsReferences).FindAll((TaleNewsReference reference) => !reference.NewsIsLocallyForgotten);
+        }
+
+        /// <summary>
+        /// Selects all news that this pawn remembers. Returns a List[TaleNews].
+        /// <para/>
+        /// Performance advisory: This should be slightly slower than the TaleNewsReference variant.
+        /// </summary>
+        /// <param name="tracker"></param>
+        /// <returns></returns>
+        public static IEnumerable<TaleNews> GetAllValidNonForgottenNews(this Pawn_NewsKnowledgeTracker tracker)
+        {
+            if (tracker == null)
+            {
+                return Enumerable.Empty<TaleNews>();
+            }
+
+            // EMBRACE THE POWER OF LINQ; LINQ PROTECTS
+            return GetAllValidNonForgottenNewsReferences(tracker).Select((TaleNewsReference reference) => reference.ReferencedTaleNews);
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace Desynchronized.TNDBS.Extenders
             }
 
             // EMBRACE THE POWER OF LINQ; LINQ PROTECTS
-            return tracker.ListOfAllKnownNews.FindAll((TaleNewsReference reference) => reference.NewsIsLocallyForgotten);
+            return tracker.AllNewsReferences_ReadOnlyList.FindAll((TaleNewsReference reference) => reference.NewsIsLocallyForgotten);
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace Desynchronized.TNDBS.Extenders
         /// </summary>
         /// <param name="database"></param>
         /// <returns></returns>
-        public static IEnumerable<TaleNews> GetAllNonPermForgottenNews(this TaleNewsDatabase database)
+        public static IEnumerable<TaleNews> GetAllValidNonPermForgottenNews(this TaleNewsDatabase database)
         {
             if (database == null)
             {
@@ -68,7 +70,7 @@ namespace Desynchronized.TNDBS.Extenders
                 return Enumerable.Empty<TaleNews>();
             }
 
-            return database.ListOfAllTaleNews.FindAll((TaleNews news) => !news.PermanentlyForgotten).Select((TaleNews news) => news);
+            return database.ListOfAllTaleNews.FindAll((TaleNews news) => news.IsValid() && !news.PermanentlyForgotten);
         }
     }
 }

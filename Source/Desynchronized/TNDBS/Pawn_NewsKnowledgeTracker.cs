@@ -19,6 +19,7 @@ namespace Desynchronized.TNDBS
             }
         }
 
+        [Obsolete("Unsafe code.")]
         public List<TaleNewsReference> ListOfAllKnownNews
         {
             get
@@ -27,7 +28,30 @@ namespace Desynchronized.TNDBS
             }
         }
 
-        public List<TaleNewsReference> AllNewsReferences => newsKnowledgeList;
+        internal List<TaleNewsReference> NewsKnowledgeList => newsKnowledgeList;
+
+        [Obsolete("Unsafe code.")]
+        public List<TaleNewsReference> AllNewsReferences_Raw => newsKnowledgeList;
+
+        public IEnumerable<TaleNewsReference> AllNewsReferences_ReadOnlyEnumerable => newsKnowledgeList.AsEnumerable();
+
+        public List<TaleNewsReference> AllNewsReferences_ReadOnlyList => new List<TaleNewsReference>(newsKnowledgeList);
+
+        public IEnumerable<TaleNewsReference> AllValidNewsReferences
+        {
+            get
+            {
+                foreach (TaleNewsReference reference in newsKnowledgeList)
+                {
+                    if (reference.ReferenceIsValid)
+                    {
+                        yield return reference;
+                    }
+                }
+
+                yield break;
+            }
+        }
 
         /// <summary>
         /// This constructor does nothing; better use the static generator method instead.
@@ -106,7 +130,7 @@ namespace Desynchronized.TNDBS
         /// <returns></returns>
         public bool ForgetOneRandom()
         {
-            List<TaleNewsReference> listOfKnownNews = this.GetAllNonForgottenNewsReferences().ToList();
+            List<TaleNewsReference> listOfKnownNews = this.GetAllValidNonForgottenNewsReferences().ToList();
             if (listOfKnownNews.Count == 0)
             {
                 return false;

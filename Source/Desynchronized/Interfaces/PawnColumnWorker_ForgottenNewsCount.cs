@@ -18,10 +18,10 @@ namespace Desynchronized.Interfaces
 
         protected override string GetTip(Pawn pawn)
         {
-            StringBuilder builder = new StringBuilder("Number of forgotten tale-news: ");
+            StringBuilder builder = new StringBuilder("ForgottenNewsTip_01".Translate());
             builder.Append(GetForgottenNewsCount(pawn));
             builder.AppendLine("\n");
-            builder.Append("Old, unimportant tale-news are forgotten, and some of them are never remembered again.");
+            builder.Append("ForgottenNewsTip_02".Translate());
 
             return builder.ToString();
         }

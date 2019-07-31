@@ -39,8 +39,8 @@ namespace Desynchronized.Interfaces
         public Dialog_NewsTrackerViewer(Pawn subject = null)
         {
             subjectPawn = subject;
-            string pawnName = (subject != null ? subject.Name.ToStringFull : "all pawns");
-            optionalTitle = "Viewing news knowledge of: " + pawnName;
+            string pawnName = (subject != null ? subject.Name.ToStringFull : "AllPawns".Translate());
+            optionalTitle = "ViewingKnowledgeOf".Translate() + pawnName;
             resizeable = false;
             forcePause = DesynchronizedMain.NewsUI_ShouldAutoPause;
             doCloseX = true;
@@ -76,7 +76,7 @@ namespace Desynchronized.Interfaces
                 // Button for overall view: filter forgotten news?
                 Rect buttonRect = new Rect(0, 0 + 2, 400, EntryHeight - 4);
                 // Rect rect4 = new Rect(x, rect.y + 2f, num2, rect.height - 4f);
-                if (Widgets.ButtonText(buttonRect, "Toggle display permanently forgotten news"))
+                if (Widgets.ButtonText(buttonRect, "ForgottenNewsToggle".Translate()))
                 {
                     shouldDisplayForgottenNews = !shouldDisplayForgottenNews;
                 }
@@ -89,11 +89,11 @@ namespace Desynchronized.Interfaces
                 string readout;
                 if (shouldDisplayForgottenNews)
                 {
-                    readout = "Permanently-forgotten news are not hidden.";
+                    readout = "ShowingForgottenNews".Translate();
                 }
                 else
                 {
-                    readout = "Hiding permanently-forgotten news.";
+                    readout = "HidingForgottenNews".Translate();
                 }
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(textRect, readout);
@@ -136,13 +136,13 @@ namespace Desynchronized.Interfaces
                 }
                 else
                 {
-                    taleNewsList = DesynchronizedMain.TaleNewsDatabaseSystem.GetAllNonPermForgottenNews().ToList();
+                    taleNewsList = DesynchronizedMain.TaleNewsDatabaseSystem.GetAllValidNonPermForgottenNews().ToList();
                 }
             }
             else
             {
                 // Viewing individual pawns
-                taleNewsList = new List<TaleNews>(subjectPawn.GetNewsKnowledgeTracker().GetAllNonForgottenNews());
+                taleNewsList = new List<TaleNews>(subjectPawn.GetNewsKnowledgeTracker().GetAllValidNonForgottenNews());
             }
             int newsCount = taleNewsList.Count;
 
@@ -215,7 +215,7 @@ namespace Desynchronized.Interfaces
             Rect textRect = boundingRect;
             textRect.xMin += 10;
             textRect.xMax -= 10;
-            Widgets.Label(textRect, "ID #");
+            Widgets.Label(textRect, "IDNumber".Translate());
         }
 
         private void DrawNewsID(TaleNews news)
@@ -226,7 +226,7 @@ namespace Desynchronized.Interfaces
             textRect.xMin += 10;
             textRect.xMax -= 10;
             Widgets.Label(textRect, news.UniqueID.ToString());
-            TooltipHandler.TipRegion(boundingRect, "The id of this tale-news.");
+            TooltipHandler.TipRegion(boundingRect, "IDNumber_Explanation".Translate());
         }
 
         private void DrawNewsType_Header()
@@ -235,7 +235,7 @@ namespace Desynchronized.Interfaces
             Rect textRect = boundingRect;
             textRect.xMin += 10;
             textRect.xMax -= 10;
-            Widgets.Label(textRect, "Tale-news type");
+            Widgets.Label(textRect, "TaleNewsType".Translate());
         }
 
         private void DrawNewsType(TaleNews news)
@@ -246,7 +246,7 @@ namespace Desynchronized.Interfaces
             textRect.xMin += 10;
             textRect.xMax -= 10;
             Widgets.Label(textRect, news.GetNewsTypeName());
-            TooltipHandler.TipRegion(boundingRect, "The type of this tale-news. Probably some more description.");
+            TooltipHandler.TipRegion(boundingRect, "TaleNewsType_Explanation".Translate());
         }
 
         private void DrawNewsImportance_Header()
@@ -267,10 +267,10 @@ namespace Desynchronized.Interfaces
                 textRect.xMax -= 10;
                 float importance = subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsImportance;
                 Widgets.Label(textRect, Math.Round(importance, 2).ToString());
-                StringBuilder builder = new StringBuilder("Importance score of this news: ");
+                StringBuilder builder = new StringBuilder("ImportanceScore".Translate());
                 builder.Append(importance);
                 builder.AppendLine();
-                builder.Append("News with higher importance score will be more likely to be passed on.");
+                builder.Append("ImportanceScore_Explanation".Translate());
                 TooltipHandler.TipRegion(boundingRect, builder.ToString());
             }
             else
@@ -287,7 +287,7 @@ namespace Desynchronized.Interfaces
             Rect textRect = boundingRect;
             textRect.xMin += 10;
             textRect.xMax -= 10;
-            Widgets.Label(textRect, "Tale-news details");
+            Widgets.Label(textRect, "TaleNewsDetails".Translate());
         }
 
         private void DrawNewsDetails(TaleNews news)
@@ -304,14 +304,14 @@ namespace Desynchronized.Interfaces
             if (subjectPawn == null && news.PermanentlyForgotten)
             {
                 // All pawns list, all pawns forgot the news.
-                labelString = "Permanently forgotten";
-                readoutString = "No one can remember the details of this tale-news anymore.";
+                labelString = "NewsIsPermForgot".Translate();
+                readoutString = "NewsIsPermForgot_Explanation".Translate();
             }
             else if (subjectPawn != null && subjectPawn.GetNewsKnowledgeTracker().AttemptToObtainExistingReference(news).NewsIsLocallyForgotten)
             {
                 // Individual pawns list, individual pawn forgot the news.
-                labelString = "Forgotten";
-                readoutString = "This pawn cannot remember the details of this tale-news, but perhaps it will when others talk about it.";
+                labelString = "NewsIsLocalForgot".Translate();
+                readoutString = "NewsIsLocalForgot_Explanation".Translate();
             }
             else
             {

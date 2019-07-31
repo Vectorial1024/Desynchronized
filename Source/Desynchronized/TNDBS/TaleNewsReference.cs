@@ -56,7 +56,7 @@ namespace Desynchronized.TNDBS
             get
             {
                 TaleNews tempTaleNews = ReferencedTaleNews;
-                return CachedSubject != null && tempTaleNews != null && !(tempTaleNews is DefaultTaleNews);
+                return CachedSubject != null && tempTaleNews != null && !(tempTaleNews is DefaultTaleNews) && tempTaleNews.IsValid();
             }
         }
 

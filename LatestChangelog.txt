@@ -1,69 +1,61 @@
-Well, it's not like it will do anyone good if I keep withholding updates, so here ya go.
+﻿Life is full of stories; it's just whether you wanna pay attention to them. The v1.7 branch will focus on adding more types of news for your Colonists to share.
 
-- New feature: pawns with Alzheimer's now forget news when they begin to "wander confused"
-- New feature: you can now see how pawns died (hediff) in the news tooltip
-- Slight improvement to the news UI
+- New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
+- More Trad-Chinese translations 填補了繁中翻譯的各空洞
+- Some texts from v1.6 now open for translation
 - Fixed some bugs
-  - Added more safety checks with the relation tracker
-  - Tale-news can now be generated in caravans too
-  - Duplicate translation string for "kidnapped" removed
-- Code cleaning here and there
+  - No more NullReferenceException while transmitting news by ignoring invalid news entries
+  - No more double My Organ Was Harvested debuff (Oooh yeah)
+- Cleaned up some more code
+
+There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed.
 
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
-Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, current list of issues, detailed changelogs and elaboration of features.
-
-///
-
-Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
+Click on the link above to visit the GitHub online repo, where you can find the source code, previous versions, and current list of issues, among other things about this mod.
 
 //////
 
-Well, it's not like it will do anyone good if I keep withholding updates, so here ya go.
-[h1]Version 1.6.3: Changelog[/h1]
+Life is full of stories; it's just whether you wanna pay attention to them. The v1.7 branch will focus on adding more types of news for your Colonists to share.
+
+[h1]Version 1.7.0: Changelog[/h1]
 [list]
-[*]New feature: pawns with Alzheimer's now forget news when they begin to "wander confused"
-[*]New feature: you can now see how pawns died (hediff) in the news tooltip
-[*]Slight improvement to the news UI
+[*]New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
+[*]More Trad-Chinese translations 填補了繁中翻譯的各空洞
+[*]Some texts from v1.6 now open for translation
 [*]Fixed some bugs
 [list]
-[*]Added more safety checks with the relation tracker
-[*]Tale-news can now be generated in caravans too
-[*]Duplicate translation string for "kidnapped" removed
+[*]No more NullReferenceException while transmitting news by ignoring invalid news entries
+[*]No more double My Organ Was Harvested debuff (Oooh yeah)
 [/list]
-[*]Code cleaning here and there
-[/list]
-[h1]Version 1.6.3.1: Changelog[/h1]
-[list]
-[*]Clarification: pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
+[*]Cleaned up some more code
 [/list]
 [h1]Known Issues[/h1]
-There are no outstanding known issues.
+There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed.
 
 You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
 
 [h1]Concluding Notes[/h1]
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
-Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find source codes, feature elaborations, detailed changelogs and previous releases.
+Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]here[/url] to find the source code and previous versions, among other things about this mod.
 
 //////
 
-This is the v1.6.3.1 version of Desynchronized: Tales and News. The underlying code has been cleaned to simplify the code and speed up development. Version 1.6.3 has been integrated with version 1.6.3.1.
+This is the v1.7.0 version of Desynchronized: Tales and News. Support for Psychology, which was originally planned to be a separate mod, has been integrated back into the main mod. The v1.7 branch will add in (hopefully) more types of tale-news to be transmitted by your pawns, making the life on the Rim more fruitful and eventful.
 
 # Changelog
-- New feature: pawns with Alzheimer's now forget news when they begin to "wander confused"
-  - Pawns with Alzheimer of severity below {0.2, 0.4, 0.6, 0.8, 1} will forget {1, 1, 2, 3, 4} new(s) when the mental break begins
-- New feature: you can now see how pawns died (hediff) in the news tooltip
-  - Obviously, this is not retroactive
-- Slight improvement to the news UI
-  - The last row of the "overall view" UI no longer hides behind the Close button
+- New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
+  - Hence, closed #1 and #7 (wohooo #1 is closed!!!!!!!!!! YAAAAAAASSSSSSSSSSSSSSS)
+- More Trad-Chinese translations 填補了繁中翻譯的各空洞
+  - Those translations were supposed to be there in v1.6, but I forgot about them
+- Some texts from v1.6 now open for translation
 - Fixed some bugs
-  - Added more safety checks with the relation tracker
-  - Tale-news can now be generated in caravans too
-  - Duplicate translation string for "kidnapped" removed
-  - Pawn deaths caused by Prepare Carefully will be excluded by the TNDBS to fix exceptions
-- Code cleaning here and there
+  - No more NullReferenceException while transmitting news by ignoring news entries forgotten by pawns; I believe such news entries are invalid anyway, so transmitting them will cause errors
+  - No more double My Organ Was Harvested debuff (a fix for Psychology)
+- Cleaned up some more code
+
+There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed. Refer to #21 for more info.
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
 

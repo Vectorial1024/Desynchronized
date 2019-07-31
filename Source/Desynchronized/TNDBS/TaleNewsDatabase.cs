@@ -246,16 +246,16 @@ namespace Desynchronized.TNDBS
                 }
                 else
                 {
-                    for (int j = knowledgeTracker.ListOfAllKnownNews.Count - 1; j >= 0; j--)
+                    for (int j = knowledgeTracker.NewsKnowledgeList.Count - 1; j >= 0; j--)
                     {
-                        int mappedResult = newsIDPairing[knowledgeTracker.ListOfAllKnownNews[j].ReferencedTaleNews.UniqueID];
+                        int mappedResult = newsIDPairing[knowledgeTracker.NewsKnowledgeList[j].ReferencedTaleNews.UniqueID];
                         if (mappedResult == invalidID)
                         {
-                            knowledgeTracker.ListOfAllKnownNews.RemoveAt(j);
+                            knowledgeTracker.NewsKnowledgeList.RemoveAt(j);
                         }
                         else
                         {
-                            knowledgeTracker.ListOfAllKnownNews[j].ChangeReferencedUID(mappedResult);
+                            knowledgeTracker.NewsKnowledgeList[j].ChangeReferencedUID(mappedResult);
                         }
                     }
                 }
@@ -285,7 +285,7 @@ namespace Desynchronized.TNDBS
         {
             foreach (Pawn_NewsKnowledgeTracker tracker in KnowledgeTrackerMasterList)
             {
-                foreach (TaleNewsReference reference in tracker.AllNewsReferences)
+                foreach (TaleNewsReference reference in tracker.AllNewsReferences_ReadOnlyEnumerable)
                 {
                     reference.SelfVerify();
                 }
@@ -324,7 +324,7 @@ namespace Desynchronized.TNDBS
 
             // Establish a counter of all *non-perm-forgot* tale-news
             Dictionary<TaleNews, int> remembranceCounter = new Dictionary<TaleNews, int>();
-            foreach (TaleNews news in database.GetAllNonPermForgottenNews())
+            foreach (TaleNews news in database.GetAllValidNonPermForgottenNews())
             {
                 remembranceCounter.Add(news, 0);
             }
@@ -333,7 +333,7 @@ namespace Desynchronized.TNDBS
             // see if any of them are to be forgotten.
             foreach (Pawn_NewsKnowledgeTracker tracker in DesynchronizedMain.TaleNewsDatabaseSystem.KnowledgeTrackerMasterList)
             {
-                foreach (TaleNewsReference reference in tracker.GetAllNonForgottenNewsReferences())
+                foreach (TaleNewsReference reference in tracker.GetAllValidNonForgottenNewsReferences())
                 {
                     reference.UpdateNewsImportance();
                     if (!reference.NewsIsLocallyForgotten)

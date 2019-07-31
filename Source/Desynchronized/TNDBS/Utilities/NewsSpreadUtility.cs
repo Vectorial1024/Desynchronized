@@ -42,7 +42,7 @@ namespace Desynchronized.TNDBS.Utilities
         private static void SelectNewsRandomly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
             // Is now weighted random.
-            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().GetAllNonForgottenNewsReferences().ToList();
+            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().GetAllValidNonForgottenNewsReferences().ToList();
 
             if (listInitiator.Count == 0)
             {
@@ -92,9 +92,9 @@ namespace Desynchronized.TNDBS.Utilities
 
         private static void SelectNewsDistinctly(Pawn initiator, Pawn receiver, out TaleNewsReference result)
         {
-            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            List<TaleNewsReference> listInitiator = initiator.GetNewsKnowledgeTracker().AllNewsReferences_ReadOnlyList;
             // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(initiator);
-            List<TaleNewsReference> listReceiver = receiver.GetNewsKnowledgeTracker().ListOfAllKnownNews;
+            List<TaleNewsReference> listReceiver = receiver.GetNewsKnowledgeTracker().AllNewsReferences_ReadOnlyList;
             // DesynchronizedMain.TaleNewsDatabaseSystem.ListAllAwarenessOfPawn(receiver);
 
             // Distinct List
