@@ -4,12 +4,22 @@ Clean-up internal code [kind of done]
 more trad chinese localizations [done]
 fixed nullreferenceexception once more by excluding forgotten (hence invalid) news from being transmitted
 
-v1.7.1 (scheduled)
-Questionable Ethics integrated support
-Open text from v1.6 for translation [done]
+v1.7.1 (doing)
+Questionable Ethics integrated support [done]
+Battle victory thoughts and relevant news defs
 {
-Tale-News strings: where to put them?
-Need to translate to other languages
+Victory
+No Quarters
+}
+
+v1.7.2 (scheduled) (heck or even v1.8.0)
+New Pacifist trait
+{
+Less likely to start social fight // Gets mood malus during some of the social fights, does not fight back, instant disengage, etc.
+Dislikes being drafted
+Hates melee weapons
+Dislikes ranged weapons
+(Potential perk: stops/mediates social fights)
 }
 
 v1.7.?

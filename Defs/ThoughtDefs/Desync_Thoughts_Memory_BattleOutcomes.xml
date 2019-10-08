@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-    <ThoughtDef Name="BattleOutcomeMemory" Abstract="True">
+    <ThoughtDef Name="VictoryMemory" Abstract="True">
         <stackLimit>3</stackLimit>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
-        <defName>AttackRepelled</defName>
+    <ThoughtDef ParentName="VictoryMemory">
+        <defName>BattleVictory</defName>
         <durationDays>0.5</durationDays>
         <nullifyingTraits>
             <li>Bloodlust</li>
         </nullifyingTraits>
         <stages>
             <li>
-                <label>attack repelled</label>
-                <description>We have defended ourselves against hostile incursions.</description>
+                <label>battle victory</label>
+                <description>We have defended ourselves against our enemies. Victory!</description>
                 <baseMoodEffect>3</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
-        <defName>AttackRepelled_Bloodlust</defName>
+    <ThoughtDef ParentName="VictoryMemory">
+        <defName>BattleVictory_Bloodlust</defName>
         <durationDays>0.5</durationDays>
         <requiredTraits>
             <li>Bloodlust</li>
         </requiredTraits>
         <stages>
             <li>
-                <label>attack repelled</label>
-                <description>We have demonstrated our power against hostile incursions. Let's hope we don't have to see them again.</description>
+                <label>battle victory</label>
+                <description>We showed our power in front of our enemies. None shall fear us!</description>
                 <baseMoodEffect>5</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
-        <defName>AttackRepelled_Pacifist</defName>
+    <ThoughtDef ParentName="VictoryMemory">
+        <defName>BattleVictory_Pacifist</defName>
         <durationDays>0.5</durationDays>
         <!--
         <requiredTraits>
@@ -44,14 +44,14 @@
         -->
         <stages>
             <li>
-                <label>attack repelled</label>
+                <label>battle victory</label>
                 <description>I don't agree with solving problems using violence, but good grief, it is finally over.</description>
                 <baseMoodEffect>2</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
+    <ThoughtDef ParentName="VictoryMemory">
         <defName>NoQuarterGiven</defName>
         <durationDays>0.75</durationDays>
         <nullifyingTraits>
@@ -62,12 +62,12 @@
             <li>
                 <label>no quarter given</label>
                 <description>We have defended ourselves against hostile incursions, but we gave them no quarter.</description>
-                <baseMoodEffect>2</baseMoodEffect>
+                <baseMoodEffect>-2</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
+    <ThoughtDef ParentName="VictoryMemory">
         <defName>NoQuarterGiven_Psychopath</defName>
         <durationDays>0.75</durationDays>
         <requiredTraits>
@@ -82,7 +82,7 @@
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
+    <ThoughtDef ParentName="VictoryMemory">
         <defName>NoQuarterGiven_Bloodlust</defName>
         <durationDays>0.75</durationDays>
         <requiredTraits>
@@ -97,7 +97,7 @@
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef ParentName="BattleOutcomeMemory">
+    <ThoughtDef ParentName="VictoryMemory">
         <defName>NoQuarterGiven_Pacifist</defName>
         <durationDays>0.75</durationDays>
         <!--
@@ -109,7 +109,7 @@
             <li>
                 <label>no quarter given</label>
                 <description>I don't agree with solving problems using violence, and honestly, this has gone too far.</description>
-                <baseMoodEffect>-2</baseMoodEffect>
+                <baseMoodEffect>-5</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>

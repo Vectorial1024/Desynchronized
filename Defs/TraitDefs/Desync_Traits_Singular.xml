@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <TraitDef>
+    <defName>Pacifist</defName>
+    <commonality>0.8</commonality>
+    <degreeDatas>
+      <li>
+        <label>pacifist</label>
+        <!-- 
+          Example text from Boodlust:
+          {PAWN_nameDef} gets a rush from hurting people, and never minds the sight of blood or death. {PAWN_pronoun} is four times as likely to start a social fight as others.
+
+          - Dislikes violence (but will tolerate)
+          - Dislikes blood
+          - (Consider converting this to a spectrum trait)
+        -->
+        <description>
+        </description>
+      </li>
+    </degreeDatas>
+  </TraitDef>
+
+</Defs>

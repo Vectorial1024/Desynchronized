@@ -70,10 +70,14 @@ namespace Desynchronized.TNDBS.Datatypes
 
         }
 
-        public InstigationInfo(Faction instigFaction = null, Pawn instigPawn = null)
+        public InstigationInfo(Pawn instigPawn)
+        {
+            instigator = instigPawn;
+        }
+
+        public InstigationInfo(Faction instigFaction = null, Pawn instigPawn = null): this(instigPawn)
         {
             instigatingFaction = instigFaction;
-            instigator = instigPawn;
             playerIsInstigator = false;
         }
 

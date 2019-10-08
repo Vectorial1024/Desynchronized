@@ -47,10 +47,6 @@
       <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\Assemblies\HugsLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RuntimeGC">
-      <HintPath>..\..\..\..\..\..\workshop\content\294100\962732083\Assemblies\RuntimeGC.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,6 +70,8 @@
     <Compile Include="Compatibility\Psychology\PreFix_Psycho_PostFix_ThoughtUtility_HarvestThoughts.cs" />
     <Compile Include="Compatibility\Psychology\Psycho_ThoughtDefOf.cs" />
     <Compile Include="Compatibility\Psychology\Psycho_TraitDefOf.cs" />
+    <Compile Include="Compatibility\QEthics\Transpiler_QEthics_RecipeWorker_NerveStapling.cs" />
+    <Compile Include="Compatibility\QEthics\QEthics_ThoughtDefOf.cs" />
     <Compile Include="Compatibility\RuntimeGC\TalePawnListManipulator.cs" />
     <Compile Include="Compatibility\RuntimeGC\Transpiler_WorldPawnCleaner_GC.cs" />
     <Compile Include="DesynchronizedMain.cs" />
@@ -84,6 +82,7 @@
     <Compile Include="Desynchronized_VersionTracker.cs" />
     <Compile Include="GeneralExtensionHelper.cs" />
     <Compile Include="Handlers\HandlerUtility.cs" />
+    <Compile Include="Handlers\Handler_PawnNerveStapled.cs" />
     <Compile Include="Interfaces\Dialog_NewsTrackerViewer.cs" />
     <Compile Include="Interfaces\MainTabWindow_Desynchronized.cs" />
     <Compile Include="Interfaces\PawnColumnWorker_ForgottenNewsCount.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="Patches\NewsTransmit\PostFix_InteractionWorker.cs" />
     <Compile Include="Patches\Hediffs_MentalBreaks\PostFix_MentalBreakWanderConfused_Start.cs" />
     <Compile Include="Patches\News_Kidnap\PostFix_Pawn_PreKidnapped.cs" />
+    <Compile Include="Patches\News_Victory\Transpiler_Lord_SetJob.cs" />
     <Compile Include="Patches\News_Sold\PostFix_Pawn_PreTraded.cs" />
     <Compile Include="Patches\News_Sold\PostFix_TPAAGG_ArrivedActions.cs" />
     <Compile Include="Patches\News_Sold\PostFix_TransportPods_PostAdd.cs" />
@@ -119,6 +119,9 @@
     <Compile Include="TNDBS\Datatypes\DeathBrutality.cs" />
     <Compile Include="TNDBS\DefaultTaleNews.cs" />
     <Compile Include="TNDBS\Datatypes\InstigatorInfo.cs" />
+    <Compile Include="TNDBS\NewsNegative\News_PawnNerveStapled.cs" />
+    <Compile Include="TNDBS\NewsPositive\News_BattleVictory.cs" />
+    <Compile Include="TNDBS\NewsPositive\News_Positive.cs" />
     <Compile Include="TNDBS\Utilities\NewsSpreadUtility.cs" />
     <Compile Include="TNDBS\Pawn_NewsKnowledgeTracker.cs" />
     <Compile Include="TNDBS\TaleNewsColonyEstablished.cs" />

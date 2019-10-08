@@ -34,10 +34,9 @@ Help us out in our common pursuit of success on the Rim by:
 [*][b]Translating the Texts[/b]: if you are a native speaker of your language, you are most welcome to contribute by translating the texts to your own language. [u]You may now submit GitHub pull requests to provide your latest translations of this mod.[/u]
 [/list]
 [h1]The GitHub Repo of This Mod[/h1]
-To streamline things, I am centralizing many things onto the GitHub repo found at https://github.com/Vectorial1024/Desynchronized
-In the GitHub page, you will find:
+[url=https://github.com/Vectorial1024/Desynchronized]The GitHub repo of this mod[/url] contains a lot of information about this mod, including:
 [list]
-[*]The source code and the xml files for this mod
+[*]The source code (and the xml files) for this mod
 [*]The [url=https://github.com/Vectorial1024/Desynchronized/issues]issues page[/url] for bug-tracking
 [*]A detailed feature list
 [*]Several decentralized planning lists
