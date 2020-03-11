@@ -1,5 +1,5 @@
 ﻿using Desynchronized.TNDBS;
-using Harmony;
+using HarmonyLib;
 using Verse;
 
 namespace Desynchronized.Compatibility.Psychology

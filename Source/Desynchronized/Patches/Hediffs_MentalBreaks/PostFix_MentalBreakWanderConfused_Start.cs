@@ -1,10 +1,16 @@
 ﻿using Desynchronized.TNDBS;
-using Harmony;
+using HarmonyLib;
 using Verse;
 using Verse.AI;
 
 namespace Desynchronized.Patches.Hediffs_MentalBreaks
 {
+    /*
+    /// <summary>
+    /// v2.0.0 devnote: vanilla v1.1 removed the PostStart function, so I assume they also changed how the structures work.
+    /// 
+    /// Disabling this for now.
+    /// </summary>
     [HarmonyPatch(typeof(MentalState_WanderConfused))]
     [HarmonyPatch("PostStart", MethodType.Normal)]
     public class PostFix_MentalBreakWanderConfused_Start
@@ -43,4 +49,5 @@ namespace Desynchronized.Patches.Hediffs_MentalBreaks
             //__instance.pawn.GetNewsKnowledgeTracker().ForgetRandom();
         }
     }
+    */
 }

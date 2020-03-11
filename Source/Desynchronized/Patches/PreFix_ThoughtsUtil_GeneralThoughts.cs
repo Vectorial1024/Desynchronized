@@ -1,5 +1,5 @@
 ﻿using Desynchronized.Handlers;
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using System;
 using Verse;
@@ -39,7 +39,11 @@ namespace Desynchronized.Patches
                         case PawnDiedOrDownedThoughtsKind.Banished:
                             Handler_PawnBanished.HandlePawnBanished(victim, false);
                             return false;
+                        case PawnDiedOrDownedThoughtsKind.Lost:
+                            // Refer to PostFix_Pawn_PreKidnapped
+                            return false;
                         default:
+                            // This shouldn't happen. You should check things again.
                             throw new InvalidOperationException();
                     }
                 }

@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using RimWorld;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -6,12 +6,15 @@ using Verse;
 
 namespace Desynchronized.Patches
 {
+    /*
     [HarmonyPatch(typeof(ThoughtWorker_ColonistLeftUnburied))]
     [HarmonyPatch("CurrentStateInternal", MethodType.Normal)]
     public class Transpiler_ThoughtWorker_UnburiedColonists
     {
         /// <summary>
         /// Inserts a "if map not same then continue" statement
+        /// 
+        /// v2.0.0 devnote: this seems unnecessary for vanilla v1.1.
         /// </summary>
         /// <param name="instructions"></param>
         /// <param name="generator"></param>
@@ -52,4 +55,5 @@ namespace Desynchronized.Patches
             }
         }
     }
+    */
 }

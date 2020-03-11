@@ -1,5 +1,5 @@
 ﻿using Desynchronized.Handlers;
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using Verse;
 
 namespace Desynchronized.Patches.News_Sold
 {
+    /*
     /// <summary>
     /// Retrieves sender information of pods from center storage. Handles the case of player selling whatever pawns via drop-pods.
     /// </summary>
@@ -32,4 +33,5 @@ namespace Desynchronized.Patches.News_Sold
             }
         }
     }
+    */
 }

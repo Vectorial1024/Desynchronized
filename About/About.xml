@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Desynchronized: Tales and News (v1.7.0)</name>
+	<packageId>V1024.Desynchronized</packageId>
+	<name>Desynchronized: Tales and News (v2.0.0)</name>
 	<author>Vectorial1024</author>
 	<supportedVersions>
+		<li>1.1</li>
 		<li>1.0</li>
 	</supportedVersions>
 	<description>Information spreads from one to another.

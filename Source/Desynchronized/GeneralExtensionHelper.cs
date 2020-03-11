@@ -145,7 +145,7 @@ namespace Desynchronized
             {
                 return false;
             }
-            if (!GenSight.LineOfSight(other.Position, subject.Position, other.Map, false, null, 0, 0))
+            if (!GenSight.LineOfSight(other.Position, subject.Position, other.Map))
             {
                 return false;
             }

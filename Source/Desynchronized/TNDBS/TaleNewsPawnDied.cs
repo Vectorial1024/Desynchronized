@@ -380,7 +380,9 @@ namespace Desynchronized.TNDBS
             float relationalDeathImpact;
             if (potentialGivenThought != null)
             {
-                relationalDeathImpact = Mathf.Abs(ThoughtMaker.MakeThought(potentialGivenThought).MoodOffset());
+                Thought tempThought = ThoughtMaker.MakeThought(potentialGivenThought);
+                tempThought.pawn = pawn;
+                relationalDeathImpact = Mathf.Abs(tempThought.MoodOffset());
             }
             else
             {

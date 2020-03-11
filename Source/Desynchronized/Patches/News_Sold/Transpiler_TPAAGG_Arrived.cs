@@ -1,13 +1,16 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
 namespace Desynchronized.Patches.News_Sold
 {
+    /*
     /// <summary>
     /// Objective: rather simple actually;
     /// eradicate the signature double-layer loop.
+    /// 
+    /// v2.0.0 devnote: rewrite this along with the postfix class into a prefix class so that the code is clearer to maintain
     /// </summary>
     [HarmonyPatch(typeof(TransportPodsArrivalAction_GiveGift))]
     [HarmonyPatch("Arrived", MethodType.Normal)]
@@ -37,4 +40,5 @@ namespace Desynchronized.Patches.News_Sold
             }
         }
     }
+    */
 }

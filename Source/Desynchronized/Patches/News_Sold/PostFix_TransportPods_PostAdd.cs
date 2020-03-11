@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using RimWorld.Planet;
 
 namespace Desynchronized.Patches.News_Sold

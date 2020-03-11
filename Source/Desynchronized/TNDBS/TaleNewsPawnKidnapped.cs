@@ -73,8 +73,10 @@ namespace Desynchronized.TNDBS
                 return;
             }
 
+            // Change to vanilla "pawn lost" thoughts
+
             // Give generic Colonist Kidnapped thoughts
-            recipient.needs.mood.thoughts.memories.TryGainMemory(Desynchronized_ThoughtDefOf.KnowColonistKidnapped);
+            recipient.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.ColonistLost);
 
             // Then give Friend/Rival Kidnapped thoughts
             if (recipient.RaceProps.IsFlesh && PawnUtility.ShouldGetThoughtAbout(KidnapVictim, recipient))
@@ -82,11 +84,11 @@ namespace Desynchronized.TNDBS
                 int opinion = recipient.relations.OpinionOf(KidnapVictim);
                 if (opinion >= 20)
                 {
-                    new IndividualThoughtToAdd(Desynchronized_ThoughtDefOf.PawnWithGoodOpinionWasKidnapped, recipient, KidnapVictim, KidnapVictim.relations.GetFriendDiedThoughtPowerFactor(opinion), 1f).Add();
+                    new IndividualThoughtToAdd(ThoughtDefOf.PawnWithGoodOpinionLost, recipient, KidnapVictim, KidnapVictim.relations.GetFriendDiedThoughtPowerFactor(opinion), 1f).Add();
                 }
                 else if (opinion <= -20)
                 {
-                    new IndividualThoughtToAdd(Desynchronized_ThoughtDefOf.PawnWithBadOpinionWasKidnapped, recipient, KidnapVictim, KidnapVictim.relations.GetRivalDiedThoughtPowerFactor(opinion), 1f).Add();
+                    new IndividualThoughtToAdd(ThoughtDefOf.PawnWithBadOpinionLost, recipient, KidnapVictim, KidnapVictim.relations.GetRivalDiedThoughtPowerFactor(opinion), 1f).Add();
                 }
             }
 
@@ -94,10 +96,10 @@ namespace Desynchronized.TNDBS
             PawnRelationDef mostImportantRelation = recipient.GetMostImportantRelation(KidnapVictim);
             if (mostImportantRelation != null)
             {
-                ThoughtDef genderSpecificKidnappedThought = mostImportantRelation.GetGenderSpecificKidnappedThought(KidnapVictim);
-                if (genderSpecificKidnappedThought != null)
+                ThoughtDef genderSpecificLostThought = mostImportantRelation.GetGenderSpecificLostThought(KidnapVictim);
+                if (genderSpecificLostThought != null)
                 {
-                    new IndividualThoughtToAdd(genderSpecificKidnappedThought, recipient, KidnapVictim).Add();
+                    new IndividualThoughtToAdd(genderSpecificLostThought, recipient, KidnapVictim).Add();
                     // outIndividualThoughts.Add(new IndividualThoughtToAdd(genderSpecificDiedThought, potentiallyRelatedPawn, victim, 1f, 1f));
                 }
             }

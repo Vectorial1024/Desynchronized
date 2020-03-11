@@ -32,7 +32,11 @@ namespace Desynchronized.Handlers
             // mapOfOccurence should already have been determined before calling this.
             DetermineVariables(kidnapper);
 
-            if (!flagIsDuringOffensiveBattle)
+            // Vanilla v1.1. already provides a letter for pawns kidnapped in player's map
+            // so no need to reinvent the wheel.
+            // This results in no need to send out any custom letters.
+
+            if (false && !flagIsDuringOffensiveBattle)
             {
                 // Vanilla already generates its own letter, so no need to reinvent the wheel.
                 SendOutNotificationLetter(victim);
@@ -59,6 +63,8 @@ namespace Desynchronized.Handlers
 
         private static void SendOutNotificationLetter(Pawn victim)
         {
+            DesynchronizedMain.LogError("Called SendOutNotificationLetter(Pawn) to give out \"Pawn Kidnapped\" letters, which should not happen due to v1.1's own letters.");
+
             string letterLabel = "Kidnapped".Translate() + ": " + victim.LabelShortCap;
             string letterContent = string.Empty;
             letterContent += "PawnKidnapped".Translate(victim.LabelShort.CapitalizeFirst(), kidnappingFaction.def.pawnsPlural, kidnappingFaction.Name, victim.Named("PAWN"));

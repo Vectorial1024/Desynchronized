@@ -1,5 +1,5 @@
 ﻿using Desynchronized.Utilities;
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,13 @@ namespace Desynchronized.Patches.NewsTransmit
     [HarmonyPatch("TryInteractRandomly", MethodType.Normal)]
     public class Transpiler_TryInteractRandomly_CaravanBugPatch
     {
+        /// <summary>
+        /// v2.0.0 devnote: consider patching CanInteractNowWith instead, and use a postfix instead.
+        /// Or, see if Hospitality has any updated code to use.
+        /// </summary>
+        /// <param name="instructions"></param>
+        /// <param name="generator"></param>
+        /// <returns></returns>
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             bool patchIsComplete = false;

@@ -1,14 +1,14 @@
-﻿Life is full of stories; it's just whether you wanna pay attention to them. The v1.7 branch will focus on adding more types of news for your Colonists to share.
+﻿Even the strong can, one day, become weak. The v2.0 branch provides basic support of the mod for vanilla v1.1.
 
-- New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
-- More Trad-Chinese translations 填補了繁中翻譯的各空洞
-- Some texts from v1.6 now open for translation
-- Fixed some bugs
-  - No more NullReferenceException while transmitting news by ignoring invalid news entries
-  - No more double My Organ Was Harvested debuff (Oooh yeah)
-- Cleaned up some more code
+- Updated to RimWorld v1.1 (parallel to existing v1.0 version (v1.7.*))
+- Pawn Kidnapped now uses the vanilla Pawn Lost thought family instead of the custom Pawn Kidnapped thought family
+- Disabled custom fix for unblocked Colonist Left Unburied thought since this fix should already be in vanilla game
+- Rewritten code that patches vanilla behavior
+- Add/fix selling bonded animals now gives relevant Bonded Animal Sold thought to pet owners as required by v1.1
+- Disabled integrated Psychology compatibility until further notice
+- Dementia patients no longer forget news when Confused Wandering starts
 
-There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed.
+I have noticed that Psychology is currently experiencing a no-update breakdown. This is similar to what happened to ClosedDoors back when RimWorld v1.0 was released. I won't be providing support to any Psychology until both sides (Psychology and here) have settled down.
 
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
 
@@ -16,24 +16,20 @@ Click on the link above to visit the GitHub online repo, where you can find the 
 
 //////
 
-Life is full of stories; it's just whether you wanna pay attention to them. The v1.7 branch will focus on adding more types of news for your Colonists to share.
+Even the strong can, one day, become weak. The v2.0 branch provides basic support of the mod for vanilla v1.1.
 
-[h1]Version 1.7.0: Changelog[/h1]
+[h1]Version 2.0.0: Changelog[/h1]
 [list]
-[*]New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
-[*]More Trad-Chinese translations 填補了繁中翻譯的各空洞
-[*]Some texts from v1.6 now open for translation
-[*]Fixed some bugs
-[list]
-[*]No more NullReferenceException while transmitting news by ignoring invalid news entries
-[*]No more double My Organ Was Harvested debuff (Oooh yeah)
-[/list]
-[*]Cleaned up some more code
+[*]Updated to RimWorld v1.1 (parallel to existing v1.0 version (v1.7.*))
+[*]Pawn Kidnapped now uses the vanilla Pawn Lost thought family instead of the custom Pawn Kidnapped thought family
+[*]Disabled custom fix for unblocked Colonist Left Unburied thought since this fix should already be in vanilla game
+[*]Rewritten code that patches vanilla behavior
+[*]Add/fix selling bonded animals now gives relevant Bonded Animal Sold thought to pet owners as required by v1.1
+[*]Disabled integrated Psychology compatibility until further notice
+[*]Dementia patients no longer forget news when Confused Wandering starts
 [/list]
 [h1]Known Issues[/h1]
-There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed.
-
-You may visit the GitHub repo Issues page [url=https://github.com/Vectorial1024/Desynchronized/issues]here[/url] to see the latest list of known issues.
+I have noticed that Psychology is currently experiencing a no-update breakdown. This is similar to what happened to ClosedDoors back when RimWorld v1.0 was released. I won't be providing support to any Psychology until both sides (Psychology and here) have settled down.
 
 [h1]Concluding Notes[/h1]
 If you would like to include your error logs when reporting bugs, you may use PasteBin ( https://pastebin.com/ ) or HugsLib's log-sharing feature.
@@ -42,20 +38,18 @@ Check out the GitHub repo [url=https://github.com/Vectorial1024/Desynchronized]h
 
 //////
 
-This is the v1.7.0 version of Desynchronized: Tales and News. Support for Psychology, which was originally planned to be a separate mod, has been integrated back into the main mod. The v1.7 branch will add in (hopefully) more types of tale-news to be transmitted by your pawns, making the life on the Rim more fruitful and eventful.
+This is the v2.0.0 version of Desynchronized: Tales and News. Basic support of this mod for RimWorld v1.1 is provided.
 
 # Changelog
-- New feature: Built-in Psychology support; now also handles Bleeding Heart, Desensitized, etc.
-  - Hence, closed #1 and #7 (wohooo #1 is closed!!!!!!!!!! YAAAAAAASSSSSSSSSSSSSSS)
-- More Trad-Chinese translations 填補了繁中翻譯的各空洞
-  - Those translations were supposed to be there in v1.6, but I forgot about them
-- Some texts from v1.6 now open for translation
-- Fixed some bugs
-  - No more NullReferenceException while transmitting news by ignoring news entries forgotten by pawns; I believe such news entries are invalid anyway, so transmitting them will cause errors
-  - No more double My Organ Was Harvested debuff (a fix for Psychology)
-- Cleaned up some more code
+- Updated to RimWorld v1.1 (parallel to existing v1.0 version (v1.7.*))
+- Pawn Kidnapped now uses the vanilla Pawn Lost thought family instead of the custom Pawn Kidnapped thought family
+- Disabled custom fix for unblocked Colonist Left Unburied thought since this fix should already be in vanilla game
+- Rewritten code that patches vanilla behavior
+- Add/fix selling bonded animals now gives relevant Bonded Animal Sold thought to pet owners as required by v1.1
+- Disabled integrated Psychology compatibility until further notice
+- Dementia patients no longer forget news when Confused Wandering starts
 
-There are some problems with the current way of "handling" caravan member news transmission. It is found that vanilla RimWorld never had *any* code to let caravan members interact with each other, so the current way of relying on social interactions will not work. A workaround is needed. Refer to #21 for more info.
+I have noticed that Psychology is currently experiencing a no-update breakdown. This is similar to what happened to ClosedDoors back when RimWorld v1.0 was released. I won't be providing support to any Psychology until both sides (Psychology and here) have settled down.
 
 As usual, unpack the .7z file using 7-Zip at the /Mod directory of your game, and you are good to go.
 

@@ -1,5 +1,4 @@
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\Assemblies\Desynchronized.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\Source\Desynchronized\obj\Release\Desynchronized.csprojAssemblyReference.cache
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\Source\Desynchronized\obj\Release\Desynchronized.csproj.CoreCompileInputs.cache
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\Source\Desynchronized\obj\Release\Desynchronized.csproj.CopyComplete
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\Source\Desynchronized\obj\Release\Desynchronized.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Desynchronized\v1.1\Assemblies\Desynchronized.dll

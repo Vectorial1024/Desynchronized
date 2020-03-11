@@ -79,7 +79,13 @@ namespace Desynchronized.TNDBS
                 // Animal or Prisoner sold
                 if (PrimaryVictim.RaceProps.Animal)
                 {
-                    // ADDITIONAL TODO
+                    // Vanilla v1.1, there are new features here
+                    Pawn firstDirectRelationPawn = PrimaryVictim.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Bond);
+                    if (firstDirectRelationPawn != null && firstDirectRelationPawn == recipient && firstDirectRelationPawn.needs.mood != null)
+                    {
+                        PrimaryVictim.relations.RemoveDirectRelation(PawnRelationDefOf.Bond, recipient);
+                        firstDirectRelationPawn.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.SoldMyBondedAnimalMood);
+                    }
                 }
                 else if (PrimaryVictim.RaceProps.Humanlike)
                 {
@@ -94,8 +100,7 @@ namespace Desynchronized.TNDBS
                 PawnRelationDef relation = recipient.GetMostImportantRelation(PrimaryVictim);
                 if (relation != null)
                 {
-                    ThoughtDef soldThought = relation.soldThought;
-                    if (soldThought != null)
+                    foreach (ThoughtDef soldThought in relation.soldThoughts)
                     {
                         recipient.needs.mood.thoughts.memories.TryGainMemory(soldThought, Instigator);
                     }

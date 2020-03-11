@@ -1,12 +1,15 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using Verse;
 
 namespace Desynchronized.Patches.News_Sold
 {
+    /*
     /// <summary>
     /// Objective: remove segment of code that calls GenGuest.AddPrisonerSoldThoughts(this);
+    /// 
+    /// v2.0.0 dev note: disabling GenGuest.AddPrisonerSoldThoughts(this) instead for better compatibility.
     /// </summary>
     [HarmonyPatch(typeof(Pawn))]
     [HarmonyPatch("PreTraded", MethodType.Normal)]
@@ -14,6 +17,9 @@ namespace Desynchronized.Patches.News_Sold
     {
         /// <summary>
         /// Find the 15th ldarg.0 and neutralize, including that statement, 6 assembly statements.
+        /// 
+        /// v2.0.0 devnote: how about we patch on GenGuest.AddPrisonerSoldThoughts , that seems more practical.
+        /// We could catch sold thoughts there, and generate them by ourselves
         /// </summary>
         /// <param name="instructions"></param>
         /// <param name="generator"></param>
@@ -47,4 +53,5 @@ namespace Desynchronized.Patches.News_Sold
             }
         }
     }
+    */
 }

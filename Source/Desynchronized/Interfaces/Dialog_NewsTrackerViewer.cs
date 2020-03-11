@@ -39,7 +39,7 @@ namespace Desynchronized.Interfaces
         public Dialog_NewsTrackerViewer(Pawn subject = null)
         {
             subjectPawn = subject;
-            string pawnName = (subject != null ? subject.Name.ToStringFull : "AllPawns".Translate());
+            string pawnName = (subject != null ? subject.Name.ToStringFull : (string) "AllPawns".Translate());
             optionalTitle = "ViewingKnowledgeOf".Translate() + pawnName;
             resizeable = false;
             forcePause = DesynchronizedMain.NewsUI_ShouldAutoPause;
